@@ -1,0 +1,46 @@
+
+{
+  "nodes" : [
+    {"id":0,
+      "text": "Home",
+      "reflexive": false
+    },
+    {
+      "id":1,
+      "text": "Forest",
+      "reflexive": true
+    },
+     {
+      "id":2,
+      "text": "Beach",
+       "reflexive": false
+    }
+  ],
+  "edges" : [
+    {
+      "id":0,
+      "from":0,
+      "to":1,
+      "action":""
+    },
+    {
+      "id":1,
+      "from":0,
+      "to":2,
+      "action":""
+    },
+    {
+      "id":2,
+      "from":1,
+      "to":2,
+      "action":""
+    }
+    
+    ],
+    "state": [
+      {"Health":100,
+        "Money":1234566789
+      }
+      ]
+  
+}
