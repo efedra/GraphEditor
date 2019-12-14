@@ -3,17 +3,20 @@
   "nodes" : [
     {"id":0,
       "text": "Home",
-      "reflexive": false
+      "x": 50,
+      "y": 50
     },
     {
       "id":1,
       "text": "Forest",
-      "reflexive": true
+      "x": 200,
+      "y": 50
     },
      {
       "id":2,
       "text": "Beach",
-       "reflexive": false
+       "x": 125,
+       "y": 400
     }
   ],
   "edges" : [
