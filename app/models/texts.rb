@@ -1,0 +1,3 @@
+class Texts < ApplicationRecord
+
+end
