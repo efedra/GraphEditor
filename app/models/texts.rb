@@ -1,3 +1,0 @@
-class Texts < ApplicationRecord
-
-end

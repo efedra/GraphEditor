@@ -1,5 +1,5 @@
 
-ActiveAdmin.register Users do
+ActiveAdmin.register User do
   permit_params :name, :login, :password
 
 

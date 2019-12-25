@@ -1,0 +1,3 @@
+class Img < ApplicationRecord
+
+end
