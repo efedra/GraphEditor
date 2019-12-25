@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   validates :login, presence: true, uniqueness: true
-  validates :password, presence: true, uniqueness: true
+  validates :password, presence: true
   validates :name, presence: true
 
   has_many :gameusers
