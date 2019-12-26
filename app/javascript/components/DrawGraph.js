@@ -2,9 +2,7 @@ import React, {Component} from 'react'
 import * as d3 from "d3";
 
 class drawGraph extends Component{
-    componentDidMount() {
-        this.draw();
-    }
+
     // set up SVG for D3
     state = {
         width: window.innerWidth,
@@ -47,6 +45,7 @@ class drawGraph extends Component{
             .attr('stroke','black')
             .attr('stroke-width',2)
 
+
         const Text=svg.selectAll('text')
             .data(that.props.graph.nodes)
             .enter()
@@ -54,7 +53,8 @@ class drawGraph extends Component{
             .attr('x',function (d){return d.x})
             .attr('y',function (d){return d.y})
             .text(function(d){return d.text} )
-            .attr('align','center')
+            .attr("text-anchor", "middle")
+
 
         const markerLines = svg.append('defs')
             .append('marker')
@@ -76,7 +76,7 @@ class drawGraph extends Component{
     render(){
         return(
             <div>
-
+                {this.draw()}
             </div>
         )
     }
