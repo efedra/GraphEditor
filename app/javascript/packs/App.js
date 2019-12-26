@@ -1,20 +1,16 @@
 import React from "react";
-//import BarChart from "./components/try.js";
 import DrawGraph from '../components/DrawGraph';
 import Graph from '../components/Graph.json';
+import Graph1 from '../components/Graph1.json';
+import ListMode from "../components/listMode";
 class App extends React.Component {
 
-  state = {
-    data: [12, 5, 6, 6, 9, 10],
-    width: 700,
-    height: 500,
-    id: "root"
-}
+
 
 render() {
   return (<div className="App">
-        {/*<BarChart data={this.state.data} width={this.state.width} height={this.state.height} />*/}
-        <DrawGraph graph = {Graph}/>
+          <ListMode />
+          <DrawGraph graph={Graph1}/>
       </div>
 
   );
