@@ -6,24 +6,26 @@ class ListMode  extends Component
     constructor(props) {
         super(props);
         this.state = {
-            isCreate:false
+            value:'create'
         }
     }
 
-    render() {
-
-
-    return (
-        <div>
-            <select>
-                <option >Create Graph</option>
-                <option onClick={()=>this.getBody()} >Download Graph</option>
-            </select>
-        </div>
-    )
+    handleChange = (e)=>{
+        this.setState({value:e.target.value});
     }
-    getBody(){
-        return <DrawGraph graph = {Graph} />
+    render() {
+    return (
+        <form >
+            <h1> Pick function</h1>
+             <select value={this.state.value} onChange={this.handleChange}>
+                <option value="create" >Create Graph</option>
+                <option value="download" >Download Graph</option>
+             </select>
+
+            <DrawGraph mode ={this.state.value} graph = {Graph}/>
+        </form>
+
+    )
     }
 
 }

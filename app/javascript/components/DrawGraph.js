@@ -16,7 +16,6 @@ class drawGraph extends Component{
             .attr("height", this.state.height);
         let that = this;
 
-
         //draw Lines
         const line = svg.selectAll('line')
             .data(that.props.graph.edges)
@@ -33,7 +32,6 @@ class drawGraph extends Component{
             .attr('stroke','black')
             .attr('stroke-width',3)
             .attr('marker-end','url(#arrowhead)')
-
         //draw Circles
         const circle =svg.selectAll('circle').data(that.props.graph.nodes)
             .enter()
@@ -45,7 +43,6 @@ class drawGraph extends Component{
             .attr('stroke','black')
             .attr('stroke-width',2)
 
-
         const Text=svg.selectAll('text')
             .data(that.props.graph.nodes)
             .enter()
@@ -54,7 +51,6 @@ class drawGraph extends Component{
             .attr('y',function (d){return d.y})
             .text(function(d){return d.text} )
             .attr("text-anchor", "middle")
-
 
         const markerLines = svg.append('defs')
             .append('marker')
@@ -65,20 +61,26 @@ class drawGraph extends Component{
             .attr('refY',3.5)
             .attr('orient','auto')
             .append ("polygon") .attr ("points", "0 0, 6 3.5, 0 6");
-
-
-
-
     }
 
 
+    create(){
+        d3.select("svg").remove()
+    }
 
     render(){
-        return(
-            <div>
-                {this.draw()}
-            </div>
-        )
+
+            if (this.props.mode=='download') {
+               return( <div>
+                    {this.draw()}
+                </div>
+               )
+            } else { return (
+                <div>
+                    {this.create()}
+                </div>
+            )}
+
     }
 }
 
