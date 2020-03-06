@@ -8,7 +8,7 @@ class drawGraph extends Component{
         width: window.innerWidth,
         height: window.innerHeight,
         radiusNode: 20
-    }
+    };
 
 
     draw() {

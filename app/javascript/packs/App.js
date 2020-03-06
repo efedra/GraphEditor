@@ -1,16 +1,19 @@
 import React from "react";
-import DrawGraph from '../components/DrawGraph';
-import Graph from '../components/Graph.json';
-import Graph1 from '../components/Graph1.json';
-import ListMode from "../components/listMode";
+import GraphPanel from '../components/GraphPanel'
+import Editor from "../components/Editor";
 class App extends React.Component {
 
 
 
 render() {
-  return (<div className="App">
-          <ListMode />
-          <DrawGraph graph={Graph1}/>
+  return (<div className='App'>
+          <div className='WorkArea'>
+              <GraphPanel />
+          </div>
+          <div className='EditorArea'>
+              <Editor/>
+          </div>
+
       </div>
 
   );
