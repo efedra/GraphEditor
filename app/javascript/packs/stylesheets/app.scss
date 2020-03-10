@@ -27,7 +27,7 @@ html, body, #root {
 .App-link {
   color: #09d3ac;
 }
-.GraphArea{
+.WorkArea{
   float: left;
   width: $graph-width;
   height: 100%;
@@ -38,3 +38,6 @@ html, body, #root {
   height: 100%;
   background-color: #730E15;
 }
+.GraphPanel { display: -ms-flex; display: -webkit-flex; display: flex;   height: 100% }
+.GraphPanel>div { flex:1; }
+.GraphPanel>div>svg { flex:1; }
