@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import * as d3 from "d3";
 
-class drawGraph extends Component {
+class downloadGraph extends Component {
     constructor(props) {
         super(props)
         // set up SVG for D3
@@ -13,9 +13,9 @@ class drawGraph extends Component {
         this.fileInput = React.createRef();
     }
 
-    draw(graph) {
+    draw(graph){
         d3.select("svg").remove()
-         const svg = d3.select('body').append('svg').attr("width", this.state.width)
+        const svg = d3.select('body').append('svg').attr("width", this.state.width)
             .attr("height", this.state.height);
         let that = this;
         //draw Lines
@@ -80,14 +80,28 @@ class drawGraph extends Component {
     }
 
 
+    loadFile(graph) {
+            let that=this
+        if (graph) {
+            const reader = new FileReader();
+            reader.readAsText(graph, "UTF-8");
+            reader.onload = function (evt) {
+                that.draw(JSON.parse(evt.target.result))
+
+            }
+            reader.onerror = function (evt) {
+                console.log( "error reading file");
+            }
+        }
+
+
+    }
+
+
     handleSubmit=(event)=> {
         event.preventDefault();
-        /*this.draw( this.fileInput.current.files[0])*/
-        alert(
-            `Selected file - ${
-                this.fileInput.current.files[0].name
-            }`
-        );
+            this.loadFile( this.fileInput.current.files[0])
+        
     }
 
     render() {
@@ -107,4 +121,4 @@ class drawGraph extends Component {
 
 }
 
-export default drawGraph
+export default downloadGraph
