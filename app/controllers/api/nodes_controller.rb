@@ -1,47 +1,46 @@
 # frozen_string_literal: true
 
 class Api::NodesController < ApplicationController
-  before_action :set_node, only: %i[show update destroy]
-
   def index
-    @nodes = Node.all
-    render json: @nodes
+    render json: graph.nodes.all
   end
 
   def show
-    render json: @node
+    render json: graph.nodes.find(params[:id])
   end
 
   def create
-    @node = Node.new(node_params)
+    service = atom(graph, node_params: node_params)
 
-    if @node.save
-      render json: @node
+    if service.success?
+      render json: service.result, status: :created
     else
-      render json: @node.errors, status: :unprocessable_entity
+      render json: service.error, status: :unprocessable_entity
     end
   end
 
   def update
-    if @node.update(node_params)
-      render :show, status: :ok, location: @node
+    service = atom(graph, node_id: params[:id], node_params: node_params)
+
+    if service.success?
+      render json: service.result, status: :ok
     else
-      render json: @node.errors, status: :unprocessable_entity
+      render json: service.error, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @node.destroy
+    atom(graph, node_id: params[:id])
     head :no_content
   end
 
   private
 
-  def set_node
-    @node = Node.find!(params[:id])
+  def graph
+    Graph.find(params[:graph_id])
   end
 
   def node_params
-    params.require(:node).permit(:name, :graph_id, text: nil)
+    params.require(:node).permit(:name, text: nil)
   end
 end

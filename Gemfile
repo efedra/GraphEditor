@@ -20,6 +20,9 @@ gem 'jbuilder', '~> 2.7'
 gem 'dotenv-rails'
 gem 'rubocop-rails', '~> 2.3.2'
 gem 'rubocop', '~> 0.75.0'
+gem 'pry'
+gem 'pry-remote'
+gem 'pry-nav'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

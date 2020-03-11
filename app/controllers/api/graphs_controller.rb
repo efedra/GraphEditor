@@ -1,46 +1,40 @@
 # frozen_string_literal: true
 
 class Api::GraphsController < ApplicationController
-  before_action :set_graph, only: %i[show update destroy]
-
   def index
-    @graphs = Node.all
-    render json: @graphs
+    render json: Graph.all
   end
 
   def show
-    render json: @graph
+    render json: Graph.find(params[:id])
   end
 
   def create
-    @graph = Graph.new(graph_params)
+    service = atom(graph_params: graph_params)
 
-    if @graph.save
-      render json: @graph
+    if service.success?
+      render json: service.result, status: :created
     else
-      render json: @graph.errors, status: :unprocessable_entity
+      render json: service.error, status: :unprocessable_entity
     end
   end
 
   def update
-    if @graph.update(node_params)
-      render :show, status: :ok, location: @graph
+    service = atom(graph_id: params[:id], graph_params: graph_params)
+
+    if service.success?
+      render json: service.result, status: :ok
     else
-      render json: @graph.errors, status: :unprocessable_entity
+      render json: service.error, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @graph.destroy
+    atom(graph_id: params[:id])
     head :no_content
   end
 
   private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_graph
-    @graph = Graph.find(params[:id])
-  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def graph_params
