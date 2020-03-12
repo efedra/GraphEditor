@@ -12,11 +12,7 @@ class Node < ApplicationRecord
     class_name: 'Edge',
     dependent: :nullify,
     inverse_of: :finish
-  # TODO: i don't know how to build this relation.
-  # i want (input_edges + output_edges) as one has_many...
-  # has_many :edges, -> { includes(:output_edges) }, foreign_key: :start_id
 
-  def edges
-    Edge.where("start_id = :node_id OR finish_id = :node_id", node_id: id)
-  end
+  has_many :edges, ->() { unscope(:where).where("start_id = :node_id OR finish_id = :node_id", node_id: id) }
+
 end
