@@ -6,7 +6,19 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {graph: GraphData, selectedElement: null};
+        const component = this;
+        fetch('/random-graph', {
+            method: 'get'
+        }).then(function(response) {
+            response.json().then(function(data)
+            {
+                component.setState({graph: data});
+            })
+
+        }).catch(function(err) {
+
+        });
+        this.state = {graph: null, selectedElement: null};
         this.handleGraphChange = this.handleGraphChange.bind(this);
         this.handleEditorChange = this.handleEditorChange.bind(this);
     }
@@ -21,19 +33,25 @@ class App extends React.Component {
         this.setState({scale: 'f', temperature});
     }
 
+
+
 render() {
-  return (<div className='App'>
-          <div className='WorkArea'>
-              <GraphPanel graph = {this.state.graph}
-              onChange = {this.handleGraphChange}/>
-          </div>
-          <div className='EditorArea'>
-              <Editor element = {this.state.selectedElement}/>
-          </div>
+    if (this.state.graph != null)
+    {
+        return (<div className='App'>
+            <div className='WorkArea'>
+                <GraphPanel graph = {this.state.graph}
+                            onChange = {this.handleGraphChange}/>
+            </div>
+            <div className='EditorArea'>
+                <Editor element = {this.state.selectedElement}/>
+            </div>
 
-      </div>
-
-  );
+        </div>);
+    } else
+    {
+        return (<div></div>)
+    }
 }
 }
 

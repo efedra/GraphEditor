@@ -21,7 +21,7 @@
   "height": 800,
   "width": 1200,
   "staticGraphWithDragAndDrop": true,
-  "highlightDegree": 1,
+  "highlightDegree": 3,
   "directed": true,
   "nodeHighlightBehavior": true
 
