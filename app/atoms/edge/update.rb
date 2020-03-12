@@ -3,10 +3,9 @@
 class Edge::Update < Edge::Base
   private
 
-  def perform
+  def atom_perform
     @result = edge
-    @result.assign_attributes(edge_params)
-    @success = @result.save
-    @error = @result.errors if fail?
+    @result.update!(edge_params)
+    @status = :success
   end
 end

@@ -3,10 +3,9 @@
 class Node::Update < Node::Base
   private
 
-  def perform
+  def atom_perform
     @result = node
-    @result.assign_attributes(node_params)
-    @success = @result.save
-    @error = @result.errors if fail?
+    @result.update!(node_params)
+    @status = :success
   end
 end

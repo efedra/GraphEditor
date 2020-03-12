@@ -3,10 +3,9 @@
 class Graph::Update < Graph::Base
   private
 
-  def perform
+  def atom_perform
     @result = graph
-    @result.assign_attributes(graph_params)
-    @success = @result.save
-    @error = @result.errors if fail?
+    @result.update!(graph_params)
+    @status = :success
   end
 end

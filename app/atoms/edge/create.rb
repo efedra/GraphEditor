@@ -3,10 +3,9 @@
 class Edge::Create < Edge::Base
   private
 
-  def perform
+  def atom_perform
     @result = edges.new(edge_params)
-
-    @success = @result.save
-    @error = @result.errors if fail?
+    @result.save!
+    @status = :successfully_created
   end
 end

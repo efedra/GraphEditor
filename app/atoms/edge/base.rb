@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class Edge::Base < BaseService
-  attr_reader :params, :graph
+class Edge::Base < AtomBase
+  attr_reader :graph
 
   def initialize(graph, **params)
+    super(params)
     @graph = graph
-    @params = params
   end
 
   private

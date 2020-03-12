@@ -3,7 +3,8 @@
 class Graph::Destroy < Graph::Base
   private
 
-  def perform
+  def atom_perform
     graph.destroy
+    @status = :successfully_destoyed
   end
 end

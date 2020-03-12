@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class BaseService
-  attr_accessor :result, :error
-  attr_reader :success
+  attr_accessor :result
+  attr_reader :status
 
   class << self
     def call(*args)
@@ -19,28 +19,28 @@ class BaseService
   end
 
   def call
-    @success = true
     @result = nil
-    @error = nil
+    @status = :success
 
     logger.info("Start.")
     perform
-    logger.info("Finish with success:#{success}, result:#{result}, error:#{error}.")
 
     self
   rescue StandardError => err
-    @error = err
-    @success = false
+    @result = err
+    @status = :unrecognized_error
 
     raise
+  ensure
+    logger.info("Finish with status:#{status}, result:#{result}.")
   end
 
   def success?
-    success
+    !fail?
   end
 
   def fail?
-    !success?
+    status.to_s.end_with? 'error'
   end
 
   private

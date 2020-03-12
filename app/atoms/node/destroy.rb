@@ -3,7 +3,8 @@
 class Node::Destroy < Node::Base
   private
 
-  def perform
+  def atom_perform
     node.destroy
+    @status = :successfully_destoyed
   end
 end

@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
-class Graph::Base < BaseService
-  attr_reader :params
-
-  def initialize(**params)
-    @params = params
-  end
-
+class Graph::Base < AtomBase
   private
 
   def graphs

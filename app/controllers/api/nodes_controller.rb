@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::NodesController < ApplicationController
+class Api::NodesController < Api::BaseController
   def index
     render json: graph.nodes.all
   end
@@ -10,28 +10,15 @@ class Api::NodesController < ApplicationController
   end
 
   def create
-    service = atom(graph, node_params: node_params)
-
-    if service.success?
-      render json: service.result, status: :created
-    else
-      render json: service.error, status: :unprocessable_entity
-    end
+    atom(graph, node_params: node_params)
   end
 
   def update
-    service = atom(graph, node_id: params[:id], node_params: node_params)
-
-    if service.success?
-      render json: service.result, status: :ok
-    else
-      render json: service.error, status: :unprocessable_entity
-    end
+    atom(graph, node_id: params[:id], node_params: node_params)
   end
 
   def destroy
     atom(graph, node_id: params[:id])
-    head :no_content
   end
 
   private

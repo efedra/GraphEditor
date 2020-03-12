@@ -1,0 +1,5 @@
+en:
+  services:
+    not_found_error: Couldn't find %{model} with 'id'=%{id}
+    db_error: There is something wrong with your request
+    parameter_missing_error: 'Required parameter missing: %{param}'

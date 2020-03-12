@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::EdgesController < ApplicationController
+class Api::EdgesController < Api::BaseController
   def index
     render json: graph.edges.distinct.all
   end
@@ -10,28 +10,15 @@ class Api::EdgesController < ApplicationController
   end
 
   def create
-    service = atom(graph, edge_params: edge_params)
-
-    if service.success?
-      render json: service.result, status: :created
-    else
-      render json: service.error, status: :unprocessable_entity
-    end
+    atom(graph, edge_params: edge_params)
   end
 
   def update
-    service = atom(graph, edge_id: params[:id], edge_params: edge_params)
-
-    if service.success?
-      render json: service.result, status: :ok
-    else
-      render json: service.error, status: :unprocessable_entity
-    end
+    atom(graph, edge_id: params[:id], edge_params: edge_params)
   end
 
   def destroy
     atom(graph, edge_id: params[:id])
-    head :no_content
   end
 
   private

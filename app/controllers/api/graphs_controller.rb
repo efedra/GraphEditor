@@ -1,37 +1,24 @@
 # frozen_string_literal: true
 
-class Api::GraphsController < ApplicationController
+class Api::GraphsController < Api::BaseController
   def index
-    render json: Graph.all
+    render json: Graph.all, status: :ok
   end
 
   def show
-    render json: Graph.find(params[:id])
+    render json: Graph.find(params[:id]), status: :ok
   end
 
   def create
-    service = atom(graph_params: graph_params)
-
-    if service.success?
-      render json: service.result, status: :created
-    else
-      render json: service.error, status: :unprocessable_entity
-    end
+    atom(graph_params: graph_params)
   end
 
   def update
-    service = atom(graph_id: params[:id], graph_params: graph_params)
-
-    if service.success?
-      render json: service.result, status: :ok
-    else
-      render json: service.error, status: :unprocessable_entity
-    end
+    atom(graph_id: params[:id], graph_params: graph_params)
   end
 
   def destroy
     atom(graph_id: params[:id])
-    head :no_content
   end
 
   private
