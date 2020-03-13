@@ -3,7 +3,7 @@
 class Graph < ApplicationRecord
   has_many :nodes, dependent: :nullify
 
-  validates :state, presence: true
+  validates :name, :state, presence: true
 
   def edges
     Edge.where(start_id: nodes.select(:id))

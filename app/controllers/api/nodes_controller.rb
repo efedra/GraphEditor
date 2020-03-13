@@ -10,15 +10,18 @@ class Api::NodesController < Api::BaseController
   end
 
   def create
-    atom(graph, node_params: node_params)
+    node = graph.nodes.create(node_params)
+    node.save!
+    render json: node
   end
 
   def update
-    atom(graph, node_id: params[:id], node_params: node_params)
+    node.update!(node_params)
+    render json: node
   end
 
   def destroy
-    atom(graph, node_id: params[:id])
+    node.destroy!
   end
 
   private
@@ -27,7 +30,11 @@ class Api::NodesController < Api::BaseController
     Graph.find(params[:graph_id])
   end
 
+  def node
+    graph.nodes.find(params[:id])
+  end
+
   def node_params
-    params.require(:node).permit(:name, text: nil)
+    params.permit(:name, text: nil)
   end
 end
