@@ -6,8 +6,4 @@ class ApplicationController < ActionController::Base
   def production?
     ENV['RAILS_ENV'] == 'production'
   end
-
-  def atom(*args)
-    "#{controller_name.classify}::#{action_name.camelize}".constantize.call(*args)
-  end
 end
