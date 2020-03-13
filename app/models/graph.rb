@@ -2,6 +2,7 @@
 
 class Graph < ApplicationRecord
   has_many :nodes, dependent: :nullify
+  belongs_to :user, dependent: :destroy
 
   validates :state, presence: true
 

@@ -23,10 +23,6 @@ class Api::EdgesController < Api::BaseController
 
   private
 
-  def graph
-    Graph.find(params[:graph_id])
-  end
-
   def edge_params
     params.require(:edge).permit(:text, :weight, :start_id, :finish_id)
   end

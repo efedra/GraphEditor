@@ -10,15 +10,15 @@ class Api::GraphsController < Api::BaseController
   end
 
   def create
-    atom(graph_params: graph_params)
+    atom(current_user, graph_params: graph_params)
   end
 
   def update
-    atom(graph_id: params[:id], graph_params: graph_params)
+    atom(current_user, graph_id: params[:id], graph_params: graph_params)
   end
 
   def destroy
-    atom(graph_id: params[:id])
+    atom(current_user, graph_id: params[:id])
   end
 
   private

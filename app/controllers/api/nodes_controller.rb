@@ -23,10 +23,6 @@ class Api::NodesController < Api::BaseController
 
   private
 
-  def graph
-    Graph.find(params[:graph_id])
-  end
-
   def node_params
     params.require(:node).permit(:name, text: nil)
   end

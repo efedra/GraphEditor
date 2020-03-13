@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 
 class Graph::Base < AtomBase
+  attr_reader :user
+
+  def initialize(user, **params)
+    super(params)
+    @user = user
+  end
+
   private
 
   def graphs
-    Graph
+    user.graphs
   end
 
   def graph
