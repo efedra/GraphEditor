@@ -32,7 +32,7 @@ class BaseService
 
     raise
   ensure
-    logger.info("Finish with status:#{status}, result:#{result}.")
+    logger.info("Finish with status:#{status}, result:#{result.as_json}.")
   end
 
   def success?

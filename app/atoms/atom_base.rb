@@ -22,15 +22,23 @@ class AtomBase < BaseService
     end
     @status = :validation_error
   rescue ActiveRecord::StatementInvalid => err
+    log_error(err)
     if Rails.env.production?
       @result = I18n.t('services.db_error')
     else
       @result = err.to_s
     end
     @status = :db_error
+  ensure
+    log_error(err) if err.present?
   end
 
   def atom_perform
     raise NotImplementedError
+  end
+
+  def log_error(err)
+    message = [err.message, ActiveSupport::BacktraceCleaner.new.clean(err.backtrace)]
+    logger.error(message.join("\n"))
   end
 end
