@@ -2,7 +2,6 @@
 
 class Graph < ApplicationRecord
   has_many :nodes, dependent: :nullify
-  # has_many :edges, through: :nodes
 
   validates :state, presence: true
 

@@ -12,7 +12,4 @@ class Node < ApplicationRecord
     class_name: 'Edge',
     dependent: :nullify,
     inverse_of: :finish
-
-  has_many :edges, ->() { unscope(:where).where("start_id = :node_id OR finish_id = :node_id", node_id: id) }
-
 end
