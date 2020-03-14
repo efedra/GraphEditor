@@ -10,9 +10,9 @@ class Api::EdgesController < Api::BaseController
   end
 
   def create
-    new_edge = graph.edges.create(edge_params)
-    new_edge.save!
-    render json: new_edge
+    @edge = graph.edges.create(edge_params)
+    edge.save!
+    render json: edge, status: :created
   end
 
   def update
@@ -22,19 +22,20 @@ class Api::EdgesController < Api::BaseController
 
   def destroy
     edge.destroy!
+    head :no_content
   end
 
   private
 
   def graph
-    Graph.find(params[:graph_id])
+    @graph ||= Graph.find(params[:graph_id])
   end
 
   def edge
-    graph.edges.find(params[:id])
+    @edge ||= graph.edges.find(params[:id])
   end
 
   def edge_params
-    params.permit(:id, :text, :weight, :start_id, :finish_id)
+    params.require(:edge).permit(:text, :weight, :start_id, :finish_id)
   end
 end

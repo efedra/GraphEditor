@@ -10,16 +10,19 @@ class Api::GraphsController < Api::BaseController
   end
 
   def create
-    render json: Graph.create(graph_params)
+    @graph = Graph.create(graph_params)
+    graph.save!
+    render json: graph, status: :created
   end
 
   def update
-    render json: graph.update(graph_params)
+    graph.update!(graph_params)
+    render json: graph
   end
 
   def destroy
-    graph.destroy
-    render json: {}
+    graph.destroy!
+    head :no_content
   end
 
   private
@@ -30,6 +33,6 @@ class Api::GraphsController < Api::BaseController
   end
 
   def graph
-    Graph.find(params[:id])
+    @graph ||= Graph.find(params[:id])
   end
 end

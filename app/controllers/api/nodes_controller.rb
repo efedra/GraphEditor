@@ -10,9 +10,9 @@ class Api::NodesController < Api::BaseController
   end
 
   def create
-    node = graph.nodes.create(node_params)
-    node.save!
-    render json: node
+    new_node = graph.nodes.create(node_params)
+    new_node.save!
+    render json: new_node, status: :created
   end
 
   def update
@@ -22,19 +22,20 @@ class Api::NodesController < Api::BaseController
 
   def destroy
     node.destroy!
+    head :no_content
   end
 
   private
 
   def graph
-    Graph.find(params[:graph_id])
+    @graph ||= Graph.find(params[:graph_id])
   end
 
   def node
-    graph.nodes.find(params[:id])
+    @node ||= graph.nodes.find(params[:id])
   end
 
   def node_params
-    params.permit(:name, text: nil)
+    params.require(:node).permit(:name, text: nil)
   end
 end
