@@ -1,0 +1,172 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.5
+  Exclude:
+    - 'db/schema.rb'
+    - 'bin/*'
+    - '.git/**/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - 'public/**/*'
+
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - staging
+    - development
+    - test
+
+Rails/FilePath:
+  Enabled: false
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+Rails/BulkChangeTable:
+  Enabled: false
+
+Rails/Output:
+  Enabled: false
+
+Rails/ReversibleMigration:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/ConditionalAssignment:
+  Enabled: false
+
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
+
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Max: 150
+
+Metrics/LineLength:
+  Max: 160
+  IgnoredPatterns: ['^\s{0,}\#']
+
+Metrics/MethodLength:
+  Max: 35
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/BlockLength:
+  CountComments: false
+  Max: 40
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+    - 'config/initializers/*.rb'
+    - 'config/environments/*.rb'
+    - 'config/routes.rb'
+    - 'Gemfile'
+    - 'db/migrate/*.rb'
+
+Metrics/AbcSize:
+  Max: 40
+
+# In some circumstances it may be appropriate to relax the restriction and permit modules with a complexity as high as 15
+# https://en.wikipedia.org/wiki/Cyclomatic_complexity
+Metrics/CyclomaticComplexity:
+  Max: 15
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Style/Lambda:
+  EnforcedStyle: literal
+
+Layout/AlignHash:
+  EnforcedLastArgumentHashStyle: always_ignore
+  EnforcedHashRocketStyle: key
+  EnforcedColonStyle: key
+
+Layout/AlignArguments:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/MultilineOperationIndentation:
+  Enabled: true
+  EnforcedStyle: indented
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: true
+  EnforcedStyle: indented
+
+Layout/MultilineMethodCallBraceLayout:
+  EnforcedStyle: symmetrical
+
+Layout/MultilineHashBraceLayout:
+  Enabled: true
+  EnforcedStyle: symmetrical
+
+Layout/MultilineArrayBraceLayout:
+  Enabled: true
+  EnforcedStyle: symmetrical
+
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+Layout/IndentFirstArgument:
+  EnforcedStyle: consistent
+
+Layout/IndentFirstArrayElement:
+  EnforcedStyle: consistent
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+Style/NumericLiteralPrefix:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+# Style/RedundantSelf:
+#   Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/TernaryParentheses:
+  # EnforcedStyle: require_parentheses_when_complex
+  Enabled: false
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Lint/BooleanSymbol:
+  Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Security/YAMLLoad:
+  Enabled: false
