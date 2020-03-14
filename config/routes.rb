@@ -1,6 +1,13 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  #
+  namespace :api do
+    resources :graphs, only: %i[index create show update destroy] do
+      resources :nodes, only: %i[index create show update destroy]
+      resources :edges, only: %i[index create show update destroy]
+      end
+    end
+
   root 'home#index'
   get 'random-graph', to: 'home#new_graph'
 end

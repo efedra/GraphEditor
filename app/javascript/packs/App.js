@@ -1,7 +1,9 @@
 import React from "react";
 import GraphPanel from '../components/GraphPanel'
 import Editor from "../components/Editor";
-import GraphData from "../components/Graph1.json"
+
+import ListMode from "../components/listMode";
+
 class App extends React.Component {
 
     constructor(props) {
@@ -39,6 +41,7 @@ render() {
     if (this.state.graph != null)
     {
         return (<div className='App'>
+            <ListMode />
             <div className='WorkArea'>
                 <GraphPanel graph = {this.state.graph}
                             onChange = {this.handleGraphChange}/>
@@ -46,7 +49,6 @@ render() {
             <div className='EditorArea'>
                 <Editor element = {this.state.selectedElement}/>
             </div>
-
         </div>);
     } else
     {
