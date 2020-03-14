@@ -2,23 +2,27 @@
 
 class Api::GraphsController < Api::BaseController
   def index
-    render json: Graph.all, status: :ok
+    render json: current_user.graphs.all
   end
 
   def show
-    render json: Graph.find(params[:id]), status: :ok
+    render json: current_user.graphs.find(params[:id])
   end
 
   def create
-    atom(current_user, graph_params: graph_params)
+    @graph = current_user.graphs.create(graph_params)
+    graph.save!
+    render json: graph, status: :created
   end
 
   def update
-    atom(current_user, graph_id: params[:id], graph_params: graph_params)
+    graph.update!(graph_params)
+    render json: graph
   end
 
   def destroy
-    atom(current_user, graph_id: params[:id])
+    graph.destroy!
+    head :no_content
   end
 
   private
@@ -26,5 +30,9 @@ class Api::GraphsController < Api::BaseController
   # Never trust parameters from the scary internet, only allow the white list through.
   def graph_params
     params.require(:graph).permit(:name, :state)
+  end
+
+  def graph
+    @graph ||= current_user.graphs.find(params[:id])
   end
 end

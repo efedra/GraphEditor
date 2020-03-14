@@ -4,7 +4,7 @@ class Graph < ApplicationRecord
   has_many :nodes, dependent: :nullify
   belongs_to :user, dependent: :destroy
 
-  validates :state, presence: true
+  validates :name, :state, presence: true
 
   def edges
     Edge.where(start_id: nodes.select(:id))

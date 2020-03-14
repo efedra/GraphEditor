@@ -10,18 +10,30 @@ class Api::EdgesController < Api::BaseController
   end
 
   def create
-    atom(graph, edge_params: edge_params)
+    @edge = graph.edges.create(edge_params)
+    edge.save!
+    render json: edge, status: :created
   end
 
   def update
-    atom(graph, edge_id: params[:id], edge_params: edge_params)
+    edge.update!(edge_params)
+    render json: edge
   end
 
   def destroy
-    atom(graph, edge_id: params[:id])
+    edge.destroy!
+    head :no_content
   end
 
   private
+
+  def graph
+    @graph ||= current_user.graphs.find(params[:graph_id])
+  end
+
+  def edge
+    @edge ||= graph.edges.find(params[:id])
+  end
 
   def edge_params
     params.require(:edge).permit(:text, :weight, :start_id, :finish_id)
