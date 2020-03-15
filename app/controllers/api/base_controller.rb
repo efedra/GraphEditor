@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::BaseController < ApplicationController
+  before_action :authenticate_user!
+
   # TODO: Feel free to remove, just an examples
   before_action :log_intro
   after_action :log_outro
@@ -32,5 +34,10 @@ class Api::BaseController < ApplicationController
 
   def handle_error(message = '', status = :bad_request)
     render json: { error: message }, status: status
+  end
+
+  def authenticate_user!
+    return if current_user
+    handle_error I18n.t('devise.failure.unauthenticated'), :unauthorized
   end
 end
