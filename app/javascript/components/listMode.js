@@ -20,7 +20,7 @@ class ListMode extends Component {
                 <form>
                     <h1> Pick function</h1>
                     <select value={this.state.value} onChange={this.handleChange}>
-                        <option value="create">Create Graph</option>
+
                         <option value="download">Download Graph</option>
                     </select>
                     <CreateGraph/>

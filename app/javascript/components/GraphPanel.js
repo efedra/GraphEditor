@@ -8,11 +8,13 @@ export default class GraphPanel extends React.Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.state = {graph: props.graph};
-
     }
-    handleChange(e) {
-        this.setState({graph: e.target.value});
+    handleChange(event) {
+        this.props.onChange(event.type, event.id,);
     }
+     onClickNode (nodeId) {
+        this.handleChange({id: nodeId, type: 'node'})
+    };
     render() {
 
         const myConfig = GraphConfig;
@@ -22,12 +24,11 @@ export default class GraphPanel extends React.Component {
             window.alert(`Clicked the graph background`);
         };
 
-        const onClickNode = function( nodeId) {
-            window.alert(`Clicked node ${nodeId}`);
-        };
+
 
         const onDoubleClickNode = function(nodeId) {
             window.alert(`Double clicked node ${nodeId}`);
+
         };
 
         const onRightClickNode = function(event, nodeId) {
@@ -68,7 +69,7 @@ export default class GraphPanel extends React.Component {
                 id="graph-id" // id is mandatory, if no id is defined rd3g will throw an error
                 data={this.state.graph}
                 config={myConfig}
-               onClickNode={onClickNode}
+               onClickNode={this.onClickNode.bind(this)}
             //    onDoubleClickNode={onDoubleClickNode}
             //    onRightClickNode={onRightClickNode}
             //    onClickGraph={onClickGraph}

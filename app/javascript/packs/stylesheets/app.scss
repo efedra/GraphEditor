@@ -37,6 +37,7 @@ html, body, #root {
   width: 100-$graph-width;
   height: 100%;
   background-color: #730E15;
+  color: white;
 }
 .GraphPanel { display: -ms-flex; display: -webkit-flex; display: flex;   height: 100% }
 .GraphPanel>div { flex:1; }

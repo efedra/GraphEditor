@@ -31,8 +31,7 @@ class App extends React.Component {
     }
 
     handleEditorChange(elementType, elementId, newElement) {
-        this.state.graph =
-        this.setState({scale: 'f', temperature});
+        console.log(elementType, elementId, newElement);
     }
 
 
@@ -47,7 +46,7 @@ render() {
                             onChange = {this.handleGraphChange}/>
             </div>
             <div className='EditorArea'>
-                <Editor element = {this.state.selectedElement}/>
+                <Editor element = {this.state.element}/>
             </div>
         </div>);
     } else
