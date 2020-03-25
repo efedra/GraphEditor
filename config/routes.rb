@@ -10,4 +10,5 @@ Rails.application.routes.draw do
     end
 
   root 'home#index'
+  get 'random-graph', to: 'home#new_graph'
 end

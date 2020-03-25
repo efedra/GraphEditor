@@ -1,0 +1,28 @@
+{
+  "node": {
+    "color": "lightgreen",
+    "size": 500,
+    "highlightStrokeColor": "red",
+    "fontSize":16,
+    "highlightFontSize": 18,
+    "labelProperty": "label"
+  },
+  "link": {
+    "highlightColor": "red",
+    "renderLabel": true,
+    "type": "CURVE_SMOOTH",
+    "fontSize":16,
+    "color": "black",
+    "markerHeight": 100
+  },
+  "d3":{
+    "linkLength" : 100
+  },
+  "height": 800,
+  "width": 1200,
+  "staticGraphWithDragAndDrop": true,
+  "highlightDegree": 3,
+  "directed": true,
+  "nodeHighlightBehavior": true
+
+}
