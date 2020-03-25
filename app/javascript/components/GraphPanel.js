@@ -10,11 +10,12 @@ export default class GraphPanel extends React.Component {
         this.state = {graph: props.graph};
     }
     handleChange(event) {
-        this.props.onChange(event.type, event.id,);
+        this.props.onChange(event.type, parseInt(event.id), event.data);
     }
      onClickNode (nodeId) {
-        this.handleChange({id: nodeId, type: 'node'})
-    };
+         this.handleChange({id: nodeId, type: 'node',
+             data: this.state.graph.nodes.find(x => x.id === nodeId)})
+     };
     render() {
 
         const myConfig = GraphConfig;

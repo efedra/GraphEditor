@@ -2,8 +2,6 @@ import React from "react";
 import GraphPanel from '../components/GraphPanel'
 import Editor from "../components/Editor";
 
-import ListMode from "../components/listMode";
-
 class App extends React.Component {
 
     constructor(props) {
@@ -25,13 +23,25 @@ class App extends React.Component {
         this.handleEditorChange = this.handleEditorChange.bind(this);
     }
     handleGraphChange(elementType, elementId) {
+        const data = this.extractEditorData(elementType, elementId);
         this.setState({graph: this.state.graph, element:{
-            elementType: elementType, elementId: elementId
+            elementType: elementType, elementId: elementId, data:this.extractEditorData(elementType, elementId)
             }});
     }
 
+    extractEditorData(elementType, elementId) {
+        if (elementType === 'node')
+        {return this.state.graph.nodes.find(x=>x.id === elementId)}
+        else
+        {return this.state.graph.links.find(x=>x.id === elementId);}
+    }
+
     handleEditorChange(elementType, elementId, newElement) {
-        console.log(elementType, elementId, newElement);
+
+        let oldElement = this.extractEditorData(elementType, elementId);
+        for(const property in newElement) oldElement[property] = newElement[property];
+        this.setState({graph: this.state.graph, element:{
+                elementType: elementType, elementId: elementId, data:oldElement}});
     }
 
 
@@ -40,13 +50,13 @@ render() {
     if (this.state.graph != null)
     {
         return (<div className='App'>
-            <ListMode />
             <div className='WorkArea'>
                 <GraphPanel graph = {this.state.graph}
                             onChange = {this.handleGraphChange}/>
             </div>
             <div className='EditorArea'>
-                <Editor element = {this.state.element}/>
+                <Editor element = {this.state.element}
+                        onChange = {this.handleEditorChange}/>
             </div>
         </div>);
     } else
@@ -55,6 +65,7 @@ render() {
     }
 }
 }
+
 
 export default App;
 

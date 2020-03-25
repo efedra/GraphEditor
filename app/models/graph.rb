@@ -11,11 +11,11 @@ class Graph < ApplicationRecord
   end
 
   def self.random_graph
-    n_nodes = 40
-    n_edges = 80
+    n_nodes = 10
+    n_edges = 15
     nodes = []
     edges = []
-    (1..n_nodes).each do |id|
+    (0..n_nodes).each do |id|
       nodes << {
           id: id,
           x: rand(800),
@@ -23,7 +23,7 @@ class Graph < ApplicationRecord
       }
     end
 
-    (1..n_edges).each do |id|
+    (0..n_edges).each do |id|
       random_node = nodes.sample[:id]
       edges << {
           id: id,
