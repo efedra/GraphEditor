@@ -26,16 +26,25 @@ export default class Editor extends React.Component {
             data: {y: parseInt(e.target.value)}
         })
     }
-    handleColorChange(e){
+
+    handleColorChange(e) {
         this.handleChange({
             type: this.props.element.elementType, elementId: this.props.element.elementId,
             data: {color: e.target.value}
         })
     }
-    handleFontSizeChange(e){
+
+    handleFontSizeChange(e) {
         this.handleChange({
             type: this.props.element.elementType, elementId: this.props.element.elementId,
             data: {fontSize: parseInt(e.target.value)}
+        })
+    }
+
+    handleStrokeWidthChange(e){
+        this.handleChange({
+            type: this.props.element.elementType, elementId: this.props.element.elementId,
+            data: {strokeWidth: parseInt(e.target.value)}
         })
     }
     render() {
@@ -51,9 +60,18 @@ export default class Editor extends React.Component {
                            value={element.data.y}
                            onChange={owner.handleYChange.bind(owner)}/>
                     <legend>Color</legend>
-                    <input type="text" value={ element.data.color !=null?element.data.color:""} onChange={owner.handleColorChange.bind(owner)} />
+                    <input type="text"
+                           value={element.data.color != null ? element.data.color : ""}
+                           onChange={owner.handleColorChange.bind(owner)}/>
                     <legend>Font Size</legend>
-                    <input type="number" value={element.data.fontSize !=null?element.data.fontSize:8} onChange={owner.handleFontSizeChange.bind(owner)}/>
+                    <input type="number"
+                           value={element.data.fontSize != null ? element.data.fontSize : 8}
+                           onChange={owner.handleFontSizeChange.bind(owner)}/>
+                    <legend>Stroke Width</legend>
+                    <input  type="number"
+                            value={element.data.strokeWidth != null ? element.data.strokeWidth :0}
+                            onChange={owner.handleStrokeWidthChange.bind(owner)}/>
+                            <legend>Stroke Color</legend>
                 </fieldset>
             }
 
