@@ -41,10 +41,16 @@ export default class Editor extends React.Component {
         })
     }
 
-    handleStrokeWidthChange(e){
+    handleStrokeWidthChange(e) {
         this.handleChange({
             type: this.props.element.elementType, elementId: this.props.element.elementId,
             data: {strokeWidth: parseInt(e.target.value)}
+        })
+    }
+    handleStrokeColorChange(e){
+        this.handleChange({
+            type: this.props.element.elementType, elementId: this.props.element.elementId,
+            data: {strokeColor: e.target.value}
         })
     }
     render() {
@@ -68,10 +74,13 @@ export default class Editor extends React.Component {
                            value={element.data.fontSize != null ? element.data.fontSize : 8}
                            onChange={owner.handleFontSizeChange.bind(owner)}/>
                     <legend>Stroke Width</legend>
-                    <input  type="number"
-                            value={element.data.strokeWidth != null ? element.data.strokeWidth :0}
-                            onChange={owner.handleStrokeWidthChange.bind(owner)}/>
-                            <legend>Stroke Color</legend>
+                    <input type="number"
+                           value={element.data.strokeWidth != null ? element.data.strokeWidth : 1}
+                           onChange={owner.handleStrokeWidthChange.bind(owner)}/>
+                    <legend>Stroke Color</legend>
+                    <input type="text"
+                           value={element.data.strokeColor != null ? element.data.strokeColor : "none"}
+                           onChange={owner.handleStrokeColorChange.bind(owner)}/>
                 </fieldset>
             }
 
