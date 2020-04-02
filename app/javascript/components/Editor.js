@@ -32,6 +32,12 @@ export default class Editor extends React.Component {
             data: {color: e.target.value}
         })
     }
+    handleFontSizeChange(e){
+        this.handleChange({
+            type: this.props.element.elementType, elementId: this.props.element.elementId,
+            data: {fontSize: parseInt(e.target.value)}
+        })
+    }
     render() {
         function buildFieldSet(element, owner) {
             if (element.data !== undefined) {
@@ -46,6 +52,8 @@ export default class Editor extends React.Component {
                            onChange={owner.handleYChange.bind(owner)}/>
                     <legend>Color</legend>
                     <input type="text" value={ element.data.color !=null?element.data.color:""} onChange={owner.handleColorChange.bind(owner)} />
+                    <legend>Font Size</legend>
+                    <input type="number" value={element.data.fontSize !=null?element.data.fontSize:8} onChange={owner.handleFontSizeChange.bind(owner)}/>
                 </fieldset>
             }
 
