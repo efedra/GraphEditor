@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  devise_for :users
   namespace :api do
     resources :graphs, only: %i[index create show update destroy] do
       resources :nodes, only: %i[index create show update destroy]

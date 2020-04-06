@@ -6,7 +6,15 @@ class Edge < ApplicationRecord
 
   validates :start, :finish, presence: true
 
-  def as_json(options)
+  after_create_commit { GraphBroadcastJob.perform_later graph, 'edge_create', self.as_json }
+  after_update_commit { GraphBroadcastJob.perform_later graph, 'edge_update', self.as_json }
+  after_destroy { GraphBroadcastJob.perform_later graph, 'edge_destroy' }
+
+  def as_json(options = {})
     super({ only: %i[id start_id finish_id text weight] }.merge(options))
+  end
+
+  def graph
+    (start || finish).graph
   end
 end

@@ -2,15 +2,15 @@
 
 class Api::GraphsController < Api::BaseController
   def index
-    render json: Graph.all
+    render json: current_user.graphs.all
   end
 
   def show
-    render json: Graph.find(params[:id])
+    render json: current_user.graphs.find(params[:id])
   end
 
   def create
-    @graph = Graph.create(graph_params)
+    @graph = current_user.graphs.create(graph_params)
     graph.save!
     render json: graph, status: :created
   end
@@ -33,6 +33,6 @@ class Api::GraphsController < Api::BaseController
   end
 
   def graph
-    @graph ||= Graph.find(params[:id])
+    @graph ||= current_user.graphs.find(params[:id])
   end
 end
