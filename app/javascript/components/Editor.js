@@ -1,5 +1,5 @@
 import React from "react";
-
+import { CompactPicker } from 'react-color';
 export default class Editor extends React.Component {
 
     constructor(props) {
@@ -27,10 +27,10 @@ export default class Editor extends React.Component {
         })
     }
 
-    handleColorChange(e) {
+    handleColorChange(color,e) {
         this.handleChange({
             type: this.props.element.elementType, elementId: this.props.element.elementId,
-            data: {color: e.target.value}
+            data: {color: color.hex}
         })
     }
 
@@ -47,10 +47,10 @@ export default class Editor extends React.Component {
             data: {strokeWidth: parseInt(e.target.value)}
         })
     }
-    handleStrokeColorChange(e){
+    handleStrokeColorChange(color,e){
         this.handleChange({
             type: this.props.element.elementType, elementId: this.props.element.elementId,
-            data: {strokeColor: e.target.value}
+            data: {strokeColor: color.hex}
         })
     }
     render() {
@@ -66,9 +66,10 @@ export default class Editor extends React.Component {
                            value={element.data.y}
                            onChange={owner.handleYChange.bind(owner)}/>
                     <legend>Color</legend>
-                    <input type="text"
-                           value={element.data.color != null ? element.data.color : ""}
-                           onChange={owner.handleColorChange.bind(owner)}/>
+                           <CompactPicker
+                               color = {element.data.color != null ? element.data.color.hex :'#fff'}
+                               onChange={owner.handleColorChange.bind(owner)}
+                           />
                     <legend>Font Size</legend>
                     <input type="number"
                            value={element.data.fontSize != null ? element.data.fontSize : 8}
@@ -78,9 +79,10 @@ export default class Editor extends React.Component {
                            value={element.data.strokeWidth != null ? element.data.strokeWidth : 1}
                            onChange={owner.handleStrokeWidthChange.bind(owner)}/>
                     <legend>Stroke Color</legend>
-                    <input type="text"
-                           value={element.data.strokeColor != null ? element.data.strokeColor : "none"}
-                           onChange={owner.handleStrokeColorChange.bind(owner)}/>
+                    <CompactPicker
+                        color = {element.data.strokeColor != null ? element.data.color.hex : '#fff'}
+                        onChange={owner. handleStrokeColorChange.bind(owner)}
+                    />
                 </fieldset>
             }
 
