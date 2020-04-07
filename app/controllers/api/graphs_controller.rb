@@ -6,7 +6,10 @@ class Api::GraphsController < Api::BaseController
   end
 
   def show
-    render json: current_user.graphs.find(params[:id])
+    graph = current_user.graphs.find(params[:id])
+    nodes = graph.nodes
+    edges = graph.edges
+    render json: { graph: graph, nodes: nodes, edges: edges }
   end
 
   def create

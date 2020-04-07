@@ -13,7 +13,9 @@ class Node < ApplicationRecord
     dependent: :nullify,
     inverse_of: :finish
 
-  enum kind: { start: 0, intermediate: 1, finish: 2 }
+  enum kind: { start: 0, intermediate: 1, finish: 2, unvalid: 3 }
+
+  validates :html_x, :html_y, presence: true
 
   after_create_commit { GraphBroadcastJob.perform_later graph, 'node_create', as_json }
   after_update_commit { GraphBroadcastJob.perform_later graph, 'node_update', as_json }
