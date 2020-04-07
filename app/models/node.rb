@@ -13,7 +13,7 @@ class Node < ApplicationRecord
     dependent: :nullify,
     inverse_of: :finish
 
-  enum kind: { start: 0, intermediate: 1, finish: 2, unvalid: 3 }
+  enum kind: { start: 0, intermediate: 1, finish: 2, invalid: 3 }
 
   validates :html_x, :html_y, presence: true
 
