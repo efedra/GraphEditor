@@ -1,4 +1,3 @@
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_13_080545) do
+ActiveRecord::Schema.define(version: 2020_04_07_151015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,7 +41,12 @@ ActiveRecord::Schema.define(version: 2020_03_13_080545) do
     t.bigint "graph_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "html_x"
+    t.integer "html_y"
+    t.string "html_color"
+    t.integer "kind", default: 0, null: false
     t.index ["graph_id"], name: "index_nodes_on_graph_id"
+    t.index ["kind"], name: "index_nodes_on_kind"
   end
 
   create_table "users", force: :cascade do |t|
