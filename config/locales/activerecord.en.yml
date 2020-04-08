@@ -1,0 +1,6 @@
+en:
+  activerecord:
+    errors:
+      models:
+        node:
+          nodes_belong_to_different_graphs: start and finish nodes must belong to the same graph

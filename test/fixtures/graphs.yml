@@ -1,3 +1,7 @@
 simple:
   name: 'Simple Graph'
   state: {}
+
+complex:
+  name: 'Complex Graph'
+  state: {}
