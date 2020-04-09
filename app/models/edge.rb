@@ -13,6 +13,10 @@ class Edge < ApplicationRecord
   after_update_commit { GraphBroadcastJob.perform_later graph, 'edge_update', as_json }
   after_destroy { GraphBroadcastJob.perform_later graph, 'edge_destroy' }
 
+  def self.simple(**kwargs)
+    new(text: default(:text), weight: 1, **kwargs)
+  end
+
   def as_json(options = {})
     super({ only: %i[id start_id finish_id text weight] }.merge(options))
   end

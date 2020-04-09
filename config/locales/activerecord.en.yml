@@ -8,3 +8,12 @@ en:
           no_start: Graph has no start node
           no_finish: Graph has no finish node
           multiple_starts: Graph has multiple start nodes
+    defaults:
+      models:
+        graph:
+          name: Simple graph
+        node:
+          name: Simple node
+          text: Simple node text
+        edge:
+          text: Simple edge text

@@ -28,6 +28,10 @@ class Node < ApplicationRecord
   after_update_commit { GraphBroadcastJob.perform_later graph, 'node_update', as_json }
   after_destroy { GraphBroadcastJob.perform_later graph, 'node_destroy' }
 
+  def self.simple(**kwargs)
+    new(html_x: 0, html_y: 0, name: default(:name), text: default(:text), **kwargs)
+  end
+
   def already_has_start?
     return unless graph.nodes.start.count >= 1 && start?
     errors[:base] << error(:multiple_starts)

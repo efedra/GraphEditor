@@ -14,13 +14,19 @@ class Graph < ApplicationRecord
       .or(Edge.where(finish_id: nodes.select(:id)))
   end
 
-  # but it doesn't work:(
+  def self.simple(**kwargs)
+    new(name: default(:name), **kwargs)
+  end
+
   def self.create_simple
-    graph = new(name: 'Simple graph')
-    start = graph.nodes.new(html_x: 0, html_y: 0, kind: :start)
-    finish = graph.nodes.new(html_x: 0, html_y: 0, kind: :finish)
-    start.output_edges.new(finish: finish)
+    graph = simple
     graph.save
+    start = graph.nodes.start.simple
+    start.save
+    finish = graph.nodes.finish.simple
+    finish.save
+    Edge.simple(start: start, finish: finish).save
+
     graph
   end
 
