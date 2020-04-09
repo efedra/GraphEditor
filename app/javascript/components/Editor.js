@@ -57,7 +57,7 @@ export default class Editor extends React.Component {
     }
     handleClickCreate = ()=> {
         const NodeID= this.props.graph.nodes.length;
-        this.props.update({id:NodeID,x:50,y:50},'node',NodeID) /*ВЫЗЫВАЕМ ФУНКЦИЮ КОТОРАЯ ПОДНИМАЕТ НА ВЕРХ НАШ НОЫВЙ ГРАФ*/
+        this.props.update({id:NodeID,x:50,y:50},'node',NodeID)
     }
 
     render() {
