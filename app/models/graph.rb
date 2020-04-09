@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Graph < ApplicationRecord
-  has_many :nodes, dependent: :nullify
+  has_many :nodes, dependent: :destroy
   belongs_to :user
 
   validates :name, :state, presence: true
@@ -12,6 +12,16 @@ class Graph < ApplicationRecord
   def edges
     Edge.where(start_id: nodes.select(:id))
       .or(Edge.where(finish_id: nodes.select(:id)))
+  end
+
+  # but it doesn't work:(
+  def self.create_simple
+    graph = new(name: 'Simple graph')
+    start = graph.nodes.new(html_x: 0, html_y: 0, kind: :start)
+    finish = graph.nodes.new(html_x: 0, html_y: 0, kind: :finish)
+    start.output_edges.new(finish: finish)
+    graph.save
+    graph
   end
 
   def self.random_graph

@@ -46,3 +46,39 @@ complex_finish2:
   html_y: 0
   kind: finish
   graph: complex
+
+
+graph_without_edges_start:
+  name: Start
+  html_x: 0
+  html_y: 0
+  kind: start
+  graph: graph_without_edges
+
+graph_without_edges_finish:
+  name: Finish
+  html_x: 0
+  html_y: 0
+  kind: finish
+  graph: graph_without_edges
+
+one_path_start:
+  name: Start One Path
+  html_x: 0
+  html_y: 0
+  kind: start
+  graph: one_path
+
+one_path_intermediate:
+  name: Intermediate One Path
+  html_x: 0
+  html_y: 0
+  kind: intermediate
+  graph: one_path
+
+one_path_finish:
+  name: Finish One Path
+  html_x: 0
+  html_y: 0
+  kind: finish
+  graph: one_path

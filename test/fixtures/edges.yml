@@ -51,3 +51,15 @@ complex_edge8:
   weight: 1
   start: complex_finish2
   finish: complex_int1
+
+one_path_edge1:
+  text: Edge1
+  weight: 1
+  start: one_path_start
+  finish: one_path_intermediate
+
+one_path_edge2:
+  text: Edge2
+  weight: 1
+  start: one_path_intermediate
+  finish: one_path_finish

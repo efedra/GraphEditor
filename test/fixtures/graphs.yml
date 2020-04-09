@@ -1,7 +1,15 @@
 simple:
-  name: 'Simple Graph'
+  name: Simple Graph
+  state: {}
+
+graph_without_edges:
+  name: Graph without edges
   state: {}
 
 complex:
-  name: 'Complex Graph'
+  name: Complex Graph
+  state: {}
+
+one_path:
+  name: One finish
   state: {}

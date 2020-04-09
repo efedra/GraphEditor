@@ -2,5 +2,9 @@ en:
   activerecord:
     errors:
       models:
-        node:
+        edge:
           nodes_belong_to_different_graphs: start and finish nodes must belong to the same graph
+        node:
+          no_start: Graph has no start node
+          no_finish: Graph has no finish node
+          multiple_starts: Graph has multiple start nodes
