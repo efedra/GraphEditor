@@ -28,7 +28,7 @@ class Api::EdgesController < Api::BaseController
   private
 
   def graph
-    @graph ||= Graph.find(params[:graph_id])
+    @graph ||= current_user.graphs.find(params[:graph_id])
   end
 
   def edge
