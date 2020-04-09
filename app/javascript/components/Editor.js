@@ -1,5 +1,6 @@
 import React from "react";
-import { CompactPicker } from 'react-color';
+import {CompactPicker} from 'react-color';
+
 export default class Editor extends React.Component {
 
     constructor(props) {
@@ -27,7 +28,7 @@ export default class Editor extends React.Component {
         })
     }
 
-    handleColorChange(color,e) {
+    handleColorChange(color, e) {
         this.handleChange({
             type: this.props.element.elementType, elementId: this.props.element.elementId,
             data: {color: color.hex}
@@ -47,12 +48,18 @@ export default class Editor extends React.Component {
             data: {strokeWidth: parseInt(e.target.value)}
         })
     }
-    handleStrokeColorChange(color,e){
+
+    handleStrokeColorChange(color, e) {
         this.handleChange({
             type: this.props.element.elementType, elementId: this.props.element.elementId,
             data: {strokeColor: color.hex}
         })
     }
+    handleClickCreate = ()=> {
+        const NodeID= this.props.graph.nodes.length;
+        this.props.update({id:NodeID,x:50,y:50},'node',NodeID) /*ВЫЗЫВАЕМ ФУНКЦИЮ КОТОРАЯ ПОДНИМАЕТ НА ВЕРХ НАШ НОЫВЙ ГРАФ*/
+    }
+
     render() {
         function buildFieldSet(element, owner) {
             if (element.data !== undefined) {
@@ -66,10 +73,10 @@ export default class Editor extends React.Component {
                            value={element.data.y}
                            onChange={owner.handleYChange.bind(owner)}/>
                     <legend>Color</legend>
-                           <CompactPicker
-                               color = {element.data.color != null ? element.data.color.hex :'#fff'}
-                               onChange={owner.handleColorChange.bind(owner)}
-                           />
+                    <CompactPicker
+                        color={element.data.color != null ? element.data.color.hex : '#fff'}
+                        onChange={owner.handleColorChange.bind(owner)}
+                    />
                     <legend>Font Size</legend>
                     <input type="number"
                            value={element.data.fontSize != null ? element.data.fontSize : 8}
@@ -80,8 +87,8 @@ export default class Editor extends React.Component {
                            onChange={owner.handleStrokeWidthChange.bind(owner)}/>
                     <legend>Stroke Color</legend>
                     <CompactPicker
-                        color = {element.data.strokeColor != null ? element.data.color.hex : '#fff'}
-                        onChange={owner. handleStrokeColorChange.bind(owner)}
+                        color={element.data.strokeColor != null ? element.data.strokeColor.hex : '#fff'}
+                        onChange={owner.handleStrokeColorChange.bind(owner)}
                     />
                 </fieldset>
             }
@@ -90,12 +97,18 @@ export default class Editor extends React.Component {
 
         if (this.props.element != null) {
             return <div className='Editor'>
-                <div>{this.props.element.elementType} {this.props.element.elementId}</div>
+                <div>{this.props.element.elementType} {this.props.element.elementId}
+                    <button onClick={ this.handleClickCreate} >Create node</button>
+                    <button>Delete node</button>
+                </div>
                 {buildFieldSet(this.props.element, this)}
-
             </div>;
         } else {
-            return <div></div>;
+            return <div>
+                <button onClick={ this.handleClickCreate}>Create node</button>
+                <button>Delete node</button>
+
+            </div>;
         }
 
     }
