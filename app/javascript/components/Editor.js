@@ -87,7 +87,7 @@ export default class Editor extends React.Component {
                            onChange={owner.handleStrokeWidthChange.bind(owner)}/>
                     <legend>Stroke Color</legend>
                     <CompactPicker
-                        color={element.data.strokeColor != null ? element.data.strokeColor.hex : '#fff'}
+                        color = {element.data.strokeColor != null ? element.data.strokeColor.hex : '#fff'}
                         onChange={owner.handleStrokeColorChange.bind(owner)}
                     />
                 </fieldset>
