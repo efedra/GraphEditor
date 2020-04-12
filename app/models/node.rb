@@ -18,24 +18,24 @@ class Node < ApplicationRecord
   enum kind: { start: 0, intermediate: 1, finish: 2, bad: 3 }
   liberal_enum :kind
 
-  # errors
-  validates :kind, presence: true, inclusion: { in: Node.kinds.keys }
-  validates :html_x, :html_y, presence: true, numericality: { only_integer: true }
-  before_create :already_has_start?
-  before_update :changes_last_start?,
-    :changes_last_finish?,
-    :changes_multiple_starts?
-  before_destroy :destroy_last_finish?,
-    :destroy_last_start?,
-    :destroy_any_finish_reachable?
+  # # errors
+  # validates :kind, presence: true, inclusion: { in: Node.kinds.keys }
+  # validates :html_x, :html_y, presence: true, numericality: { only_integer: true }
+  # before_create :already_has_start?
+  # before_update :changes_last_start?,
+  #   :changes_last_finish?,
+  #   :changes_multiple_starts?
+  # before_destroy :destroy_last_finish?,
+  #   :destroy_last_start?,
+  #   :destroy_any_finish_reachable?
 
-  # warnings
-  before_create :creation_increase_components?,
-    :create_deadlock_state?,
-    :create_terminal_not_finish_state?
-  before_destroy :deletion_increase_components?,
-    :deletion_makes_deadlock_state?,
-    :deletion_makes_terminal_not_finish_state?
+  # # warnings
+  # before_create :creation_increase_components?,
+  #   :create_deadlock_state?,
+  #   :create_terminal_not_finish_state?
+  # before_destroy :deletion_increase_components?,
+  #   :deletion_makes_deadlock_state?,
+  #   :deletion_makes_terminal_not_finish_state?
 
   after_create_commit { GraphBroadcastJob.perform_later graph, 'node_create', as_json }
   after_update_commit { GraphBroadcastJob.perform_later graph, 'node_update', as_json }

@@ -1,0 +1,30 @@
+one:
+  user: owner
+  graph: simple
+
+two:
+  user: owner
+  graph: graph_without_edges
+
+three:
+  user: owner
+  graph: complex
+
+four:
+  user: owner
+  graph: one_path
+
+one1:
+  user: admin
+  graph: simple
+  role: admin
+
+one2:
+  user: editor
+  graph: simple
+  role: editor
+
+one3:
+  user: viewer
+  graph: simple
+  role: viewer

@@ -36,11 +36,11 @@ ActiveRecord::Schema.define(version: 2020_04_12_131011) do
   create_table "graphs_users", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "graph_id"
-    t.integer "scope", default: 0, null: false
+    t.integer "role", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["graph_id"], name: "index_graphs_users_on_graph_id"
-    t.index ["scope"], name: "index_graphs_users_on_scope"
+    t.index ["role"], name: "index_graphs_users_on_role"
     t.index ["user_id", "graph_id"], name: "index_graphs_users_on_user_id_and_graph_id", unique: true
     t.index ["user_id"], name: "index_graphs_users_on_user_id"
   end

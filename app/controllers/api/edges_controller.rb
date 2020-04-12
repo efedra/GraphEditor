@@ -2,25 +2,29 @@
 
 class Api::EdgesController < Api::BaseController
   def index
+    authorize graph, policy_class: EdgePolicy
     render json: graph.edges.distinct.all
   end
 
   def show
-    render json: graph.edges.find(params[:id])
+    authorize edge
+    render json: edge
   end
 
   def create
-    @edge = graph.edges.create(edge_params)
+    @edge = authorize graph.edges.new(edge_params)
     edge.save!
     render json: edge, status: :created
   end
 
   def update
+    authorize edge
     edge.update!(edge_params)
     render json: edge
   end
 
   def destroy
+    authorize edge
     edge.destroy!
     head :no_content
   end

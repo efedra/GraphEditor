@@ -27,7 +27,7 @@ class Api::BaseController < ApplicationController
   end
 
   rescue_from Pundit::NotAuthorizedError do |err|
-    message = err.reason ? I18n.t("pundit.errors.#{err.reason}") : err.message
+    message = err.class.method_defined?(:reason) ? I18n.t("pundit.errors.#{err.reason}") : err.message
     handle_error message, :forbidden
   end
 
