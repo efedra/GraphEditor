@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_07_151015) do
+ActiveRecord::Schema.define(version: 2020_04_12_131011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,8 +31,18 @@ ActiveRecord::Schema.define(version: 2020_04_07_151015) do
     t.jsonb "state", default: "{}", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "graphs_users", force: :cascade do |t|
     t.bigint "user_id"
-    t.index ["user_id"], name: "index_graphs_on_user_id"
+    t.bigint "graph_id"
+    t.integer "scope", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["graph_id"], name: "index_graphs_users_on_graph_id"
+    t.index ["scope"], name: "index_graphs_users_on_scope"
+    t.index ["user_id", "graph_id"], name: "index_graphs_users_on_user_id_and_graph_id", unique: true
+    t.index ["user_id"], name: "index_graphs_users_on_user_id"
   end
 
   create_table "nodes", force: :cascade do |t|
@@ -61,6 +71,7 @@ ActiveRecord::Schema.define(version: 2020_04_07_151015) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "graphs", "users"
+  add_foreign_key "graphs_users", "graphs"
+  add_foreign_key "graphs_users", "users"
   add_foreign_key "nodes", "graphs"
 end

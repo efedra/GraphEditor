@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::BaseController < ApplicationController
+  include Pundit
+  after_action :verify_authorized
   before_action :authenticate_user!
 
   # TODO: Feel free to remove, just an examples
@@ -22,6 +24,11 @@ class Api::BaseController < ApplicationController
       error = I18n.t('errors.db_error', errors: err.to_s)
     end
     handle_error error, :unprocessable_entity
+  end
+
+  rescue_from Pundit::NotAuthorizedError do |err|
+    message = err.reason ? I18n.t("pundit.errors.#{err.reason}") : err.message
+    handle_error message, :forbidden
   end
 
   def log_intro

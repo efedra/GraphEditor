@@ -2,7 +2,8 @@
 
 class Graph < ApplicationRecord
   has_many :nodes, dependent: :destroy
-  belongs_to :user
+  has_many :graphs_users, dependent: :destroy, inverse_of: :graph
+  has_many :users, through: :graphs_users
 
   validates :name, :state, presence: true
 
@@ -11,6 +12,10 @@ class Graph < ApplicationRecord
 
   before_create :state_contains_dub_keys?
   before_update :state_contains_dub_keys?
+
+  def owner
+    users.find_by(graphs_users: { scope: :owner })
+  end
 
   def edges
     Edge.where(start_id: nodes.select(:id))
