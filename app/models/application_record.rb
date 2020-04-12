@@ -3,6 +3,7 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
   delegate :t, to: :class
+  include HasWarnings
 
   class << self
     def t(key, opts = {})
@@ -21,5 +22,9 @@ class ApplicationRecord < ActiveRecord::Base
 
   def error(key, opts = {})
     t(".errors.models.#{self.class.name.underscore}.#{key}", opts)
+  end
+
+  def warn(key, opts = {})
+    t(".warnings.models.#{self.class.name.underscore}.#{key}", opts)
   end
 end

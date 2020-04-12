@@ -9,6 +9,9 @@ class Graph < ApplicationRecord
   after_update_commit { GraphBroadcastJob.perform_later self, 'graph_update', as_json }
   after_destroy { GraphBroadcastJob.perform_later self, 'graph_destroy' }
 
+  before_create :state_contains_dub_keys?
+  before_update :state_contains_dub_keys?
+
   def edges
     Edge.where(start_id: nodes.select(:id))
       .or(Edge.where(finish_id: nodes.select(:id)))
@@ -66,5 +69,10 @@ class Graph < ApplicationRecord
       clean_edges << edge unless clean_edges.any? { |x| x[:source] == edge[:source] && x[:target] == edge[:target] }
     end
     { nodes: nodes, links: clean_edges }
+  end
+
+  def state_contains_dub_keys?
+    return unless state.scan(/"(.*?)"\s?:/).flatten.group_by { |x| x }.any? { |_k, v| v.size >= 2 }
+    warnings.add(:state, warn('state.dup_keys'))
   end
 end
