@@ -15,7 +15,7 @@ class Api::BaseController < ApplicationController
     handle_error I18n.t('errors.not_found_error', id: err.id, model: err.model), :not_found
   end
 
-  rescue_from(ActiveRecord::RecordInvalid) do |err|
+  rescue_from(ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved, ActiveRecord::RecordNotDestroyed) do |err|
     if err.record.present?
       error = err.record.errors
     else
