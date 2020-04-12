@@ -44,7 +44,10 @@ class App extends React.Component {
                 elementType: elementType, elementId: elementId, data:oldElement}});
     }
 
-
+    updateGraph=(graph,elementType, elementId)=>{
+        this.setState({graph:this.state.graph.nodes.push(graph)});
+        this.handleEditorChange(elementType,elementId)
+    }
 
 render() {
     if (this.state.graph != null)
@@ -56,7 +59,10 @@ render() {
             </div>
             <div className='EditorArea'>
                 <Editor element = {this.state.element}
-                        onChange = {this.handleEditorChange}/>
+                        onChange = {this.handleEditorChange}
+                        graph = {this.state.graph}
+                        update = {this.updateGraph}
+                />
             </div>
         </div>);
     } else
