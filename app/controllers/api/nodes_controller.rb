@@ -36,6 +36,6 @@ class Api::NodesController < Api::BaseController
   end
 
   def node_params
-    params.require(:node).permit(:name, text: nil)
+    params.require(:node).permit(:name, :html_x, :html_y, :kind, text: nil, html_color: nil)
   end
 end

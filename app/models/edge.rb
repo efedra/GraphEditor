@@ -6,8 +6,8 @@ class Edge < ApplicationRecord
 
   validates :start, :finish, presence: true
 
-  after_create_commit { GraphBroadcastJob.perform_later graph, 'edge_create', self.as_json }
-  after_update_commit { GraphBroadcastJob.perform_later graph, 'edge_update', self.as_json }
+  after_create_commit { GraphBroadcastJob.perform_later graph, 'edge_create', as_json }
+  after_update_commit { GraphBroadcastJob.perform_later graph, 'edge_update', as_json }
   after_destroy { GraphBroadcastJob.perform_later graph, 'edge_destroy' }
 
   def as_json(options = {})
