@@ -52,14 +52,32 @@ complex_edge8:
   start: complex_finish2
   finish: complex_int1
 
-one_path_edge1:
-  text: Edge1
+deadlock1:
+  text: deadlock1
   weight: 1
-  start: one_path_start
-  finish: one_path_intermediate
+  start: deadlock_start
+  finish: deadlock1
 
-one_path_edge2:
-  text: Edge2
+deadlock2:
+  text: deadlock2
   weight: 1
-  start: one_path_intermediate
-  finish: one_path_finish
+  start: deadlock1
+  finish: deadlock2
+
+deadlock3:
+  text: deadlock3
+  weight: 1
+  start: deadlock2
+  finish: deadlock3
+
+deadlock4:
+  text: deadlock4
+  weight: 1
+  start: deadlock3
+  finish: deadlock_finish
+
+deadlock5:
+  text: deadlock5
+  weight: 1
+  start: deadlock3
+  finish: deadlock1

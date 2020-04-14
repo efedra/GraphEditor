@@ -1,15 +1,14 @@
 simple:
   name: Simple Graph
-  state: {}
-
-graph_without_edges:
-  name: Graph without edges
-  state: {}
+  state: "{}"
+  user: one
 
 complex:
   name: Complex Graph
-  state: {}
+  state: "{}"
+  user: one
 
-one_path:
-  name: One finish
-  state: {}
+deadlock:
+  name: Deadlock Graph
+  state: "{}"
+  user: one

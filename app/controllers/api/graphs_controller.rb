@@ -28,6 +28,11 @@ class Api::GraphsController < Api::BaseController
     head :no_content
   end
 
+  def validate
+    return head :no_content if graph.valid?(:graph_structure)
+    render json: { errors: graph.errors }
+  end
+
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
