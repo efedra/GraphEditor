@@ -7,6 +7,9 @@ Rails.application.routes.draw do
       get :validate, on: :member
       resources :nodes, only: %i[index create show update destroy]
       resources :edges, only: %i[index create show update destroy]
+      resources :members, only: %i[index show create update destroy] do
+        delete :unsubscribe, on: :collection
+      end
     end
   end
 

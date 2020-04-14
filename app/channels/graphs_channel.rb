@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GraphsChannel < ApplicationCable::Channel
   def subscribed
     stream_from current_graph

@@ -2,7 +2,8 @@
 
 class Graph < ApplicationRecord
   has_many :nodes, dependent: :destroy
-  belongs_to :user
+  has_many :graphs_users, dependent: :destroy, inverse_of: :graph
+  has_many :members, through: :graphs_users
 
   validates :name, :state, presence: true
   validate :state_contains_dub_keys?
@@ -19,23 +20,32 @@ class Graph < ApplicationRecord
   after_update_commit { GraphBroadcastJob.perform_later self, 'graph_update', as_json }
   after_destroy { GraphBroadcastJob.perform_later self, 'graph_destroy' }
 
+  before_create :state_contains_dub_keys?
+  before_update :state_contains_dub_keys?
+
+  def owner
+    members.find_by(graphs_users: { role: :owner })
+  end
+
   def edges
     Edge.where(start_id: nodes.select(:id))
       .or(Edge.where(finish_id: nodes.select(:id)))
   end
 
-  def self.simple(**kwargs)
-    new(name: default(:name), **kwargs)
+  def self.simple(*args, **kwargs)
+    graph = new(*args, **kwargs)
+    graph.name ||= default(:name)
+    graph
   end
 
-  def self.create_simple
-    graph = simple
-    graph.save
+  def self.create_simple!(*args, **kwargs)
+    graph = simple(*args, **kwargs)
+    graph.save!
     start = graph.nodes.start.simple
-    start.save
+    start.save!
     finish = graph.nodes.finish.simple
-    finish.save
-    Edge.simple(start: start, finish: finish).save
+    finish.save!
+    Edge.simple(start: start, finish: finish).save!
 
     graph
   end

@@ -1,0 +1,4 @@
+en:
+  controllers:
+    api/members:
+      invalid_role: 'Role "%{role}" invalid. Available roles: %{roles}'

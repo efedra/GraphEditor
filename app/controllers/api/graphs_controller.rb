@@ -2,28 +2,30 @@
 
 class Api::GraphsController < Api::BaseController
   def index
+    authorize Graph
     render json: current_user.graphs.all
   end
 
   def show
-    graph = current_user.graphs.find(params[:id])
-    nodes = graph.nodes
-    edges = graph.edges
-    render json: { graph: graph, nodes: nodes, edges: edges }
+    authorize graph
+    render_graph
   end
 
   def create
-    @graph = current_user.graphs.create(graph_params)
-    graph.save!
-    render json: graph, status: :created
+    authorize Graph
+    @graph = current_user.graphs.create_simple!(graph_params)
+    graph.graphs_users.create!(user: current_user)
+    render_graph status: :created
   end
 
   def update
+    authorize graph
     graph.update!(graph_params)
     render json: graph
   end
 
   def destroy
+    authorize graph
     graph.destroy!
     head :no_content
   end
@@ -34,6 +36,12 @@ class Api::GraphsController < Api::BaseController
   end
 
   private
+
+  def render_graph(**kwargs)
+    nodes = graph.nodes
+    edges = graph.edges
+    render json: { graph: graph, nodes: nodes, edges: edges }, **kwargs
+  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def graph_params
