@@ -3,7 +3,6 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
   delegate :t, to: :class
-  include HasWarnings
 
   class << self
     def t(key, opts = {})
