@@ -14,3 +14,4 @@ class Graph < ApplicationRecord
       .or(Edge.where(finish_id: nodes.select(:id)))
   end
 end
+

@@ -10,4 +10,5 @@ Rails.application.routes.draw do
     end
 
   root 'home#index'
+  get 'test-graph', to: 'home#test_graph'
 end
