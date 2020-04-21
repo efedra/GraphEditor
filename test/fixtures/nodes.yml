@@ -1,0 +1,83 @@
+start:
+  name: Start
+  html_x: 0
+  html_y: 0
+  kind: start
+  graph: simple
+
+finish:
+  name: Finish
+  html_x: 0
+  html_y: 0
+  kind: finish
+  graph: simple
+
+complex_start:
+  name: Complex start
+  html_x: 0
+  html_y: 0
+  kind: start
+  graph: complex
+
+complex_int1:
+  name: Complex int 1
+  html_x: 0
+  html_y: 0
+  kind: intermediate
+  graph: complex
+
+complex_int2:
+  name: Complex int 2
+  html_x: 0
+  html_y: 0
+  kind: intermediate
+  graph: complex
+
+complex_finish1:
+  name: Complex finish 1
+  html_x: 0
+  html_y: 0
+  kind: finish
+  graph: complex
+
+complex_finish2:
+  name: Complex finish 2
+  html_x: 0
+  html_y: 0
+  kind: finish
+  graph: complex
+
+deadlock_start:
+  name: Deadlock start
+  html_x: 0
+  html_y: 0
+  kind: start
+  graph: deadlock
+
+deadlock1:
+  name: Deadlock 1
+  html_x: 0
+  html_y: 0
+  kind: intermediate
+  graph: deadlock
+
+deadlock2:
+  name: Deadlock 1
+  html_x: 0
+  html_y: 0
+  kind: intermediate
+  graph: deadlock
+
+deadlock3:
+  name: Deadlock 1
+  html_x: 0
+  html_y: 0
+  kind: intermediate
+  graph: deadlock
+
+deadlock_finish:
+  name: Deadlock finish
+  html_x: 0
+  html_y: 0
+  kind: finish
+  graph: deadlock

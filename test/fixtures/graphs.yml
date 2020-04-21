@@ -1,3 +1,11 @@
 simple:
-  name: 'Simple Graph'
-  state: {}
+  name: Simple Graph
+  state: "{}"
+
+complex:
+  name: Complex Graph
+  state: "{}"
+
+deadlock:
+  name: Deadlock Graph
+  state: "{}"

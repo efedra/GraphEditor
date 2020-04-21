@@ -133,6 +133,8 @@ GEM
     public_suffix (4.0.1)
     puma (4.3.0)
       nio4r (~> 2.0)
+    pundit (2.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.7)
     rack-proxy (0.6.5)
       rack
@@ -254,6 +256,7 @@ DEPENDENCIES
   pry-nav
   pry-remote
   puma (~> 4.1)
+  pundit
   rails (~> 6.0.1)
   rubocop (~> 0.75.0)
   rubocop-rails (~> 2.3.2)

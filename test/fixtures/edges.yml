@@ -1,0 +1,83 @@
+first:
+  text: Default Edge
+  weight: 1
+  start: start
+  finish: finish
+
+complex_edge1:
+  text: Edge1
+  weight: 1
+  start: complex_start
+  finish: complex_finish1
+
+complex_edge2:
+  text: Edge2
+  weight: 1
+  start: complex_start
+  finish: complex_int1
+
+complex_edge3:
+  text: Edge3
+  weight: 1
+  start: complex_start
+  finish: complex_int2
+
+complex_edge4:
+  text: Edge4
+  weight: 1
+  start: complex_int1
+  finish: complex_finish1
+
+complex_edge5:
+  text: Edge5
+  weight: 1
+  start: complex_int2
+  finish: complex_finish1
+
+complex_edge6:
+  text: Edge6
+  weight: 1
+  start: complex_int1
+  finish: complex_int2
+
+complex_edge7:
+  text: Edge7
+  weight: 1
+  start: complex_int2
+  finish: complex_finish2
+
+complex_edge8:
+  text: Edge8
+  weight: 1
+  start: complex_finish2
+  finish: complex_int1
+
+deadlock1:
+  text: deadlock1
+  weight: 1
+  start: deadlock_start
+  finish: deadlock1
+
+deadlock2:
+  text: deadlock2
+  weight: 1
+  start: deadlock1
+  finish: deadlock2
+
+deadlock3:
+  text: deadlock3
+  weight: 1
+  start: deadlock2
+  finish: deadlock3
+
+deadlock4:
+  text: deadlock4
+  weight: 1
+  start: deadlock3
+  finish: deadlock_finish
+
+deadlock5:
+  text: deadlock5
+  weight: 1
+  start: deadlock3
+  finish: deadlock1

@@ -1,0 +1,4 @@
+en:
+  pundit:
+    errors:
+      not_authorized: You must be logged in
