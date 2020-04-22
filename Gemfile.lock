@@ -97,6 +97,7 @@ GEM
     jaro_winkler (1.5.4)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
+    lexeme (0.0.6)
     loofah (2.3.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -251,6 +252,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   jbuilder (~> 2.7)
+  lexeme
   pg (>= 0.18, < 2.0)
   pry
   pry-nav
