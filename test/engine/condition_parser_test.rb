@@ -4,7 +4,7 @@ require 'quest_engine/engine'
 class ConditionParserTest < ActiveSupport::TestCase
   setup do
     @state = { a: false, x: 0 }
-    @parser = ConditionParser.new
+    @parser = QuestEngine::ConditionParser.new
   end
 
   test 'checks zero delimiters' do
