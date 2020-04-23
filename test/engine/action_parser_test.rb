@@ -46,7 +46,7 @@ class ActionParserTest < ActiveSupport::TestCase
     assert_equal 2, @state[:x]
   end
 
-  test 'performs sigle action with variable and operation' do
+  test 'performs single action with variable and operation' do
     @parser.perform(@state, 'x =  health - 1')
     assert_equal @state[:health] - 1, @state[:x]
   end
