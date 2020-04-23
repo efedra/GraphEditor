@@ -3,7 +3,7 @@ require 'quest_engine/engine'
 
 class ConditionParserTest < ActiveSupport::TestCase
   setup do
-    @state = {a: false, x: 0}
+    @state = { a: false, x: 0 }
     @parser = ConditionParser.new
   end
 
