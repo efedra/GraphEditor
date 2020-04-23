@@ -1,10 +1,9 @@
 require 'test_helper'
-require 'quest_engine/engine'
 
 class ActionParserTest < ActiveSupport::TestCase
   setup do
     @state = {a: false, x: 0, health: 5}
-    @parser = ActionParser.new
+    @parser = QuestEngine::ActionParser.new
   end
 
   test 'checks key in left hand side' do
