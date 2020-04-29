@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'random-graph', to: 'home#new_graph'
   get 'editor', to: 'home#editor'
+  get 'player', to: 'home#player'
 end

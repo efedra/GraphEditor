@@ -65,7 +65,7 @@ export default class GraphPanel extends React.Component {
         };
 
 
-        return <div className="GraphPanel">
+        return <div className="GraphPanel .flex-shrink">
             <Graph
                 id="graph-id" // id is mandatory, if no id is defined rd3g will throw an error
                 data={this.state.graph}

@@ -2,12 +2,13 @@
 
 class Api::GraphsController < Api::BaseController
   def index
-    authorize Graph
+   # authorize Graph
     render json: current_user.graphs.all
+    render json: Graph.all
   end
 
   def show
-    authorize graph
+ #   authorize graph
     render_graph
   end
 

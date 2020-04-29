@@ -3,6 +3,10 @@
 class Node < ApplicationRecord
   include LiberalEnum
 
+  KIND_START = 0
+  KIND_INTERMEDIATE = 1
+  KIND_END = 2
+
   belongs_to :graph
   has_many :output_edges,
     foreign_key: :start_id,

@@ -2,8 +2,8 @@
 
 class Api::BaseController < ApplicationController
   include Pundit
-  after_action :verify_authorized
-  before_action :authenticate_user!
+  #after_action :verify_authorized
+ # before_action :authenticate_user!
 
   # TODO: Feel free to remove, just an examples
   before_action :log_intro

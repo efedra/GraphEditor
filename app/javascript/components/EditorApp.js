@@ -1,8 +1,8 @@
 import React from "react";
-import GraphPanel from '../components/GraphPanel'
-import Editor from "../components/Editor";
+import GraphPanel from './GraphPanel'
+import Editor from "./Editor";
 
-class App extends React.Component {
+class EditorApp extends React.Component {
 
     constructor(props) {
         super(props);
@@ -47,17 +47,17 @@ class App extends React.Component {
     updateGraph=(graph,elementType, elementId)=>{
         this.setState({graph:this.state.graph.nodes.push(graph)});
         this.handleEditorChange(elementType,elementId)
-    }
+    };
 
 render() {
     if (this.state.graph != null)
     {
-        return (<div className='App'>
-            <div className='WorkArea'>
+        return (<div className='flex h-screen'>
+            <div className='flex-auto flex-col sm:flex-row '>
                 <GraphPanel graph = {this.state.graph}
                             onChange = {this.handleGraphChange}/>
             </div>
-            <div className='EditorArea'>
+            <div className='bg-blue-300 flex-auto flex-col sm:flex-row' >
                 <Editor element = {this.state.element}
                         onChange = {this.handleEditorChange}
                         graph = {this.state.graph}
@@ -73,5 +73,5 @@ render() {
 }
 
 
-export default App;
+export default EditorApp;
 
