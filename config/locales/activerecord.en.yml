@@ -1,0 +1,23 @@
+en:
+  activerecord:
+    errors:
+      models:
+        edge:
+          nodes_belong_to_different_graphs: start and finish nodes must belong to the same graph
+        graph:
+          no_start: Graph has no start node
+          no_finish: Graph has no finish node
+          multiple_starts: Graph has more than one start
+          no_reachable_finish: No one finish reachable
+          multiply_components: Graph has more than one components
+          deadlocks: Graph has deadlocks
+          terminal_non_finish: Graph has terminal states that no finish
+    defaults:
+      models:
+        graph:
+          name: Simple graph
+        node:
+          name: Simple node
+          text: Simple node text
+        edge:
+          text: Simple edge text

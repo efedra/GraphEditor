@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_13_080545) do
+ActiveRecord::Schema.define(version: 2020_04_12_131011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,8 +31,18 @@ ActiveRecord::Schema.define(version: 2020_03_13_080545) do
     t.jsonb "state", default: "{}", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "graphs_users", force: :cascade do |t|
     t.bigint "user_id"
-    t.index ["user_id"], name: "index_graphs_on_user_id"
+    t.bigint "graph_id"
+    t.integer "role", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["graph_id"], name: "index_graphs_users_on_graph_id"
+    t.index ["role"], name: "index_graphs_users_on_role"
+    t.index ["user_id", "graph_id"], name: "index_graphs_users_on_user_id_and_graph_id", unique: true
+    t.index ["user_id"], name: "index_graphs_users_on_user_id"
   end
 
   create_table "nodes", force: :cascade do |t|
@@ -41,7 +51,12 @@ ActiveRecord::Schema.define(version: 2020_03_13_080545) do
     t.bigint "graph_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "html_x"
+    t.integer "html_y"
+    t.string "html_color"
+    t.integer "kind", default: 0, null: false
     t.index ["graph_id"], name: "index_nodes_on_graph_id"
+    t.index ["kind"], name: "index_nodes_on_kind"
   end
 
   create_table "users", force: :cascade do |t|
@@ -56,6 +71,7 @@ ActiveRecord::Schema.define(version: 2020_03_13_080545) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "graphs", "users"
+  add_foreign_key "graphs_users", "graphs"
+  add_foreign_key "graphs_users", "users"
   add_foreign_key "nodes", "graphs"
 end

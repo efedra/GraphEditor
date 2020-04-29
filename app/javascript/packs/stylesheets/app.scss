@@ -1,0 +1,44 @@
+$graph-width: 70%;
+html, body, #root {
+  width: 100%;
+  height: 100%;
+}
+
+.App {
+    width: 100%;
+    height: 100%;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+.WorkArea{
+  float: left;
+  width: $graph-width;
+  height: 100%;
+}
+.EditorArea{
+  float: right;
+  width: 100-$graph-width;
+  height: 100%;
+  background-color: #730E15;
+  color: white;
+}
+.GraphPanel { display: -ms-flex; display: -webkit-flex; display: flex;   height: 100% }
+.GraphPanel>div { flex:1; }
+.GraphPanel>div>svg { flex:1; }

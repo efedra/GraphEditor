@@ -1,46 +1,461 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-            name="description"
-            content="Web site created using create-react-app"
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta
+    name="AutoQuests Home Page"
+    content="AutoQuests Home Page"
     />
-    <link rel="apple-touch-icon" href="logo192.png" />
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+  <title>AutoQuests</title>
+  <style>
+    .gradient {
+      background: linear-gradient(90deg, #000046 0%, #1cb5e0 100%);
+    }
+  </style>
 </head>
-<body>
-<noscript>You need to enable JavaScript to run this app.</noscript>
-<div id="root"></div>
-<!--
-  This HTML file is a template.
-  If you open it directly in the browser, you will see an empty page.
 
-  You can add webfonts, meta tags, or analytics to this file.
-  The build step will place the bundled scripts into the <body> tag.
 
-  To begin the development, run `npm start` or `yarn start`.
-  To create a production bundle, use `npm run build` or `yarn build`.
--->
+<body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
+
+<!--Nav-->
+<nav id="header" class="fixed w-full z-30 top-0 text-white">
+
+  <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
+
+    <div class="pl-4 flex items-center">
+      <a class="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl"  href="#">
+       AutoQuests
+      </a>
+    </div>
+
+    <div class="block lg:hidden pr-4">
+      <button id="nav-toggle" class="flex items-center p-1 text-orange-800 hover:text-gray-900">
+        <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+      </button>
+    </div>
+
+    <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20" id="nav-content">
+      <ul class="list-reset lg:flex justify-end flex-1 items-center">
+        <li class="mr-3">
+
+          <a class="inline-block py-2 px-4 text-black no-underline" href="#">
+
+            Source</a>
+        </li>
+        <li class="mr-3">
+          <a class="inline-block py-2 px-4 text-black no-underline " href="#">
+            Docs</a>
+        </li>
+        <li class="mr-3">
+      </ul>
+      <button id="navAction" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75">
+        Login
+      </button>
+    </div>
+  </div>
+
+  <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
+</nav>
+
+<!--Hero-->
+<div class="pt-24">
+
+  <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+    <!--Left Col-->
+    <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
+      <h1 class="my-4 text-5xl font-bold leading-tight">Online tool for story-driven games and complex tests</h1>
+      <p class="leading-normal text-2xl mb-8">Visualise story as graph and build mechanics by actions and conditions</p>
+
+
+
+      <button class="z-40 mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg">
+        <a href="/editor" class="no-underline hover:underline text-gray-800">Play example</a>
+      </button>
+
+    </div>
+    <!--Right Col-->
+    <div class="w-full md:w-3/5 py-6 text-center">
+     <!-- <img class="w-full md:w-4/5 z-50" src="hero.png">-->
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="relative -mt-12 lg:-mt-24">
+  <svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <g transform="translate(-2.000000, 44.000000)" fill="#FFFFFF" fill-rule="nonzero">
+        <path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496" opacity="0.100000001"></path>
+        <path d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z" opacity="0.100000001"></path>
+        <path d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z" id="Path-4" opacity="0.200000003"></path>
+      </g>
+      <g transform="translate(-4.000000, 76.000000)" fill="#FFFFFF" fill-rule="nonzero">
+        <path d="M0.457,34.035 C57.086,53.198 98.208,65.809 123.822,71.865 C181.454,85.495 234.295,90.29 272.033,93.459 C311.355,96.759 396.635,95.801 461.025,91.663 C486.76,90.01 518.727,86.372 556.926,80.752 C595.747,74.596 622.372,70.008 636.799,66.991 C663.913,61.324 712.501,49.503 727.605,46.128 C780.47,34.317 818.839,22.532 856.324,15.904 C922.689,4.169 955.676,2.522 1011.185,0.432 C1060.705,1.477 1097.39,3.129 1121.236,5.387 C1161.703,9.219 1208.621,17.821 1235.4,22.304 C1285.855,30.748 1354.351,47.432 1440.886,72.354 L1441.191,104.352 L1.121,104.031 L0.457,34.035 Z"></path>
+      </g>
+    </g>
+  </svg>
+</div>
+
+
+
+<section class="bg-white border-b py-8">
+  <div class="container max-w-5xl mx-auto m-8">
+    <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">How it works?</h1>
+    <div class="w-full mb-4">
+      <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+    </div>
+
+    <div class="flex flex-wrap">
+      <div class="w-5/6 sm:w-1/2 p-6">
+        <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">Make multiple choice quizzes with state </h3>
+        <p class="text-gray-600 mb-8">Easy way to implement tricky features like mind map travelling.
+          <br /><br />
+        </p>
+
+      </div>
+      <div class="w-full sm:w-1/2 p-6">
+        <svg  class="w-full sm:h-64 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1036.89861 660">
+          <title>quiz</title>
+          <rect x="45.02923" y="494.17018" width="785.45192" height="2.78529" fill="#3f3d56"/>
+          <rect width="899.86782" height="437.90359" fill="#3f3d56"/>
+          <path d="M981.41852,153.68489V141.65457H953.74878V120H941.71847v21.65457H121.25075V120H109.22043v21.65457H81.55069v12.03032h27.66974V524.2187H81.55069V536.249h27.66974v21.65457h12.03032V536.249H941.71847v21.65457h12.03031V536.249h27.66974V524.2187H953.74878V153.68489Zm-39.7,370.53381H121.25075V153.68489H941.71847Z" transform="translate(-81.55069 -120)" opacity="0.1"/>
+          <rect x="397.73891" y="57.74553" width="141.88698" height="134.9673" fill="#d0cde1"/>
+          <rect x="413.86243" y="73.86905" width="109.63994" height="83.84231" fill="#6c63ff"/>
+          <rect x="437.98851" y="87.64755" width="38.437" height="38.437" fill="#f2f2f2"/>
+          <path d="M534.25342,217.2593v46.67356H580.927V217.2593Zm44.64908,44.649H536.27789V219.28377H578.9025Z" transform="translate(-81.55069 -120)" fill="#3f3d56"/><rect x="413.75384" y="166.03325" width="59.63671" height="3.13877" fill="#f2f2f2"/>
+          <circle cx="468.68239" cy="65.59246" r="6.27755" fill="#3f3d56"/>
+          <rect x="451.25154" y="252.40895" width="141.88698" height="134.9673" fill="#d0cde1"/>
+          <rect x="467.37506" y="268.53247" width="109.63994" height="83.84231" fill="#6c63ff"/>
+          <rect x="467.26648" y="362.26606" width="59.63671" height="3.13877" fill="#f2f2f2"/>
+          <rect x="467.26648" y="371.68238" width="59.63671" height="3.13877" fill="#f2f2f2"/>
+          <circle cx="486.88382" cy="310.47628" r="12.5551" fill="#3f3d56"/>
+          <circle cx="522.19503" cy="310.47628" r="12.5551" fill="#f2f2f2"/>
+          <circle cx="557.50625" cy="310.47628" r="12.5551" fill="#ff6584"/>
+          <circle cx="522.19503" cy="260.25589" r="6.27755" fill="#3f3d56"/>
+          <rect x="234.10182" y="210.23848" width="141.88698" height="134.9673" fill="#d0cde1"/>
+          <rect x="250.22534" y="226.362" width="109.63994" height="83.84231" fill="#6c63ff"/>
+          <circle cx="297.7449" cy="278.08168" r="26.61894" fill="#f2f2f2"/>
+          <path d="M387.14143,418.61352a33.37392,33.37392,0,1,1,33.37392-33.37392A33.41168,33.41168,0,0,1,387.14143,418.61352Zm0-65.53424a32.16033,32.16033,0,1,0,32.16033,32.16032A32.19651,32.19651,0,0,0,387.14143,353.07928Z" transform="translate(-81.55069 -120)" fill="#3f3d56"/>
+          <rect x="250.11676" y="327.94252" width="59.63671" height="3.13877" fill="#f2f2f2"/>
+          <rect x="250.11676" y="318.5262" width="83.17752" height="3.13877" fill="#f2f2f2"/>
+          <circle cx="305.04531" cy="218.08542" r="6.27755" fill="#3f3d56"/>
+          <rect x="78.15325" y="55.33946" width="141.88698" height="134.9673" fill="#d0cde1"/>
+          <rect x="94.27677" y="71.46299" width="109.63994" height="83.84231" fill="#6c63ff"/>
+          <rect x="137.30344" y="137.09908" width="23.58659" height="6.98967" fill="#3f3d56"/>
+          <rect x="108.78832" y="82.67952" width="80.61684" height="2.99557" fill="#3f3d56"/>
+          <rect x="108.78832" y="92.1655" width="80.61684" height="2.99557" fill="#3f3d56"/>
+          <rect x="108.78832" y="101.65148" width="80.61684" height="2.99557" fill="#3f3d56"/>
+          <rect x="108.78832" y="111.13746" width="80.61684" height="2.99557" fill="#3f3d56"/>
+          <rect x="108.78832" y="120.62344" width="80.61684" height="2.99557" fill="#3f3d56"/>
+          <rect x="94.16818" y="163.62718" width="59.63671" height="3.13877" fill="#f2f2f2"/>
+          <rect x="94.16818" y="171.47412" width="83.17752" height="3.13877" fill="#f2f2f2"/>
+          <circle cx="149.09674" cy="63.1864" r="6.27755" fill="#3f3d56"/>
+          <path d="M736.34136,263.5099l102.75768,7.55L868.1588,273.195l-1.80455-1.80455,5.45746,78.94095,2.72873,39.47048c.11025,1.59476.22337,3.18935.33075,4.7843.08927,1.326.4544,2.60355-1.11626,2.9308-3.1231.65069-6.375.92164-9.53893,1.32092q-9.64688,1.21743-19.33725,2.04886a490.06,490.06,0,0,1-77.70424.48715q-9.69743-.71021-19.36133-1.80753c-2.396-.27191-5.3699-.374-6.24485-3.06059-.90221-2.77026-1.05707-5.91942-1.46487-8.79368q-2.72528-19.20842-3.71435-38.61375a443.03351,443.03351,0,0,1,2.73037-77.25819q.581-4.70689,1.26884-9.39932c.33136-2.27193-3.14569-3.25277-3.48017-.95945a446.73739,446.73739,0,0,0-4.45859,80.001q.69924,20.07207,3.21363,40.02566.63617,5.03973,1.38148,10.065c.39608,2.66571.49363,5.80938,2.08021,8.10011,1.5307,2.21007,4.1012,2.91906,6.62733,3.25582,3.21513.42861,6.45157.73575,9.67944,1.0507a489.84415,489.84415,0,0,0,80.6337,1.19277q10.14215-.6871,20.24992-1.79435,4.9792-.54577,9.94649-1.19372,2.43128-.31716,4.85969-.656a22.37512,22.37512,0,0,0,4.46666-.77769c3.0408-1.0963,3.03979-4.02934,2.85083-6.76264l-.70285-10.16663-1.40571-20.33328-5.66418-81.93114-.70286-10.16664a1.85761,1.85761,0,0,0-1.80454-1.80454l-102.75768-7.55-29.05976-2.13512c-2.31712-.17025-2.3063,3.43964,0,3.60909Z" transform="translate(-81.55069 -120)" fill="#d0cde1"/><path d="M780.37753,306.11775c.51883-1.37759-.78584,1.58957-.13064.27681.17412-.34888.33685-.70156.52146-1.04538a19.938,19.938,0,0,1,1.21978-1.98189c.4429-.63424,1.11587-.87887-.19388.22431a9.44307,9.44307,0,0,0,.76-.88085,22.19276,22.19276,0,0,1,1.95193-1.89242c.49473-.42459,1.43128-.78593-.24435.15444.33133-.186.63882-.46442.95535-.67724q.9737-.65463,2.00847-1.21164.5171-.27856,1.04726-.53188c.60014-.2868,1.59956-.38544-.28989.098.81106-.20751,1.59594-.59126,2.40714-.82152q1.034-.29351,2.09089-.49405c.62942-.11861,1.77166-.029-.37771.02041.38435-.00883.77774-.083,1.16237-.109a21.941,21.941,0,0,1,2.3288-.03489c.38807.015.77324.05348,1.16057.07661,1.28677.07684-1.94745-.35742-.00042.01354a19.65246,19.65246,0,0,1,2.25936.56993,8.60024,8.60024,0,0,0,1.10534.38783l-.99838-.43015q.36739.1596.728.334a20.08614,20.08614,0,0,1,2.08,1.16346c.33359.21337.65269.445.97986.6675,1.0273.6987-1.37676-1.17594.08013.10115q.74146.65,1.42243,1.36522.40885.42883.79486.87871c.43314.50441.76438,1.42567-.139-.22557.82691,1.51148,1.86035,2.88245,2.63913,4.44069.66429,1.32914-.60539-1.65088-.10088-.25161.136.37728.28226.74985.41061,1.13q.38509,1.14075.66457,2.31361c.18657.78308.27792,1.58253.44991,2.36621-.47335-2.15689-.12719-.9093-.08058-.32327q.06361.7997.07673,1.60234.016,1.00139-.04859,2.00226c-.02547.39066-.113.806-.10777,1.196-.0271-2.025.14657-1.01649.02064-.3363a22.68171,22.68171,0,0,1-.56036,2.33448q-.1715.5768-.3741,1.14342-.18006.50261-.37956.9978.58181-1.3554.09275-.25763c-1.99328,3.98659-4.47673,7.70371-6.43726,11.70413a53.40246,53.40246,0,0,0-4.67971,32.16207,7.22166,7.22166,0,0,0,3.31719,4.31382,7.37059,7.37059,0,0,0,5.562.72765c4.06859-1.31665,5.66815-4.86891,5.04146-8.87923-.22076-1.41272.11579,1.25968-.0286-.1628-.06192-.61005-.12384-1.219-.167-1.83078q-.12926-1.83419-.10533-3.6744.02021-1.57609.15156-3.14776a9.3298,9.3298,0,0,1,.18971-1.82894c-.00117.00389-.23251,1.45125-.07532.61815.06487-.34379.11114-.69191.1727-1.03649a44.59427,44.59427,0,0,1,1.79247-6.85428c.17323-.49616.36265-.98575.54522-1.47842.48191-1.30049-.50125,1.044.08123-.21473.51956-1.12281,1.05732-2.2309,1.649-3.31783,2.48482-4.56487,5.29537-8.842,7.1056-13.752a28.85557,28.85557,0,0,0,1.60166-12.0305c-.66969-8.41857-4.23915-16.96036-10.89178-22.411a28.40744,28.40744,0,0,0-25.0969-5.71855A30.00658,30.00658,0,0,0,766.45683,302.28c-1.33341,3.54049,1.47926,8.06787,5.04147,8.87923,4.10613.93524,7.45156-1.25067,8.87923-5.04147Z" transform="translate(-81.55069 -120)" fill="#d0cde1"/><path d="M805.59589,392.11633a6,6,0,1,0-6-6,6.06754,6.06754,0,0,0,6,6Z" transform="translate(-81.55069 -120)" fill="#d0cde1"/>
+          <rect x="39.7895" y="481.98978" width="33.68489" height="33.68489" fill="#6c63ff"/>
+          <path d="M175.47663,616.42616H134.57355V575.52308h40.90308Zm-39.12469-1.77839h37.34629V577.30148H136.35194Z" transform="translate(-81.55069 -120)" fill="#3f3d56"/><path d="M905.026,420.15645l-4.81212,14.43638s-30.0758,34.88792-8.42123,39.70005,24.06064-37.294,24.06064-37.294l6.01516-12.03032Z" transform="translate(-81.55069 -120)" fill="#ffb8b8"/>
+          <path d="M938.71089,245.71683s-7.2182-1.203-9.62426,27.66973-3.60909,79.4001-3.60909,79.4001L897.8078,423.76554l34.88793,10.82729,16.84244-80.60314Z" transform="translate(-81.55069 -120)" fill="#575a89"/>
+          <polygon points="841.521 555.199 837.912 578.057 870.394 578.057 869.191 555.199 841.521 555.199" fill="#ffb8b8"/>
+          <polygon points="946.185 580.463 943.778 611.742 965.433 614.148 965.433 578.057 946.185 580.463" fill="#ffb8b8"/>
+          <path d="M936.30482,376.8473,908.63509,535.6475l7.21819,144.36382h37.294V548.88085l36.09095-67.36978L1018.111,565.7233l7.21819,140.75473,40.90308-7.2182L1056.608,562.1142s-7.21819-182.86084-14.43639-185.2669S936.30482,376.8473,936.30482,376.8473Z" transform="translate(-81.55069 -120)" fill="#2f2e41"/><path d="M926.68057,690.83861s0-12.03032-9.62426-4.81213S895.40174,706.478,895.40174,706.478s-45.71521,25.26366-13.23335,28.87276,52.9334-16.84245,52.9334-16.84245l3.6091,3.6091s19.2485-3.6091,19.2485-8.42122a92.88949,92.88949,0,0,0-1.203-12.03032s-2.5303-20.40612-5.47576-16.21822S931.49269,698.0568,926.68057,690.83861Z" transform="translate(-81.55069 -120)" fill="#2f2e41"/>
+          <path d="M1048.18678,724.5235s-21.65457-10.82728-26.4667-1.203-8.42122,28.87277-8.42122,28.87277S997.65945,782.269,1025.32918,779.863s26.4667-18.04548,26.4667-21.65457-1.203-12.03032,0-15.63942S1048.18678,724.5235,1048.18678,724.5235Z" transform="translate(-81.55069 -120)" fill="#2f2e41"/><circle cx="919.11633" cy="44.51218" r="33.68489" fill="#ffb8b8"/><polygon points="896.86 60.753 895.657 104.062 938.966 100.453 938.966 60.753 896.86 60.753" fill="#ffb8b8"/>
+          <path d="M1022.92311,198.79859s-20.45154,13.23335-26.4667,15.63941-19.24851-9.62425-19.24851-9.62425-3.60909,2.40606-3.60909,4.81212-2.40606,12.03032-2.40606,12.03032L942.32,316.69571l2.40606,67.36978s87.82133,8.42122,97.44558-2.40606-4.81212-166.0184-4.81212-166.0184Z" transform="translate(-81.55069 -120)" fill="#d0cde1"/><path d="M1016.908,224.06225s-32.48186,12.03032-43.30915,1.203C973.59881,225.26529,989.23822,228.87438,1016.908,224.06225Z" transform="translate(-81.55069 -120)" opacity="0.1"/><path d="M1102.32322,485.12017c-13.23335,8.42122-56.5425,19.24851-56.5425,19.24851s-4.728-101.83661-21.65457-117.89713c-16.83041-15.98826-44.30776-131.25081-19.59744-151.29329a3.70257,3.70257,0,0,1,.34893-.28872l15.63941-36.091s2.40606-3.6091,7.21819,1.203a131.36557,131.36557,0,0,1,10.82729,13.23335l.68581.27667,32.99908,12.95668-13.23335,58.94856S1115.55657,476.69894,1102.32322,485.12017Z" transform="translate(-81.55069 -120)" fill="#575a89"/><path d="M1039.24834,213.51164l-9.107,33.40822-25.6126-11.7416a3.70257,3.70257,0,0,1,.34893-.28872l15.63941-36.091s2.40606-3.6091,7.21819,1.203a131.36557,131.36557,0,0,1,10.82729,13.23335Z" transform="translate(-81.55069 -120)" opacity="0.1"/><path d="M976.60639,204.21223l-3.6091,40.90308-.19238,1.86469L945.32756,508.57929s-24.06064-8.42123-32.48186-18.04548,19.24851-116.69409,19.24851-116.69409l2.40606-134.73957s21.34178-15.02585,30.06376-23.27871c2.04509-1.92482,3.39263-3.4767,3.62114-4.391C969.3882,206.61829,976.60639,204.21223,976.60639,204.21223Z" transform="translate(-81.55069 -120)" fill="#575a89"/><path d="M976.60639,204.21223l-3.6091,40.90308-.19238,1.86469-17.25158-2.4662,9.0107-28.69236c2.04509-1.92482,3.39263-3.4767,3.62114-4.391C969.3882,206.61829,976.60639,204.21223,976.60639,204.21223Z" transform="translate(-81.55069 -120)" opacity="0.1"/><path d="M1040.96859,406.9231l-13.23335,12.03031s6.01516,25.26367,13.23335,26.4667c0,0,4.81213-7.21819,6.01516-13.23335s12.03032-12.03031,12.03032-12.03031Z" transform="translate(-81.55069 -120)" fill="#ffb8b8"/><path d="M1056.608,224.06225l15.63941,2.40607s51.73037,87.82132,45.71521,119.10015-54.13643,85.41526-54.13643,85.41526l-30.0758-24.06063,44.51218-60.1516L1055.405,274.58959Z" transform="translate(-81.55069 -120)" fill="#575a89"/><path d="M966.90608,168.29567s0-29.70655,7.21893-36.458h8.66271s10.1065-14.85328,23.10057-9.45209,34.65086,14.85328,33.20708,29.70655-5.94648,24.45041-5.94648,24.45041-2.40607,0-7.76912-8.07466c-7.16647-10.78991,9.38461-7.42664-12.27218-11.47753s-34.65086-9.45209-37.53843-4.0509S966.90608,168.29567,966.90608,168.29567Z" transform="translate(-81.55069 -120)" fill="#2f2e41"/><path d="M982.645,133.85359s1.15374-8.68188,5.90311-10.55126Z" transform="translate(-81.55069 -120)" fill="#2f2e41"/>
+          <path d="M982.62423,135.63951s-2.40982-8.42015,1.19767-12.03086Z" transform="translate(-81.55069 -120)" fill="#2f2e41"/>
+
+        </svg>
+      </div>
+    </div>
+
+
+    <div class="flex flex-wrap flex-col-reverse sm:flex-row">
+      <div class="w-full sm:w-1/2 p-6 mt-6">
+          <svg class="w-5/6 sm:h-64 mx-auto" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 808.3072 759.92455">
+            <title>game_world</title>
+            <path d="M665.53842,566.71628v263.246H1004.1536v-263.246Zm294.39781,70.3986h-26.2257V610.88911h26.2257Z" transform="translate(-195.8464 -70.03773)" fill="#3f3d56"/>
+            <rect y="496.67855" width="441.29204" height="68.81534" fill="#3f3d56"/>
+            <rect y="593.89388" width="441.29204" height="68.81534" fill="#3f3d56"/>
+            <rect y="691.1092" width="441.29204" height="68.81534" fill="#3f3d56"/>
+            <rect x="78.64611" y="164.61722" width="21.84614" height="28.39998" fill="#3f3d56"/>
+            <rect x="838.12293" y="453.11635" width="21.84614" height="28.39998" transform="translate(1120.51594 -451.76739) rotate(90)" fill="#3f3d56"/>
+            <polygon points="310.172 593.894 441.292 593.894 441.292 662.709 270.444 662.709 310.172 593.894" fill="#6c63ff"/>
+            <polygon points="254.038 691.109 441.292 691.109 441.292 759.925 214.311 759.925 254.038 691.109" fill="#6c63ff"/>
+            <path d="M520.12079,408.27932c-1.88053-1.88511-3.74726-3.83232-5.54891-5.7881l1.95463-1.80078c1.77779,1.93131,3.61976,3.85291,5.4749,5.71252Z" transform="translate(-195.8464 -70.03773)" fill="#3f3d56"/>
+            <path d="M504.01188,390.024c-3.33467-4.28305-6.52882-8.75567-9.49325-13.29435l2.22366-1.4536c2.92555,4.47747,6.07649,8.89037,9.36628,13.11535Zm-17.85167-27.32984c-2.5791-4.77079-4.98983-9.7101-7.16589-14.67941l2.43437-1.06613c2.14613,4.90308,4.52414,9.77536,7.06832,14.48153Zm-13.0901-29.90189c-1.75375-5.12267-3.31794-10.38953-4.65073-15.65539l2.57622-.65217c1.31407,5.19614,2.85815,10.39289,4.58809,15.44682Zm-5.3918-32.0811-2.6195.44119c-.90176-5.35682-1.59232-10.80717-2.05289-16.19877l2.64774-.226C466.10775,290.04776,466.7889,295.42527,467.67831,300.71114Zm-2.73308-32.07865-2.65687.0071c-.0142-5.42342.19852-10.91367.63251-16.31838l2.649.21241C465.14106,257.866,464.93128,263.28235,464.94523,268.63249Zm2.58169-32.09108-2.6212-.4318c.88194-5.35295,2.00034-10.73691,3.324-16.00186l2.57692.64775C469.5004,225.94972,468.397,231.26077,467.52692,236.54141ZM823.281,159.64747c-2.97121-4.44357-6.1682-8.82119-9.50289-13.01175l2.07929-1.65435c3.38008,4.24788,6.62091,8.68508,9.63216,13.189Zm-347.901,45.649-2.51436-.858c1.7518-5.13076,3.7407-10.255,5.91136-15.23126l2.4348,1.06224C479.07061,195.17925,477.10815,200.235,475.38,205.29644Zm327.853-70.84479c-3.66449-3.89649-7.53771-7.69-11.512-11.27446l1.78-1.97325c4.028,3.63356,7.95344,7.47846,11.667,11.42758ZM488.259,175.77329l-2.34054-1.25877c2.57025-4.77777,5.36926-9.50646,8.32094-14.05648l2.22854,1.44549C493.55607,166.393,490.79389,171.05913,488.259,175.77329Zm291.06412-62.89c-4.25506-3.2483-8.69632-6.359-13.20087-9.24611l1.434-2.23688c4.565,2.92634,9.06648,6.07894,13.37873,9.37039Zm-273.53921,35.87-2.10286-1.623c3.31306-4.29263,6.84575-8.5014,10.49977-12.50894l1.96326,1.7899C512.5386,140.36586,509.05313,144.518,505.78386,148.75328ZM752.2093,95.50262c-4.72782-2.50984-9.618-4.8543-14.53361-6.96728l1.049-2.44151c4.98271,2.14233,9.93831,4.51779,14.73014,7.06155ZM527.47833,124.963l-1.8095-1.945c3.973-3.69575,8.14557-7.26809,12.40252-10.61821l1.64284,2.08811C535.51456,117.79263,531.39822,121.31715,527.47833,124.963ZM722.61884,82.78526c-5.08186-1.70375-10.29028-3.214-15.4804-4.48866l.63379-2.58084c5.261,1.29271,10.54011,2.8237,15.691,4.54982ZM552.7707,105.05962l-1.46536-2.2161c4.52333-2.98922,9.22559-5.82464,13.9767-8.427l1.276,2.33053C561.87143,99.31386,557.23243,102.11068,552.7707,105.05962ZM691.33934,75.10267c-5.283-.84124-10.66929-1.471-16.00873-1.87133l.19919-2.64906c5.41179.40554,10.87167,1.0436,16.22762,1.89655ZM580.99751,89.60093l-1.07813-2.42811c4.94964-2.19935,10.05919-4.2201,15.1854-6.0069l.87439,2.509C590.92169,85.43788,585.88154,87.43139,580.99751,89.60093Zm78.22471-16.90648c-5.33991.043-10.75482.31059-16.09406.79609l-.24024-2.64632c5.41141-.49148,10.90014-.76334,16.31269-.80649Zm-47.82413,6.3092-.66594-2.57224c5.242-1.35726,10.6294-2.51859,15.96465-3.44658l.45544,2.61807C621.88324,76.51814,616.57163,77.66486,611.39809,79.00365Z" transform="translate(-195.8464 -70.03773)" fill="#3f3d56"/>
+            <path d="M835.463,180.58292c-1.177-2.34827-2.41838-4.70464-3.69029-7.00359l2.3245-1.28674c1.28924,2.33063,2.548,4.7193,3.74049,7.09962Z" transform="translate(-195.8464 -70.03773)" fill="#3f3d56"/>
+            <path d="M906.7198,829.96227,782.57915,614.95253l-27.85383-48.23625L690.41027,455.301l-31.97184-55.369-31.97185,55.369-64.315,111.41532-27.85383,48.23625L522.4134,635.53162h114.725V566.71628h28.4v263.246Zm-159.28869-110.837A15.94179,15.94179,0,1,1,731.48932,735.067,15.96007,15.96007,0,0,1,747.43111,719.12524Zm-91.95386-209.4088L637.58912,490.5382l19.17824-17.88813,17.88813,19.17824Z" transform="translate(-195.8464 -70.03773)" fill="#6c63ff"/><circle cx="442.23692" cy="273.92007" r="13.28482" fill="#f2f2f2"/>
+            <path d="M653.37436,151.76816A131.07684,131.07684,0,1,0,806.87882,255.68475,131.07684,131.07684,0,0,0,653.37436,151.76816ZM641.09881,359.61179a15.94179,15.94179,0,1,1,12.63851-18.66947A15.96006,15.96006,0,0,1,641.09881,359.61179Zm88.32849-116.317-25.75225,4.96074-4.96075-25.75231,25.75225-4.96075Z" transform="translate(-195.8464 -70.03773)" fill="#f2f2f2"/>
+            <circle cx="207.58614" cy="360.73084" r="86.29225" fill="#2f2e41"/>
+            <polygon points="174.258 478.9 148.461 474.23 156.828 420.366 182.624 425.036 174.258 478.9" fill="#2f2e41"/>
+            <rect x="399.87381" y="501.70269" width="26.21537" height="46.9692" transform="translate(-95.68785 -135.2039) rotate(10.26106)" fill="#2f2e41"/>
+            <ellipse cx="413.29669" cy="554.10593" rx="8.1923" ry="21.84614" transform="translate(-472.49402 441.35533) rotate(-49.73894)" fill="#2f2e41"/><ellipse cx="362.77935" cy="552.60699" rx="8.1923" ry="21.84614" transform="translate(-489.2196 402.27494) rotate(-49.73894)" fill="#2f2e41"/>
+            <circle cx="213.62734" cy="339.62325" r="29.49229" fill="#fff"/>
+            <circle cx="225.74858" cy="329.05184" r="9.83076" fill="#3f3d56"/>
+            <path d="M335.36,336.89182c-1.29768-31.94668,26.23575-59.00572,61.49764-60.43807s64.89929,23.30439,66.197,55.25106S439.8408,370.91,404.5789,372.34239,336.65769,368.83849,335.36,336.89182Z" transform="translate(-195.8464 -70.03773)" fill="#6c63ff"/>
+            <ellipse cx="483.11149" cy="415.04754" rx="43.14613" ry="13.5449" transform="translate(-276.36496 48.39164) rotate(-12.9101)" fill="#2f2e41"/>
+            <ellipse cx="313.72306" cy="443.21658" rx="43.14613" ry="13.5449" transform="translate(-286.94037 11.2586) rotate(-12.9101)" fill="#2f2e41"/>
+            <path d="M379.73233,464.77525A19.66152,19.66152,0,0,0,418.42646,471.78c1.93431-10.68509-6.32705-14.46611-17.01214-16.40042S381.66664,454.09016,379.73233,464.77525Z" transform="translate(-195.8464 -70.03773)" fill="#fff"/></svg>
+      </div>
+      <div class="w-full sm:w-1/2 p-6 mt-6">
+        <div class="align-middle">
+          <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">Build Story Driven games with mutable state</h3>
+          <p class="text-gray-600 mb-8">
+            Create as many variables as you need and use them for Actions and Conditions. Add illustrations to each step of your game.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="bg-gray-100 py-8">
+
+  <div class="container mx-auto flex flex-wrap pt-4 pb-12">
+
+    <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">Featured Quests</h1>
+    <div class="w-full mb-4">
+      <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+    </div>
+
+    <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+      <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
+        <a href="#" class="flex flex-wrap no-underline hover:no-underline">
+          <p class="w-full text-gray-600 text-xs md:text-sm px-6">Simple Quiz</p>
+          <div class="w-full font-bold text-xl text-gray-800 px-6">Simple quiz with overall score</div>
+          <p class="text-gray-800 text-base px-6 mb-5">
+            Multiple choice quiz
+          </p>
+        </a>
+      </div>
+      <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+        <div class="flex items-center justify-center">
+          <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg">
+            Play
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+      <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
+        <a href="#" class="flex flex-wrap no-underline hover:no-underline">
+          <p class="w-full text-gray-600 text-xs md:text-sm px-6">How actions works</p>
+          <div class="w-full font-bold text-xl text-gray-800 px-6">Quest Example 2</div>
+          <p class="text-gray-800 text-base px-6 mb-5">
+            Simple Quest with actions
+          </p>
+        </a>
+      </div>
+      <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+        <div class="flex items-center justify-center">
+          <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg">Play</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+      <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
+        <a href="#" class="flex flex-wrap no-underline hover:no-underline">
+          <p class="w-full text-gray-600 text-xs md:text-sm px-6">How conditions works</p>
+          <div class="w-full font-bold text-xl text-gray-800 px-6">Quest Example 2</div>
+          <p class="text-gray-800 text-base px-6 mb-5">
+            Simple Quest with conditions
+          </p>
+        </a>
+      </div>
+      <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+        <div class="flex items-center justify-center">
+          <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg">Play</button>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</section>
+
+<!-- Change the colour #f8fafc to match the previous section colour -->
+<svg class="wave-top" viewBox="0 0 1439 147" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g transform="translate(-1.000000, -14.000000)" fill-rule="nonzero">
+      <g class="wave" fill="#f8fafc">
+        <path d="M1440,84 C1383.555,64.3 1342.555,51.3 1317,45 C1259.5,30.824 1206.707,25.526 1169,22 C1129.711,18.326 1044.426,18.475 980,22 C954.25,23.409 922.25,26.742 884,32 C845.122,37.787 818.455,42.121 804,45 C776.833,50.41 728.136,61.77 713,65 C660.023,76.309 621.544,87.729 584,94 C517.525,105.104 484.525,106.438 429,108 C379.49,106.484 342.823,104.484 319,102 C278.571,97.783 231.737,88.736 205,84 C154.629,75.076 86.296,57.743 0,32 L0,0 L1440,0 L1440,84 Z"></path>
+      </g>
+      <g transform="translate(1.000000, 15.000000)" fill="#FFFFFF">
+        <g transform="translate(719.500000, 68.500000) rotate(-180.000000) translate(-719.500000, -68.500000) ">
+          <path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496" opacity="0.100000001"></path>
+          <path d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z" opacity="0.100000001"></path>
+          <path d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z" opacity="0.200000003"></path>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
+
+<section class="container mx-auto text-center py-6 mb-12">
+
+  <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Create your own stories</h1>
+  <div class="w-full mb-4">
+    <div class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
+  </div>
+
+  <h3 class="my-4 text-3xl leading-tight">There are templates for starters</h3>
+
+  <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg">View Templates</button>
+
+</section>
+
+
+<!--Footer-->
+<footer class="bg-white">
+  <div class="container mx-auto  px-8">
+
+    <div class="w-full flex flex-col md:flex-row py-6">
+
+      <div class="flex-1 mb-6">
+
+        <a class="text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl"  href="#">
+          AutoQuests
+        </a>
+      </div>
+
+
+      <div class="flex-1">
+        <p class="uppercase text-gray-500 md:mb-6">Links</p>
+        <ul class="list-reset mb-6">
+          <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+            <a href="https://github.com/efedra/GraphEditor" class="no-underline hover:underline text-gray-800 hover:text-orange-500">Source</a>
+          </li>
+          <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+            <a href="https://github.com/efedra/GraphEditor" class="no-underline hover:underline text-gray-800 hover:text-orange-500">Docs</a>
+          </li>
+        </ul>
+      </div>
+      <div class="flex-1">
+        <p class="uppercase text-gray-500 md:mb-6">Images and Vectors from</p>
+        <ul class="list-reset mb-6">
+          <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+            <a href="https://www.freepik.com/" target="_blank" class="no-underline hover:underline text-gray-800 hover:text-orange-500">Freepic.com</a>
+          </li>
+          <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+            <a href="https://undraw.co" target="_blank" class="no-underline hover:underline text-gray-800 hover:text-orange-500">Undraw.co</a>
+          </li>
+        </ul>
+      </div>
+      <div class="flex-1">
+        <p class="uppercase text-gray-500 md:mb-6">Made By</p>
+        <ul class="list-reset mb-6">
+          <li class="mt-2 inline-block mr-2 md:block md:mr-0">
+            <a href="https://mmcs.sfedu.ru/" target="_blank"  class="no-underline hover:underline text-gray-800 hover:text-orange-500">SFEDU MMCS Students</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+</footer>
+
+<script>
+
+    let scrollpos = window.scrollY;
+    let header = document.getElementById("header");
+    let navcontent = document.getElementById("nav-content");
+    let navaction = document.getElementById("navAction");
+    let brandname = document.getElementById("brandname");
+    let toToggle = document.querySelectorAll(".toggleColour");
+
+    document.addEventListener('scroll', function() {
+
+        /*Apply classes for slide in bar*/
+        scrollpos = window.scrollY;
+
+        if(scrollpos > 10){
+            header.classList.add("bg-white");
+            navaction.classList.remove("bg-white");
+            navaction.classList.add("gradient");
+            navaction.classList.remove("text-gray-800");
+            navaction.classList.add("text-white");
+            //Use to switch toggleColour colours
+            for (var i = 0; i < toToggle.length; i++) {
+                toToggle[i].classList.add("text-gray-800");
+                toToggle[i].classList.remove("text-white");
+            }
+            header.classList.add("shadow");
+            navcontent.classList.remove("bg-gray-100");
+            navcontent.classList.add("bg-white");
+        }
+        else {
+            header.classList.remove("bg-white");
+            navaction.classList.remove("gradient");
+            navaction.classList.add("bg-white");
+            navaction.classList.remove("text-white");
+            navaction.classList.add("text-gray-800");
+            //Use to switch toggleColour colours
+            for (var i = 0; i < toToggle.length; i++) {
+                toToggle[i].classList.add("text-white");
+                toToggle[i].classList.remove("text-gray-800");
+            }
+
+            header.classList.remove("shadow");
+            navcontent.classList.remove("bg-white");
+            navcontent.classList.add("bg-gray-100");
+
+        }
+
+    });
+
+
+</script>
+
+<script>
+
+
+
+
+    let navMenuDiv = document.getElementById("nav-content");
+    let navMenu = document.getElementById("nav-toggle");
+
+    document.onclick = check;
+    function check(e){
+        let target = (e && e.target) || (event && event.srcElement);
+
+        //Nav Menu
+        if (!checkParent(target, navMenuDiv)) {
+            // click NOT on the menu
+            if (checkParent(target, navMenu)) {
+                // click on the link
+                if (navMenuDiv.classList.contains("hidden")) {
+                    navMenuDiv.classList.remove("hidden");
+                } else {navMenuDiv.classList.add("hidden");}
+            } else {
+                // click both outside link and outside menu, hide menu
+                navMenuDiv.classList.add("hidden");
+            }
+        }
+
+    }
+    function checkParent(t, elm) {
+        while(t.parentNode) {
+            if( t == elm ) {return true;}
+            t = t.parentNode;
+        }
+        return false;
+    }
+</script>
+
+
 </body>
 </html>

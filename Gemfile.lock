@@ -97,7 +97,11 @@ GEM
     jaro_winkler (1.5.4)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
+
     lazy_priority_queue (0.1.1)
+
+    lexeme (0.0.6)
+
     loofah (2.3.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -134,6 +138,8 @@ GEM
     public_suffix (4.0.1)
     puma (4.3.0)
       nio4r (~> 2.0)
+    pundit (2.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.7)
     rack-proxy (0.6.5)
       rack
@@ -254,11 +260,13 @@ DEPENDENCIES
   devise
   dotenv-rails
   jbuilder (~> 2.7)
+  lexeme
   pg (>= 0.18, < 2.0)
   pry
   pry-nav
   pry-remote
   puma (~> 4.1)
+  pundit
   rails (~> 6.0.1)
   rgl
   rubocop (~> 0.75.0)

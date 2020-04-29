@@ -1,0 +1,17 @@
+one:
+  email: 'one@mail.ru'
+
+owner:
+  email: owner@autoquests.com
+
+other:
+  email: other@mail.ru
+
+viewer:
+  email: viewer@mail.ru
+
+editor:
+  email: editor@mail.ru
+
+admin:
+  email: admin@mail.ru
