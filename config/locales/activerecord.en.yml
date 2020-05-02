@@ -12,6 +12,9 @@ en:
           multiply_components: Graph has more than one components
           deadlocks: Graph has deadlocks
           terminal_non_finish: Graph has terminal states that no finish
+          state:
+            is_not_json: State must be json-object
+            nested_hash: State must not contain hash-objects
     defaults:
       models:
         graph:

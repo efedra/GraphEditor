@@ -45,7 +45,7 @@ class Api::GraphsController < Api::BaseController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def graph_params
-    params.require(:graph).permit(:name, :state)
+    params.require(:graph).except(:id, :created_at, :updated_at).permit!
   end
 
   def graph

@@ -5,8 +5,9 @@ class Graph < ApplicationRecord
   has_many :graphs_users, dependent: :destroy, inverse_of: :graph
   has_many :members, through: :graphs_users
 
-  validates :name, :state, presence: true
-  validate :state_contains_dub_keys?
+  validates :name, presence: true
+  validate :state_is_json?
+  validate :state_one_depth?
 
   with_options on: :graph_structure do
     validate :one_start?
@@ -19,9 +20,6 @@ class Graph < ApplicationRecord
 
   after_update_commit { GraphBroadcastJob.perform_later self, 'graph_update', as_json }
   after_destroy { GraphBroadcastJob.perform_later self, 'graph_destroy' }
-
-  before_create :state_contains_dub_keys?
-  before_update :state_contains_dub_keys?
 
   def owner
     members.find_by(graphs_users: { role: :owner })
@@ -88,9 +86,14 @@ class Graph < ApplicationRecord
     { nodes: nodes, links: clean_edges }
   end
 
-  def state_contains_dub_keys?
-    return unless state.scan(/"(.*?)"\s?:/).flatten.group_by { |x| x }.any? { |_k, v| v.size >= 2 }
-    warnings.add(:state, warn('state.dup_keys'))
+  def state_is_json?
+    return if state.is_a? Hash
+    errors.add(:state, error('state.is_not_json'))
+    throw :abort
+  end
+
+  def state_one_depth?
+    errors.add(:state, error('state.nested_hash')) if state.values.any? { |key| key.is_a? Hash }
   end
 
   def one_start?

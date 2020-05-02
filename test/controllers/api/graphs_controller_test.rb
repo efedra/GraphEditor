@@ -6,7 +6,7 @@ class Api::GraphsControllerTest < ActionDispatch::IntegrationTest
   setup do
     sign_in(users(:owner))
     @graph = graphs(:simple)
-    @data = { graph: { name: 'New Graph', state: '{"health": 1}' } }
+    @data = { graph: { name: 'New Graph', state: { "health": 1 } } }
   end
 
   test "should get index" do

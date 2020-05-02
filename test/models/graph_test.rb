@@ -7,6 +7,16 @@ class GraphTest < ActiveSupport::TestCase
     @graph = graphs(:complex)
   end
 
+  test "should invalid with state:string" do
+    @graph.state = "{a: 1}"
+    assert_not @graph.valid?
+  end
+
+  test "should invalid with nested hash in state" do
+    @graph.state = { a: 1, b: { c: 2 }, e: 3 }
+    assert_not @graph.valid?
+  end
+
   test "should correctly count nodes" do
     assert_equal(@graph.nodes.count, 5)
   end
