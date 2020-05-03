@@ -3,3 +3,6 @@ en:
     not_found_error: Couldn't find %{model} with 'id'=%{id}
     db_error: 'There is something wrong with your request, here is what we know: %{errors}'
     parameter_missing_error: 'Required parameter missing: %{param}'
+    graph:
+      validation_pending: Graph already pending validation
+      validation_processing: Graph already in processing validation

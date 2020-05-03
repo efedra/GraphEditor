@@ -1,21 +1,24 @@
 # frozen_string_literal: true
 
 class Graph < ApplicationRecord
+  include LiberalEnum
+
   has_many :nodes, dependent: :destroy
   has_many :graphs_users, dependent: :destroy, inverse_of: :graph
   has_many :members, through: :graphs_users
 
+  enum status: { undefined: 0, valid: 1, invalid: 2, pending: 3, processing: 4 }, _suffix: true
+
   validates :name, presence: true
   validate :state_is_json?
-  validate :state_one_depth?
+  validate :state_nested_json?
 
   with_options on: :graph_structure do
     validate :one_start?
     validate :finishes?
-    validate :any_finish_reachable?
-    validate :one_component?
-    validate :deadlocks?
-    validate :terminal_non_finish?
+    validate do |graph|
+      GraphStructureValidator.new(graph).validate
+    end
   end
 
   after_update_commit { GraphBroadcastJob.perform_later self, 'graph_update', as_json }
@@ -88,37 +91,36 @@ class Graph < ApplicationRecord
 
   def state_is_json?
     return if state.is_a? Hash
-    errors.add(:state, error('state.is_not_json'))
+
+    api_error(:is_not_json,
+      opts: { type: state.class },
+      column: :state,
+      state: {
+        value: state,
+        type: state.class.to_s
+      })
     throw :abort
   end
 
-  def state_one_depth?
-    errors.add(:state, error('state.nested_hash')) if state.values.any? { |key| key.is_a? Hash }
+  def state_nested_json?
+    disallowed_types = [Hash] # maybe disallow arrays
+    nested_disallowed = state.filter { |_, value| disallowed_types.include? value.class }
+    return if nested_disallowed.blank?
+    nested_disallowed = nested_disallowed.map { |key, value| { key: key, value: value, type: value.class.to_s } }
+    api_error(:nested_json,
+      column: :state,
+      values: nested_disallowed)
   end
 
   def one_start?
     start_count = nodes.start.count
-    errors[:base] << error(:no_start) if start_count == 0
-    errors[:base] << [:multiple_starts, error(:multiple_starts), nodes.start.pluck(:id)] if start_count > 1
+    return if start_count == 1
+    api_error(:no_start) if start_count == 0
+    api_error(:multiple_starts, start_nodes: nodes.start.pluck(:id)) if start_count > 1
+    throw :abort
   end
 
   def finishes?
-    errors[:base] << error(:no_finish) if nodes.finish.count == 0
-  end
-
-  def any_finish_reachable?
-    # errors[:base] << error(:no_reachable_finish)
-  end
-
-  def one_component?
-    # errors[:base] << error(:multiply_components)
-  end
-
-  def deadlocks?
-    # errors[:base] << error(:deadlocks)
-  end
-
-  def terminal_non_finish?
-    # errors[:base]<< error(:terminal_non_finish)
+    api_error(:no_finish) if nodes.finish.count == 0
   end
 end

@@ -31,8 +31,18 @@ class Api::GraphsController < Api::BaseController
   end
 
   def validate
-    return head :no_content if graph.valid?(:graph_structure)
-    render json: { errors: graph.errors }
+    authorize graph
+    if %i[pending processing].include? graph.status.to_sym
+      error = {
+        type: :graph_locked,
+        message: I18n.t("errors.graph.validation_#{graph.status}"),
+        graph_status: graph.status
+      }
+      return handle_error error, :locked
+    end
+    graph.pending_status!
+    GraphValidationJob.perform_later(graph)
+    head :no_content
   end
 
   private
@@ -45,7 +55,11 @@ class Api::GraphsController < Api::BaseController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def graph_params
-    params.require(:graph).except(:id, :created_at, :updated_at).permit!
+    allowed_columns = %i[name state]
+    disallowed_columns = Graph.column_names.map(&:to_sym) - allowed_columns
+    # I cant permit :state becouse this is a hash/json object
+    # so i must expect all unallowed columns
+    params.require(:graph).except(*disallowed_columns).permit!
   end
 
   def graph
