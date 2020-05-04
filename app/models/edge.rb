@@ -21,7 +21,9 @@ class Edge < ApplicationRecord
 
   def nodes_belongs_to_same_graph?
     return if start.graph_id == finish.graph_id
-    errors[:base] << error(:nodes_belong_to_different_graphs)
+    api_error(:nodes_belong_to_different_graphs,
+      start: { id: start.id, graph_id: start.graph_id },
+      finish: { id: finish.id, graph_id: finish.graph_id })
     throw :abort
   end
 

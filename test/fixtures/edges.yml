@@ -46,12 +46,6 @@ complex_edge7:
   start: complex_int2
   finish: complex_finish2
 
-complex_edge8:
-  text: Edge8
-  weight: 1
-  start: complex_finish2
-  finish: complex_int1
-
 deadlock1:
   text: deadlock1
   weight: 1

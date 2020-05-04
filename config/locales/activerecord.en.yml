@@ -3,15 +3,22 @@ en:
     errors:
       models:
         edge:
-          nodes_belong_to_different_graphs: start and finish nodes must belong to the same graph
+          nodes_belong_to_different_graphs: Start and finish nodes must belong to the same graph
         graph:
           no_start: Graph has no start node
           no_finish: Graph has no finish node
           multiple_starts: Graph has more than one start
           no_reachable_finish: No one finish reachable
           multiply_components: Graph has more than one components
-          deadlocks: Graph has deadlocks
-          terminal_non_finish: Graph has terminal states that no finish
+          cycles: Graph has cycles
+          terminal_non_finish_nodes: Graph has terminal nodes that no finish
+          not_reachable_nodes: Graph has not reachable nodes
+          state:
+            is_not_json: State type "%{type}", but expected json-type
+            nested_json: State contains nested json
+        graphs_user:
+          role:
+            invalid: 'Role "%{role}" invalid. Available roles: %{roles}'
     defaults:
       models:
         graph:

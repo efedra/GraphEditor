@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Api::MembersController < Api::BaseController
-  before_action :validate_params, only: %i[create update]
-
   def index
     authorize graph_user
     render json: policy_scope(graph.graphs_users).all
@@ -16,13 +14,16 @@ class Api::MembersController < Api::BaseController
   def create
     authorize graph_user
     @member = graph.graphs_users.new(member_params)
+    @member.validate!(:sharing)
     member.save!
     render json: member, status: :created
   end
 
   def update
     authorize graph_user
-    member.update!(member_params.except(:user_id))
+    member.assign_attributes(member_params.except(:user_id))
+    member.validate!(:sharing)
+    member.save!
     render json: member
   end
 
@@ -43,12 +44,6 @@ class Api::MembersController < Api::BaseController
   # Never trust parameters from the scary internet, only allow the white list through.
   def member_params
     params.require(:member).permit(:user_id, :role)
-  end
-
-  def validate_params
-    roles = GraphsUser.roles.keys - ['owner']
-    return if roles.include? member_params[:role]
-    handle_error t('.invalid_role', role: member_params[:role], roles: roles.join(', ')), :unprocessable_entity
   end
 
   def member

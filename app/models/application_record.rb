@@ -23,7 +23,11 @@ class ApplicationRecord < ActiveRecord::Base
     t(".errors.models.#{self.class.name.underscore}.#{key}", opts)
   end
 
-  def warn(key, opts = {})
-    t(".warnings.models.#{self.class.name.underscore}.#{key}", opts)
+  def api_error(key, opts: {}, column: :base, **kwargs)
+    if column == :base
+      errors[:base] << { type: key, message: error(key, opts), **kwargs }
+    else
+      errors.add(column, type: key, message: error("#{column}.#{key}", opts), **kwargs)
+    end
   end
 end

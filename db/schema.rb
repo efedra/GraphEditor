@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_12_131011) do
+ActiveRecord::Schema.define(version: 2020_05_03_101034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,9 +28,12 @@ ActiveRecord::Schema.define(version: 2020_04_12_131011) do
 
   create_table "graphs", force: :cascade do |t|
     t.string "name"
-    t.jsonb "state", default: "{}", null: false
+    t.jsonb "state", default: {}, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "validated_at"
+    t.jsonb "validation_errors", default: {}, null: false
   end
 
   create_table "graphs_users", force: :cascade do |t|

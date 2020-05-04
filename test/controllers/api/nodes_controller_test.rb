@@ -26,7 +26,7 @@ class Api::NodesControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Node.count', 0) do
       post api_graph_nodes_url(@graph), params: { node: {} }
     end
-    assert_response 400
+    assert_response :bad_request
   end
 
   { editor: :success, owner: :success, admin: :success, viewer: :success }.each do |role, status|
