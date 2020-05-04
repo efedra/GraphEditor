@@ -124,3 +124,4 @@ class Graph < ApplicationRecord
     api_error(:no_finish) if nodes.finish.count == 0
   end
 end
+
