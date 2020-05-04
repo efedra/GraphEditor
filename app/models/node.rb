@@ -22,7 +22,9 @@ class Node < ApplicationRecord
   validates :html_x, :html_y, presence: true, numericality: { only_integer: true }
 
   after_create_commit { GraphBroadcastJob.perform_later graph, 'node_create', as_json }
-  after_update_commit { GraphBroadcastJob.perform_later graph, 'node_update', as_json }
+  after_update_commit do
+    GraphBroadcastJob.perform_later(graph, 'node_update', as_json) if saved_changes?
+  end
   after_destroy { GraphBroadcastJob.perform_later graph, 'node_destroy' }
 
   def self.simple(**kwargs)
