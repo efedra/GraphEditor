@@ -56,6 +56,10 @@ class Api::BaseController < ApplicationController
 
   def authenticate_user!
     return if current_user
-    handle_error I18n.t('devise.failure.unauthenticated'), :unauthorized
+    error = {
+      type: :unauthorized,
+      message: I18n.t('devise.failure.unauthenticated')
+    }
+    handle_error error, :unauthorized
   end
 end
