@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       end
     end
   end
-
+  resources :graphs, only: %i[show]
   root 'home#index'
   get 'random-graph', to: 'home#new_graph'
   get 'editor', to: 'home#editor'
