@@ -8,7 +8,9 @@ class Edge < ApplicationRecord
   before_create :nodes_belongs_to_same_graph?
 
   after_create_commit { GraphBroadcastJob.perform_later graph, 'edge_create', as_json }
-  after_update_commit { GraphBroadcastJob.perform_later graph, 'edge_update', as_json }
+  after_update_commit do
+    GraphBroadcastJob.perform_later(graph, 'edge_update', as_json) if saved_changes?
+  end
   after_destroy { GraphBroadcastJob.perform_later graph, 'edge_destroy' }
 
   def self.simple(**kwargs)
