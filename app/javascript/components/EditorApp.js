@@ -1,7 +1,9 @@
 import React from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import GraphPanel from './GraphPanel'
 import Editor from "./Editor";
-
+toast.configure()
 class EditorApp extends React.Component {
 
     constructor(props) {
@@ -22,10 +24,17 @@ class EditorApp extends React.Component {
         this.handleGraphChange = this.handleGraphChange.bind(this);
         this.handleEditorChange = this.handleEditorChange.bind(this);
     }
-    handleGraphChange(elementType, elementId) {
+    handleGraphChange(elementType, elementId, eventData) {
+        if (elementType === 'new_edge')
+        {
+            this.setState({graph: this.state.graph.links.push({id: Math.max(...this.state.graph.links.map(x=>x.id))+1,
+                source: eventData.startId, target: eventData.endId})})
+            this.handleEditorChange('node', eventData.startId)
+            return;
+        }
         const data = this.extractEditorData(elementType, elementId);
         this.setState({graph: this.state.graph, element:{
-            elementType: elementType, elementId: elementId, data:this.extractEditorData(elementType, elementId)
+            elementType: elementType, elementId: elementId, data:data
             }});
     }
 

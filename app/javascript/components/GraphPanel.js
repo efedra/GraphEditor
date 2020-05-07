@@ -2,20 +2,42 @@ import React from "react";
 import { Graph } from "react-d3-graph";
 import GraphSample from '../components/Graph1.json'
 import GraphConfig from '../components/GraphConfig.json'
+import {toast} from "react-toastify";
 export default class GraphPanel extends React.Component {
 
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.state = {graph: props.graph};
+        this.isDrawingEdge = false;
+        this.selectedNode = null;
     }
     handleChange(event) {
         this.props.onChange(event.type, parseInt(event.id), event.data);
     }
      onClickNode (nodeId) {
-         this.handleChange({id: nodeId, type: 'node',
-             data: this.state.graph.nodes.find(x => x.id === nodeId)})
+         if (this.isDrawingEdge && this.selectedNode !== nodeId) {
+             this.addEdge(this.selectedNode, nodeId);
+             this.isDrawingEdge = false;
+
+         } else {
+             this.handleChange({
+                 id: nodeId, type: 'node',
+                 data: this.state.graph.nodes.find(x => x.id === nodeId)
+             })
+         }
      };
+
+    onDoubleClickNode = function(nodeId) {
+        toast('Select edge target', {position: toast.POSITION.TOP_LEFT})
+        this.selectedNode = nodeId;
+        this.isDrawingEdge = true;
+    };
+    addEdge(startNode, endNode) {
+        this.handleChange({type: 'new_edge',
+                data:  {startId: parseInt(startNode),
+                endId: parseInt(endNode)}})
+    }
     render() {
 
         const myConfig = GraphConfig;
@@ -27,10 +49,6 @@ export default class GraphPanel extends React.Component {
 
 
 
-        const onDoubleClickNode = function(nodeId) {
-            window.alert(`Double clicked node ${nodeId}`);
-
-        };
 
         const onRightClickNode = function(event, nodeId) {
             window.alert(`Right clicked node ${nodeId}`);
@@ -70,8 +88,8 @@ export default class GraphPanel extends React.Component {
                 id="graph-id" // id is mandatory, if no id is defined rd3g will throw an error
                 data={this.state.graph}
                 config={myConfig}
-               onClickNode={this.onClickNode.bind(this)}
-            //    onDoubleClickNode={onDoubleClickNode}
+                onClickNode={this.onClickNode.bind(this)}
+                onDoubleClickNode={this.onDoubleClickNode.bind(this)}
             //    onRightClickNode={onRightClickNode}
             //    onClickGraph={onClickGraph}
             //    onClickLink={onClickLink}

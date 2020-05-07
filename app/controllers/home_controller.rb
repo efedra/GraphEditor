@@ -7,6 +7,6 @@ class HomeController < ApplicationController
   def player; end
 
   def new_graph
-    render json: Graph.random_graph
+    render json: Graph.find_by_name('Programming Languages')
   end
 end

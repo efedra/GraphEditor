@@ -8,7 +8,6 @@ export default class Editor extends React.Component {
         super(props);
         this.state = {element: props.element};
         this.handleChange = this.handleChange.bind(this);
-
     }
 
     handleChange(event) {
@@ -57,8 +56,8 @@ export default class Editor extends React.Component {
         })
     }
     handleClickCreate = ()=> {
-        const NodeID= this.props.graph.nodes.length;
-        this.props.update({id:NodeID,x:50,y:50},'node',NodeID)
+        const nodeID = this.props.graph.nodes.length;
+        this.props.update({id:nodeID, x:50, y:50}, 'node', nodeID)
     }
 
     render() {
@@ -87,15 +86,17 @@ export default class Editor extends React.Component {
                         </div>
                     </fieldset>
                 </div>
-
             }
-
         }
         return <div className='Editor'>
           <div>
              <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded'
-                     onClick={this.handleClickCreate}>Create node</button>
-                    <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded ml-1'>Delete node</button>
+                     onClick={this.handleClickCreate}>
+                 Create node
+             </button>
+             <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded ml-1'>
+                        Delete node
+             </button>
                 </div>
                 {this.props.element != null &&
                     buildFieldSet(this.props.element, this)
