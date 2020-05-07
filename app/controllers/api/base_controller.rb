@@ -5,38 +5,49 @@ class Api::BaseController < ApplicationController
   #after_action :verify_authorized
  # before_action :authenticate_user!
 
-  # TODO: Feel free to remove, just an examples
-  before_action :log_intro
-  after_action :log_outro
-
   rescue_from(ActionController::ParameterMissing) do |err|
-    handle_error I18n.t('errors.parameter_missing_error', param: err.param)
+    error = {
+      type: :parameter_missing,
+      message: I18n.t('errors.parameter_missing_error', param: err.param),
+      required_params: err.param
+    }
+    handle_error error
   end
 
   rescue_from(ActiveRecord::RecordNotFound) do |err|
-    handle_error I18n.t('errors.not_found_error', id: err.id, model: err.model), :not_found
+    error = {
+      type: :record_not_found,
+      message: I18n.t('errors.not_found_error', id: err.id, model: err.model),
+      record_id: err.id,
+      model: err.model
+    }
+    handle_error error, :not_found
   end
 
   rescue_from(ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved, ActiveRecord::RecordNotDestroyed) do |err|
     if err.record.present?
-      error = err.record.errors
+      error = {
+        type: :validation_failed,
+        messages: err.record.errors
+      }
     else
-      error = I18n.t('errors.db_error', errors: err.to_s)
+      error = {
+        type: :database_error,
+        message: I18n.t('errors.db_error', errors: err.to_s)
+      }
     end
     handle_error error, :unprocessable_entity
   end
 
   rescue_from Pundit::NotAuthorizedError do |err|
     message = err.class.method_defined?(:reason) ? I18n.t("pundit.errors.#{err.reason}") : err.message
-    handle_error message, :forbidden
-  end
-
-  def log_intro
-    Rails.logger.info('Processing API Request')
-  end
-
-  def log_outro
-    Rails.logger.info("Responded with: #{response.body}")
+    error = {
+      type: :not_authorized,
+      message: message,
+      query: err.query,
+      model: err.record.class.to_s
+    }
+    handle_error error, :forbidden
   end
 
   def handle_error(message = '', status = :bad_request)
@@ -45,6 +56,10 @@ class Api::BaseController < ApplicationController
 
   def authenticate_user!
     return if current_user
-    handle_error I18n.t('devise.failure.unauthenticated'), :unauthorized
+    error = {
+      type: :unauthorized,
+      message: I18n.t('devise.failure.unauthenticated')
+    }
+    handle_error error, :unauthorized
   end
 end

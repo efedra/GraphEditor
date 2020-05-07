@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AutoQuests</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= include_gon(init: true) %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'graphs', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <h1>Graphs#show</h1>
+    <p>Find me in app/views/graphs/show.html.erb</p>
+    <div>
+      Graph name:
+      <p id='graphName'><%= @graph.name %></p>
+    </div>
+    <%= form_with model: @graph, url: api_graph_path(@graph), method: :patch do |f| %>
+      <%= f.text_field :name %>
+      <%= f.submit 'Update', data: { disable_with: "Saving..." } %>
+    <% end %>
+  </body>
+</html>

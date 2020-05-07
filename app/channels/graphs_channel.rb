@@ -2,7 +2,7 @@
 
 class GraphsChannel < ApplicationCable::Channel
   def subscribed
-    stream_from current_graph
+    stream_for current_graph
   end
 
   def unsubscribed
@@ -10,6 +10,6 @@ class GraphsChannel < ApplicationCable::Channel
   end
 
   def current_graph
-    @current_graph ||= current_user.graphs.find(params[:id])
+    @current_graph ||= Graph.find(params[:graph_id])
   end
 end

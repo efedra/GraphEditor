@@ -10,4 +10,16 @@ class GraphsUser < ApplicationRecord
   liberal_enum :role
 
   validates :graph_id, uniqueness: { scope: :user_id }
+  validate :role_valid?, on: :sharing
+
+  def role_valid?
+    roles = self.class.roles.keys - ['owner']
+    return if roles.include? role
+    api_error(:invalid,
+      opts: { role: role, roles: roles.join(', ') },
+      role: role,
+      avilable_roles: roles,
+      column: :role)
+    throw :abort
+  end
 end

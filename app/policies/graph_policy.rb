@@ -21,6 +21,10 @@ class GraphPolicy < ApplicationPolicy
     %i[owner admin].include? graph_user.role.to_sym
   end
 
+  def validate?
+    %i[owner admin editor].include? graph_user.role.to_sym
+  end
+
   protected
 
   def graph
