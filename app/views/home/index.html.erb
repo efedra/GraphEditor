@@ -58,7 +58,7 @@
         <li class="mr-3">
       </ul>
       <button id="navAction" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75">
-        <a href="/users/sign_in" class="no-underline hover:underline text-gray-800">Login</a>
+        <a href="/users/sign_in" class="loginText no-underline hover:underline">Login</a>
       </button>
     </div>
   </div>
@@ -77,7 +77,7 @@
 
 
 
-      <button class="z-40 mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg">
+      <button class="z-20 mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg">
         <a href="/player" class="no-underline hover:underline text-gray-800">Play Example</a>
       </button>
 
@@ -377,7 +377,7 @@
     let navaction = document.getElementById("navAction");
     let brandname = document.getElementById("brandname");
     let toToggle = document.querySelectorAll(".toggleColour");
-
+    let loginText = document.querySelectorAll(".toggleLogin");
     document.addEventListener('scroll', function() {
 
         /*Apply classes for slide in bar*/
@@ -394,6 +394,8 @@
                 toToggle[i].classList.add("text-gray-800");
                 toToggle[i].classList.remove("text-white");
             }
+            loginText.classList.add("text-white");
+            loginText.classList.remove("text-gray-800");
             header.classList.add("shadow");
             navcontent.classList.remove("bg-gray-100");
             navcontent.classList.add("bg-white");
@@ -410,6 +412,8 @@
                 toToggle[i].classList.remove("text-gray-800");
             }
 
+            loginText.classList.add("text-gray-800");
+            loginText.classList.remove("text-white");
             header.classList.remove("shadow");
             navcontent.classList.remove("bg-white");
             navcontent.classList.add("bg-gray-100");

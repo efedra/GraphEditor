@@ -9,12 +9,33 @@ class EditorApp extends React.Component {
     constructor(props) {
         super(props);
         const component = this;
-        fetch('/random-graph', {
+        //todo get actual graph
+
+        fetch('/api/graphs/31', {
             method: 'get'
         }).then(function(response) {
             response.json().then(function(data)
             {
-                component.setState({graph: data});
+
+                let d3Graph = {}
+                d3Graph.nodes = data.graph.nodes.map(node=>{
+                    return {
+                        id: node.id,
+                        label: node.name,
+                        x: node.html_x,
+                        y: node.html_y,
+                        color: node.html_color,
+                        symbolType: component.getSymbol(node.kind)
+                    };
+                })
+                d3Graph.links = data.graph.edges.map(edge=>{
+                    return {
+                        id: edge.id,
+                        source: edge.start_id,
+                        target: edge.finish_id
+                    }
+                })
+                component.setState({graph: d3Graph});
             })
 
         }).catch(function(err) {
@@ -23,6 +44,18 @@ class EditorApp extends React.Component {
         this.state = {graph: null, selectedElement: null};
         this.handleGraphChange = this.handleGraphChange.bind(this);
         this.handleEditorChange = this.handleEditorChange.bind(this);
+    }
+
+    getSymbol(nodeType)
+    {
+        switch (nodeType) {
+            case 'start':
+                return 'diamond'
+            case 'finish':
+                return 'star'
+            default:
+                return 'circle'
+        }
     }
     handleGraphChange(elementType, elementId, eventData) {
         if (elementType === 'new_edge')

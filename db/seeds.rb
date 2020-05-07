@@ -26,5 +26,5 @@ graph.nodes.create(name: 'end',
                    kind: Node::KIND_END,
                    html_x: 200,
                    html_y: 100)
-graph.edges.create(start: graph.nodes[0], finish: graph.nodes[1], test: 'Давайте начнем!')
+graph.edges.create(start: graph.nodes[0], finish: graph.nodes[1], text: 'Давайте начнем!')
 graph.save

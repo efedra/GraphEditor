@@ -89,9 +89,10 @@ export default class Editor extends React.Component {
             }
         }
         return <div className='Editor'>
+          <h3></h3>
           <div>
              <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded'
-                     onClick={this.handleClickCreate}>
+                     onClick={this.handleClickCreate.bind(this)}>
                  Create node
              </button>
              <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded ml-1'>

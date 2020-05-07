@@ -9,17 +9,20 @@ export default class GraphPanel extends React.Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.state = {graph: props.graph};
-        this.isDrawingEdge = false;
+
         this.selectedNode = null;
     }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.isDrawingEdge = false;
+    }
+
     handleChange(event) {
         this.props.onChange(event.type, parseInt(event.id), event.data);
     }
      onClickNode (nodeId) {
          if (this.isDrawingEdge && this.selectedNode !== nodeId) {
-             this.addEdge(this.selectedNode, nodeId);
              this.isDrawingEdge = false;
-
+             this.addEdge(this.selectedNode, nodeId);
          } else {
              this.handleChange({
                  id: nodeId, type: 'node',

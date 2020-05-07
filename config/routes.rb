@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   resources :graphs, only: %i[show]
   root 'home#index'
   get 'test-graph', to: 'home#test_graph'
-  get 'random-graph', to: 'home#new_graph'
   get 'editor', to: 'home#editor'
   get 'player', to: 'home#player'
 end

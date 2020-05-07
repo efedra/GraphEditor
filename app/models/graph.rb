@@ -35,6 +35,15 @@ class Graph < ApplicationRecord
       .or(Edge.where(finish_id: nodes.select(:id)))
   end
 
+  def as_json(options = {})
+    {
+      name: name,
+      nodes: nodes,
+      edges: edges,
+      state: state
+    }.merge(options)
+  end
+
   def self.simple(*args, **kwargs)
     graph = new(*args, **kwargs)
     graph.name ||= default(:name)
@@ -126,4 +135,3 @@ class Graph < ApplicationRecord
     api_error(:no_finish) if nodes.finish.count == 0
   end
 end
-
