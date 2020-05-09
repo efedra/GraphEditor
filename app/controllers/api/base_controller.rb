@@ -30,13 +30,15 @@ class Api::BaseController < ApplicationController
         type: :validation_failed,
         messages: err.record.errors
       }
+      status = :unprocessable_entity
     else
       error = {
         type: :database_error,
         message: I18n.t('errors.db_error', errors: err.to_s)
       }
+      status = :internal_server_error
     end
-    handle_error error, :unprocessable_entity
+    handle_error error, status
   end
 
   rescue_from Pundit::NotAuthorizedError do |err|
