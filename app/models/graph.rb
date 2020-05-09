@@ -5,7 +5,7 @@ class Graph < ApplicationRecord
 
   has_many :nodes, dependent: :destroy
   has_many :graphs_users, dependent: :destroy, inverse_of: :graph
-  has_many :members, through: :graphs_users
+  has_many :users, through: :graphs_users
 
   enum status: { undefined: 0, valid: 1, invalid: 2, pending: 3, processing: 4 }, _suffix: true
 
@@ -27,7 +27,7 @@ class Graph < ApplicationRecord
   after_destroy { GraphBroadcastJob.perform_later self, 'graph_destroy' }
 
   def owner
-    members.find_by(graphs_users: { role: :owner })
+    users.find_by(graphs_users: { role: :owner })
   end
 
   def edges
@@ -126,4 +126,3 @@ class Graph < ApplicationRecord
     api_error(:no_finish) if nodes.finish.count == 0
   end
 end
-

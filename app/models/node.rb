@@ -15,7 +15,7 @@ class Node < ApplicationRecord
     dependent: :destroy,
     inverse_of: :finish
 
-  enum kind: { start: 0, intermediate: 1, finish: 2, bad: 3 }
+  enum kind: { start: 0, intermediate: 1, finish: 2 }
   liberal_enum :kind
 
   validates :kind, presence: true, inclusion: { in: Node.kinds.keys }
