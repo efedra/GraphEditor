@@ -12,6 +12,12 @@ class GraphsUser < ApplicationRecord
   validates :graph_id, uniqueness: { scope: :user_id }
   validate :role_valid?, on: :sharing
 
+  after_create_commit { GraphBroadcastJob.perform_later graph, 'member_create', as_json }
+  after_update_commit do
+    GraphBroadcastJob.perform_later(graph, 'member_update', as_json) if saved_changes?
+  end
+  after_destroy { GraphBroadcastJob.perform_later graph, 'member_destroy' }
+
   def role_valid?
     roles = self.class.roles.keys - ['owner']
     return if roles.include? role
