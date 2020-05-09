@@ -4,6 +4,10 @@ en:
       models:
         edge:
           nodes_belong_to_different_graphs: Start and finish nodes must belong to the same graph
+          action:
+            invalid: Edge action invalid
+          condition:
+            invalid: Edge condition invalid
         graph:
           no_start: Graph has no start node
           no_finish: Graph has no finish node
