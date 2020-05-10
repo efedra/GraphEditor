@@ -78,7 +78,7 @@ class GraphTest < ActiveSupport::TestCase
     error = graph.errors.as_json
     assert_equal error[:base][0][:type], :cycles
     assert_equal error[:base][0][:message], 'Graph has cycles'
-    assert_equal error[:base][0][:cycle_nodes], [[nodes(:deadlock2).id, nodes(:deadlock3).id, nodes(:deadlock1).id]]
+    assert_equal error[:base][0][:cycle_nodes][0].to_set, [nodes(:deadlock2).id, nodes(:deadlock3).id, nodes(:deadlock1).id].to_set
   end
 
   test "should invalid with terminal non finish" do
