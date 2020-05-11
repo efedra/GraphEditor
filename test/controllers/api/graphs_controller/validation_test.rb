@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'minitest/mock_expectations'
 
 class Api::GraphsController::ValidationTest < ActionDispatch::IntegrationTest
   setup do
@@ -63,9 +64,18 @@ class Api::GraphsController::ValidationTest < ActionDispatch::IntegrationTest
   end
 
   test "should validate without params" do
-    assert_enqueued_jobs 1, only: GraphValidationJob do
+    assert_called_with(GraphValidationJob, :perform_later, [@graph, %i[structure dynamic]]) do
       post validate_api_graph_url(@graph)
     end
     assert_response :success
+  end
+
+  %i[structure dynamic].each do |type|
+    test "should validate with #{type}" do
+      assert_called_with(GraphValidationJob, :perform_later, [@graph, [type]]) do
+        post validate_api_graph_url(@graph, params: { validation_types: [type] })
+      end
+      assert_response :success
+    end
   end
 end
