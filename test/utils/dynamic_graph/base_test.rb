@@ -33,7 +33,7 @@ class DynamicGraph::BaseTest < ActiveSupport::TestCase
     edges.each_with_index do |e, i|
       e[:id] ||= e[:start].to_s + e[:finish].to_s + i.to_s
       options = e.except(:start, :finish, :id)
-      @graph.add_edge(e[:start], e[:finish], e[:id], options: options)
+      @graph.add_edge(e[:start], e[:finish], e[:id], **options)
     end
 
     assert_nothing_raised do

@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class Api::EdgesControllerTest < ActionDispatch::IntegrationTest
+class Api::EdgesController::BaseTest < ActionDispatch::IntegrationTest
   setup do
     sign_in(users(:owner))
     @edge = edges(:first)
@@ -50,35 +50,5 @@ class Api::EdgesControllerTest < ActionDispatch::IntegrationTest
     assert_equal base_error[:message], 'Start and finish nodes must belong to the same graph'
     assert_equal base_error[:start], id: nodes(:start).id, graph_id: graphs(:simple).id
     assert_equal base_error[:finish], id: nodes(:complex_start).id, graph_id: graphs(:complex).id
-  end
-
-  { editor: :success, owner: :success, admin: :success, viewer: :success }.each do |role, status|
-    test "should show #{role} with #{status}" do
-      sign_in(users(role))
-      get api_graph_edge_url(@graph, @edge)
-      assert_response status
-    end
-  end
-
-  { editor: :success, owner: :success, admin: :success, viewer: :forbidden }.each do |role, status|
-    test "should update #{role} with #{status}" do
-      sign_in(users(role))
-      patch api_graph_edge_url(@graph, @edge), params: @data
-      assert_response status
-    end
-  end
-
-  { owner: [:success, -1],
-    admin: [:success, -1],
-    editor: [:success, -1],
-    viewer: [:forbidden, 0] }.each do |role, data|
-    status, count = *data
-    test "should destroy #{role} with #{status}" do
-      sign_in(users(role))
-      assert_difference('Edge.count', count) do
-        delete api_graph_edge_url(@graph, @edge)
-      end
-      assert_response status
-    end
   end
 end

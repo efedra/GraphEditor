@@ -6,3 +6,4 @@ en:
     graph:
       validation_pending: Graph already pending validation
       validation_processing: Graph already in processing validation
+      unallowed_types: Validation types contain unallowed types

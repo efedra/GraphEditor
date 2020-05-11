@@ -44,7 +44,7 @@ class DynamicGraph
     @vertices << vertex
   end
 
-  def add_edge(start, finish, id, options: {})
+  def add_edge(start, finish, id, **options)
     raise UndefinedVertex, start unless @vertices.include?(start)
     raise UndefinedVertex, finish unless @vertices.include?(finish)
     raise IdTaken, id if @all_edges[id].present?
@@ -63,10 +63,10 @@ class DynamicGraph
     @queue = Queue.new
     @status = :processing
     @start_time = Time.zone.now
-
     node = calc_node(start, state)
     @queue << start_path(node)
     @nodes << start
+    # TODO: prepare queue in parallel
     until @queue.empty?
       break if timeout? @start_time
       path = @queue.pop
