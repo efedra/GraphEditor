@@ -26,7 +26,7 @@ class HomeController < ApplicationController
   def player; end
 
   def new_graph
-    render json: Graph.find(params[:id])
+    render json: Graph.random_graph
   end
 
 end

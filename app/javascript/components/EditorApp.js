@@ -11,13 +11,13 @@ class EditorApp extends React.Component {
         const component = this;
         //todo get actual graph
 
-        fetch('/api/graphs/31', {
+        fetch('/new_graph', {
             method: 'get'
         }).then(function(response) {
             response.json().then(function(data)
             {
 
-                let d3Graph = {}
+/*                let d3Graph = {}
                 d3Graph.nodes = data.graph.nodes.map(node=>{
                     return {
                         id: node.id,
@@ -34,8 +34,8 @@ class EditorApp extends React.Component {
                         source: edge.start_id,
                         target: edge.finish_id
                     }
-                })
-                component.setState({graph: d3Graph});
+                })*/
+                component.setState({graph: data});
             })
 
         }).catch(function(err) {
