@@ -25,7 +25,7 @@ class Node < ApplicationRecord
   after_update_commit do
     GraphBroadcastJob.perform_later(graph, 'node_update', as_json) if saved_changes?
   end
-  after_destroy { GraphBroadcastJob.perform_later graph, 'node_destroy' }
+  after_destroy { GraphBroadcastJob.perform_later graph, 'node_destroy', as_json }
 
   def self.simple(**kwargs)
     new(html_x: 0, html_y: 0, name: default(:name), text: default(:text), **kwargs)

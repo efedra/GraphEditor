@@ -11,7 +11,7 @@ class Edge < ApplicationRecord
   after_update_commit do
     GraphBroadcastJob.perform_later(graph, 'edge_update', as_json) if saved_changes?
   end
-  after_destroy { GraphBroadcastJob.perform_later graph, 'edge_destroy' }
+  after_destroy { GraphBroadcastJob.perform_later graph, 'edge_destroy', as_json }
 
   def self.simple(**kwargs)
     new(text: default(:text), weight: 1, **kwargs)

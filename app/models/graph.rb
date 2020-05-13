@@ -24,7 +24,7 @@ class Graph < ApplicationRecord
   after_update_commit do
     GraphBroadcastJob.perform_later(self, 'graph_update', as_json) if saved_changes?
   end
-  after_destroy { GraphBroadcastJob.perform_later self, 'graph_destroy' }
+  after_destroy { GraphBroadcastJob.perform_later self, 'graph_destroy', as_json }
 
   def owner
     users.find_by(graphs_users: { role: :owner })
