@@ -2,8 +2,8 @@
 
 class Api::BaseController < ApplicationController
   include Pundit
-  after_action :verify_authorized
-  before_action :authenticate_user!
+  #after_action :verify_authorized
+ # before_action :authenticate_user!
 
   rescue_from(ActionController::ParameterMissing) do |err|
     error = {
