@@ -23,7 +23,7 @@ class GraphManager
   end
 
   # no weights, not shortest by weight, just path from a to b
-  def find_path (nodes, edges,  node1, node2)
+  def find_path (nodes, edges, node1, node2)
     dg = RGL::DirectedAdjacencyGraph.new()
     nodes.each { |n| dg.add_vertex n }
     edges.each { |e| dg.add_edge e[0], e[1] }

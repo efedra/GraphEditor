@@ -1,0 +1,39 @@
+<div class="w-full max-w-xs container mx-auto">
+  <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        action="/users/sign_in"
+        accept-charset="UTF-8"
+        method="post"
+        id="registration_form">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+        Email
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+             id="username" type="text" name="user[email]">
+    </div>
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+        Password
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+             id="password" type="password" name="user[password]">
+    </div>
+    <div class="flex items-center justify-between mb-6">
+      <button type="submit" form="registration_form" value="Submit"
+              class="w-1/2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+        Sign In
+      </button>
+        <a class="align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/users/sign_up">
+          Sign Up
+        </a>
+    </div>
+    <div class="text-center">
+      <a class="text-sm text-gray-500 hover:text-blue-800" href="/users/passwords">
+        Forgot Password?
+      </a>
+    </div>
+
+  </form>
+  <%= render "devise/shared/error_messages", resource: resource %>
+</div>

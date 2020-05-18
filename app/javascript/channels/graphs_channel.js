@@ -1,6 +1,7 @@
 import consumer from "./consumer"
 
-consumer.subscriptions.create({ channel: "GraphsChannel", graph_id: window.gon.global.graph_id }, {
+export function subscribeToGraph(graph_id)
+{consumer.subscriptions.create({ channel: "GraphsChannel", graph_id: graph_id}, {
   connected() {
     // Called when the subscription is ready for use on the server
   },
@@ -20,4 +21,4 @@ consumer.subscriptions.create({ channel: "GraphsChannel", graph_id: window.gon.g
         console.log(`Unrecognized ${data.type}`)
     }
   }
-});
+})}

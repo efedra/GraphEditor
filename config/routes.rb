@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   end
   resources :graphs, only: %i[show]
   root 'home#index'
+  get 'new_graph', to: 'home#new_graph'
   get 'test-graph', to: 'home#test_graph'
-  get 'random-graph', to: 'home#new_graph'
   get 'editor', to: 'home#editor'
-
+  get 'player', to: 'home#player'
 end

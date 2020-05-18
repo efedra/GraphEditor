@@ -4,6 +4,7 @@ class Api::GraphsController < Api::BaseController
   def index
     authorize Graph
     render json: current_user.graphs.all
+    render json: Graph.all
   end
 
   def show
@@ -60,9 +61,7 @@ class Api::GraphsController < Api::BaseController
   private
 
   def render_graph(**kwargs)
-    nodes = graph.nodes
-    edges = graph.edges
-    render json: { graph: graph, nodes: nodes, edges: edges }, **kwargs
+    render json: { graph: graph}, **kwargs
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

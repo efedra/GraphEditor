@@ -3,6 +3,10 @@
 class Node < ApplicationRecord
   include LiberalEnum
 
+  KIND_START = 0
+  KIND_INTERMEDIATE = 1
+  KIND_END = 2
+
   belongs_to :graph
   has_many :output_edges,
     foreign_key: :start_id,
@@ -29,5 +33,9 @@ class Node < ApplicationRecord
 
   def self.simple(**kwargs)
     new(html_x: 0, html_y: 0, name: default(:name), text: default(:text), **kwargs)
+  end
+
+  def as_json(options = {})
+    super({ only: %i[id name text html_x html_y kind html_color] }.merge(options))
   end
 end
