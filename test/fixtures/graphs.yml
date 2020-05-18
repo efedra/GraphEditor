@@ -1,6 +1,9 @@
 simple:
   name: Simple Graph
-  state: {}
+  state: {
+    coins: 100,
+    ammo: 10
+  }
 
 complex:
   name: Complex Graph
