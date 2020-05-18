@@ -75,3 +75,4 @@ deadlock5:
   weight: 1
   start: deadlock3
   finish: deadlock1
+  action: x = x + 1

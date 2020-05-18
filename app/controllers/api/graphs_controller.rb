@@ -41,8 +41,20 @@ class Api::GraphsController < Api::BaseController
       }
       return handle_error error, :locked
     end
+    validation_types = Array(params[:validation_types]).map(&:to_sym)
+    validation_types = Graph::VALIDATION_TYPES if validation_types.blank?
+    unless validation_types.to_set <= Graph::VALIDATION_TYPES.to_set
+      unallowed_types = validation_types.to_set - Graph::VALIDATION_TYPES.to_set
+      error = {
+        type: :unallowed_types,
+        message: I18n.t('errors.graph.unallowed_types'),
+        unallowed_types: unallowed_types,
+        allowed_types: Graph::VALIDATION_TYPES
+      }
+      return handle_error error, :bad_request
+    end
     graph.pending_status!
-    GraphValidationJob.perform_later(graph)
+    GraphValidationJob.perform_later graph, validation_types
     head :no_content
   end
 
