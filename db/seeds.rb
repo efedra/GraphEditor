@@ -13,3 +13,18 @@ graph = Graph.create!(name: 'Simple Graph')
 graph.edges.create(start: graph.nodes[0], finish_id: graph.nodes[1])
 graph.edges.create(start: graph.nodes[1], finish_id: graph.nodes[0])
 graph.edges.create(start: graph.nodes[1], finish_id: graph.nodes[2])
+
+graph = Graph.create!(name: 'Programming Languages')
+
+graph.nodes.create(name: 'start',
+                   text: 'Какой язык программирования мне стоит выучить?',
+                   kind: Node::KIND_START,
+                   html_x: 100,
+                   html_y: 100)
+graph.nodes.create(name: 'end',
+                   text: 'Учи любой!',
+                   kind: Node::KIND_END,
+                   html_x: 200,
+                   html_y: 100)
+graph.edges.create(start: graph.nodes[0], finish: graph.nodes[1], text: 'Давайте начнем!')
+graph.save

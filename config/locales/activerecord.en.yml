@@ -4,15 +4,26 @@ en:
       models:
         edge:
           nodes_belong_to_different_graphs: Start and finish nodes must belong to the same graph
+          action:
+            invalid: Edge action invalid
+          condition:
+            invalid: Edge condition invalid
         graph:
-          no_start: Graph has no start node
-          no_finish: Graph has no finish node
-          multiple_starts: Graph has more than one start
-          no_reachable_finish: No one finish reachable
-          multiply_components: Graph has more than one components
-          cycles: Graph has cycles
-          terminal_non_finish_nodes: Graph has terminal nodes that no finish
-          not_reachable_nodes: Graph has not reachable nodes
+          structure: &structure
+            no_start: Graph has no start node
+            no_finish: Graph has no finish node
+            multiple_starts: Graph has more than one start
+            no_reachable_finish: No one finish reachable
+            multiply_components: Graph has more than one components
+            cycles: Graph has cycles
+            terminal_non_finish_nodes: Graph has terminal nodes that no finish
+            not_reachable_nodes: Graph has not reachable nodes
+          dynamic:
+            not_reachable_nodes: Graph has not reachable nodes
+            not_used_edges: Graph has not used edges
+            terminal_non_finish_nodes: Graph has terminal nodes that no finish
+            cycles: Graph has cycles
+            search_timeout: Graph search timeout
           state:
             is_not_json: State type "%{type}", but expected json-type
             nested_json: State contains nested json

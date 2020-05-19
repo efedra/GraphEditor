@@ -40,6 +40,6 @@ class Api::EdgesController < Api::BaseController
   end
 
   def edge_params
-    params.require(:edge).permit(:text, :weight, :start_id, :finish_id)
+    params.require(:edge).permit(:text, :weight, :start_id, :finish_id, :action, :condition)
   end
 end

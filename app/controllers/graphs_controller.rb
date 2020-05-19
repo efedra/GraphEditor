@@ -7,7 +7,6 @@ class GraphsController < ApplicationController
 
   def show
     graph
-    gon.global.graph_id = graph.id
   end
 
   def graph

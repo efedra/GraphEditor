@@ -1,4 +1,4 @@
-$graph-width: 70%;
+$graph-width: 80%;
 html, body, #root {
   width: 100%;
   height: 100%;
@@ -7,10 +7,7 @@ html, body, #root {
 .App {
     width: 100%;
     height: 100%;
-}
-
-.App-logo {
-  height: 40vmin;
+    background-color: #999999;
 }
 
 .App-header {
@@ -24,9 +21,6 @@ html, body, #root {
   color: white;
 }
 
-.App-link {
-  color: #09d3ac;
-}
 .WorkArea{
   float: left;
   width: $graph-width;
@@ -36,7 +30,7 @@ html, body, #root {
   float: right;
   width: 100-$graph-width;
   height: 100%;
-  background-color: #730E15;
+  background-color: #1111FF;
   color: white;
 }
 .GraphPanel { display: -ms-flex; display: -webkit-flex; display: flex;   height: 100% }

@@ -4,6 +4,7 @@ class Api::GraphsController < Api::BaseController
   def index
     authorize Graph
     render json: current_user.graphs.all
+    render json: Graph.all
   end
 
   def show
@@ -40,17 +41,27 @@ class Api::GraphsController < Api::BaseController
       }
       return handle_error error, :locked
     end
+    validation_types = Array(params[:validation_types]).map(&:to_sym)
+    validation_types = Graph::VALIDATION_TYPES if validation_types.blank?
+    unless validation_types.to_set <= Graph::VALIDATION_TYPES.to_set
+      unallowed_types = validation_types.to_set - Graph::VALIDATION_TYPES.to_set
+      error = {
+        type: :unallowed_types,
+        message: I18n.t('errors.graph.unallowed_types'),
+        unallowed_types: unallowed_types,
+        allowed_types: Graph::VALIDATION_TYPES
+      }
+      return handle_error error, :bad_request
+    end
     graph.pending_status!
-    GraphValidationJob.perform_later(graph)
+    GraphValidationJob.perform_later graph, validation_types
     head :no_content
   end
 
   private
 
   def render_graph(**kwargs)
-    nodes = graph.nodes
-    edges = graph.edges
-    render json: { graph: graph, nodes: nodes, edges: edges }, **kwargs
+    render json: { graph: graph}, **kwargs
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
