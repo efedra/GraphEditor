@@ -18,4 +18,5 @@ Rails.application.routes.draw do
   get 'test-graph', to: 'home#test_graph'
   get 'editor', to: 'home#editor'
   get 'player', to: 'home#player'
+  get 'graphList', to:'home#graphList'
 end
