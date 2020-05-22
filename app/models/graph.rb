@@ -36,7 +36,7 @@ class Graph < ApplicationRecord
   end
 
   def as_json(options = {})
-    {
+    {id:id,
       name: name,
       nodes: nodes,
       edges: edges,

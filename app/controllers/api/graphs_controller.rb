@@ -4,7 +4,6 @@ class Api::GraphsController < Api::BaseController
   def index
     authorize Graph
     render json: current_user.graphs.all
-    render json: Graph.all
   end
 
   def show
