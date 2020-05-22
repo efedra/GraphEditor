@@ -5,7 +5,7 @@ require 'rgl/bidirectional'
 require 'rgl/connected_components'
 require 'rgl/traversal'
 
-class GraphStructureValidator
+class Graph::StructureValidator
   def initialize(graph)
     @graph = graph
   end
@@ -34,6 +34,7 @@ class GraphStructureValidator
     not_reachable_nodes = nodes - @bfs_tree.vertices
     return if not_reachable_nodes.blank?
     @graph.api_error(:not_reachable_nodes,
+      column: :structure,
       not_reachable_nodes: not_reachable_nodes)
   end
 
@@ -42,12 +43,13 @@ class GraphStructureValidator
     terminal_non_finish_nodes = terminals - @finishes
     return if terminal_non_finish_nodes.blank?
     @graph.api_error(:terminal_non_finish_nodes,
+      column: :structure,
       terminal_non_finish_nodes: terminal_non_finish_nodes)
   end
 
   def cycles?
     cycles = @directed_graph.cycles
     return if cycles.blank?
-    @graph.api_error(:cycles, cycle_nodes: cycles)
+    @graph.api_error(:cycles, column: :structure, cycle_nodes: cycles)
   end
 end

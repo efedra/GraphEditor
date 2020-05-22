@@ -3,6 +3,11 @@
 class Graph < ApplicationRecord
   include LiberalEnum
 
+  VALIDATION_TYPES = %i[
+    structure
+    dynamic
+  ].freeze
+
   has_many :nodes, dependent: :destroy
   has_many :graphs_users, dependent: :destroy, inverse_of: :graph
   has_many :users, through: :graphs_users
@@ -13,18 +18,24 @@ class Graph < ApplicationRecord
   validate :state_is_json?
   validate :state_nested_json?
 
-  with_options on: :graph_structure do
+  with_options on: :structure do
     validate :one_start?
     validate :finishes?
     validate do |graph|
-      GraphStructureValidator.new(graph).validate
+      Graph::StructureValidator.new(graph).validate
+    end
+  end
+
+  with_options on: :dynamic do
+    validate do |graph|
+      Graph::DynamicValidator.new(graph).validate
     end
   end
 
   after_update_commit do
     GraphBroadcastJob.perform_later(self, 'graph_update', as_json) if saved_changes?
   end
-  after_destroy { GraphBroadcastJob.perform_later self, 'graph_destroy' }
+  after_destroy { GraphBroadcastJob.perform_later self, 'graph_destroy', as_json }
 
   def owner
     users.find_by(graphs_users: { role: :owner })
@@ -126,12 +137,12 @@ class Graph < ApplicationRecord
   def one_start?
     start_count = nodes.start.count
     return if start_count == 1
-    api_error(:no_start) if start_count == 0
-    api_error(:multiple_starts, start_nodes: nodes.start.pluck(:id)) if start_count > 1
+    api_error(:no_start, column: :structure) if start_count == 0
+    api_error(:multiple_starts, column: :structure, start_nodes: nodes.start.pluck(:id)) if start_count > 1
     throw :abort
   end
 
   def finishes?
-    api_error(:no_finish) if nodes.finish.count == 0
+    api_error(:no_finish, column: :structure) if nodes.finish.count == 0
   end
 end

@@ -5,13 +5,13 @@ class Edge < ApplicationRecord
   belongs_to :finish, class_name: 'Node'
 
   validates :start, :finish, presence: true
-  before_create :nodes_belongs_to_same_graph?
+  validate :condition_valid?, :action_valid?, :nodes_belongs_to_same_graph?
 
   after_create_commit { GraphBroadcastJob.perform_later graph, 'edge_create', as_json }
   after_update_commit do
     GraphBroadcastJob.perform_later(graph, 'edge_update', as_json) if saved_changes?
   end
-  after_destroy { GraphBroadcastJob.perform_later graph, 'edge_destroy' }
+  after_destroy { GraphBroadcastJob.perform_later graph, 'edge_destroy', as_json }
 
   def self.simple(**kwargs)
     new(text: default(:text), weight: 1, **kwargs)
@@ -31,5 +31,23 @@ class Edge < ApplicationRecord
 
   def graph
     (start || finish).graph
+  end
+
+  def action_valid?
+    return if action.blank?
+    result = QuestEngine::ActionParser.new.valid_action?(graph.state.keys, action)
+    return if result
+    api_error(:invalid,
+      column: :action,
+      action: action)
+  end
+
+  def condition_valid?
+    return if condition.blank?
+    result = QuestEngine::ConditionParser.new.valid_condition?(graph.state.keys, condition)
+    return if result
+    api_error(:invalid,
+      column: :condition,
+      condition: condition)
   end
 end
