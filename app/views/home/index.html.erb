@@ -57,9 +57,9 @@
         </li>
         <li class="mr-3">
       </ul>
-      <button id="navAction" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75">
+      <div id="navAction" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75">
         <a href="/users/sign_in" class="loginText no-underline hover:underline">Login</a>
-      </button>
+      </div>
     </div>
   </div>
 
@@ -361,6 +361,9 @@
           <li class="mt-2 inline-block mr-2 md:block md:mr-0">
             <a href="https://mmcs.sfedu.ru/" target="_blank"  class="no-underline hover:underline text-gray-800 hover:text-orange-500">SFEDU MMCS Students</a>
           </li>
+          <li class="mt-2 inline-block mr-2 md:block md:mr-0 text-gray-800">
+            Version 0.01
+          </li>
         </ul>
       </div>
     </div>
@@ -371,13 +374,13 @@
 
 <script>
 
-    let scrollpos = window.scrollY;
-    let header = document.getElementById("header");
-    let navcontent = document.getElementById("nav-content");
-    let navaction = document.getElementById("navAction");
-    let brandname = document.getElementById("brandname");
-    let toToggle = document.querySelectorAll(".toggleColour");
-    let loginText = document.querySelectorAll(".toggleLogin");
+    var scrollpos = window.scrollY;
+    var header = document.getElementById("header");
+    var navcontent = document.getElementById("nav-content");
+    var navaction = document.getElementById("navAction");
+    var brandname = document.getElementById("brandname");
+    var toToggle = document.querySelectorAll(".toggleColour");
+
     document.addEventListener('scroll', function() {
 
         /*Apply classes for slide in bar*/
@@ -394,8 +397,7 @@
                 toToggle[i].classList.add("text-gray-800");
                 toToggle[i].classList.remove("text-white");
             }
-            loginText.classList.add("text-white");
-            loginText.classList.remove("text-gray-800");
+
             header.classList.add("shadow");
             navcontent.classList.remove("bg-gray-100");
             navcontent.classList.add("bg-white");
@@ -412,8 +414,6 @@
                 toToggle[i].classList.remove("text-gray-800");
             }
 
-            loginText.classList.add("text-gray-800");
-            loginText.classList.remove("text-white");
             header.classList.remove("shadow");
             navcontent.classList.remove("bg-white");
             navcontent.classList.add("bg-gray-100");
