@@ -7,8 +7,9 @@ export default class GraphListApp extends React.Component {
         this.state = {graphs: null};
     }
 
-    updateList = (data) => {
-        this.setState({graphs: data})
+    deleteGraph = (index) => {
+         const new_list =  this.state.graphs.filter(x => x.id !== index)
+         this.setState({graphs: new_list})
     }
 
     componentDidMount() {
@@ -34,7 +35,7 @@ export default class GraphListApp extends React.Component {
                 onClick={this.handleClickCreate.bind(this)}>+ Create
             </button>
             <div>
-                <ShowGraphList graphList={this.state.graphs} updateState={this.updateList} />
+                <ShowGraphList graphList={this.state.graphs} deleteGraph={this.deleteGraph} />
             </div>
         </div>
 

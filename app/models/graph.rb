@@ -47,12 +47,7 @@ class Graph < ApplicationRecord
   end
 
   def as_json(options = {})
-    {id:id,
-      name: name,
-      nodes: nodes,
-      edges: edges,
-      state: state
-    }.merge(options)
+    super({ only: %i[id name nodes edges state] }.merge(options))
   end
 
   def self.simple(*args, **kwargs)
