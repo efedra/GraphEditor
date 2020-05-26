@@ -59,12 +59,12 @@ class ShowGraphList extends Component {
                                         key={index}>
 
                                         <div className=" text-blue-500 float-left mt-2">{index + 1})</div>
-                                        <Link to="/player">
+                                        <a href="/player">
                                             <button
                                                 className="bg-white-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded ml-3 mr-2"
                                                 onClick={that.handleClickPlay.bind(this)}> Play
                                             </button>
-                                        </Link>
+                                        </a>
 
                                         <button
                                             className="bg-white-500 text-red-500 hover:bg-red-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded float-right ml-1 mr-1 "
@@ -75,19 +75,19 @@ class ShowGraphList extends Component {
                                             className="bg-white-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded float-right ml-1 mr-1"
                                             onClick={that.handleClickInvite.bind(this)}>Invite
                                         </button>
-                                        <Link to='/editor'>
+                                        <a href ="/editor">
                                             <button
                                                 className="bg-white-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded float-right ml-1 mr-1 "
                                                 onClick={() => that.handleClickEdit(graph.id)}>Edit
                                             </button>
-                                        </Link>
+                                        </a>
                                     </li>
                                 )
                             }
                         )}
                     </ul>
-                    <Route exact path="/editor" component={EditorApp}/>
-                    <Route exact path="/player" component={PlayerApp}/>
+
+
                 </div>
 
             )
