@@ -32,12 +32,10 @@ export default class GraphListApp extends React.Component {
     render() {
         return (
             <Router history={history}>
-
-            <div>
-                <ShowGraphList graphList={this.state.graphs} deleteGraph={this.deleteGraph} />
-            </div>
-
-        </Router>
+                <div>
+                    <ShowGraphList graphList={this.state.graphs} deleteGraph={this.deleteGraph} />
+                </div>
+            </Router>
         )
     }
 }
