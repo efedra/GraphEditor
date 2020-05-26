@@ -2,13 +2,15 @@ import React, {Component} from 'react'
 import {Route, Link} from 'react-router-dom';
 import EditorApp from "../EditorApp";
 import PlayerApp from "../PlayerApp";
+import ModalWindow from "./ModalWindow";
 
 class ShowGraphList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             currentGraph: null,
-            currentPlay: false
+            currentPlay: false,
+            isModalOpen:false
         }
     }
 
@@ -29,7 +31,7 @@ class ShowGraphList extends Component {
     }
 
     handleClickCreate = () => {
-        fetch('/api', {method: 'post'}).then()
+
     }
 
 
@@ -45,13 +47,9 @@ class ShowGraphList extends Component {
             )
         }*/
         let that = this;
-
-            return (
+        return (
                 <div>
-                    <button
-                        className="bg-white-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded mb-2 ml-10  mt-2 "
-                        onClick={that.handleClickCreate.bind(this)}>+ Create
-                    </button>
+                    <ModalWindow/>
                     <ul>
                         {this.props.graphList && this.props.graphList.map(function (graph, index) {
                                 return (
@@ -86,16 +84,13 @@ class ShowGraphList extends Component {
                             }
                         )}
                     </ul>
-
-
                 </div>
-
             )
         }
 
 
 
 
-}
+    }
 
 export default ShowGraphList
