@@ -3,6 +3,7 @@ import {Route, Link} from 'react-router-dom';
 import EditorApp from "../EditorApp";
 import PlayerApp from "../PlayerApp";
 import ModalWindow from "./ModalWindow";
+import FormDialog from "./InviteButton";
 
 class ShowGraphList extends Component {
     constructor(props) {
@@ -69,10 +70,7 @@ class ShowGraphList extends Component {
                                             onClick={() => that.ClickDelete(graph.id)}>Delete X
                                         </button>
                                         <div className=" text-blue-500 float-left mt-2">{graph.name}</div>
-                                        <button
-                                            className="bg-white-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded float-right ml-1 mr-1"
-                                            onClick={that.handleClickInvite.bind(this)}>Invite
-                                        </button>
+                                        <FormDialog/>
                                         <a href ="/editor">
                                             <button
                                                 className="bg-white-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded float-right ml-1 mr-1 "
