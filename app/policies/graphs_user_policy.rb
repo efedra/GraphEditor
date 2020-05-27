@@ -12,11 +12,11 @@ class GraphsUserPolicy < GraphPolicy
   end
 
   def create?
-    graph_user.owner?
+    %i[owner admin].include? graph_user.role.to_sym
   end
 
   def update?
-    graph_user.owner?
+    %i[owner admin].include? graph_user.role.to_sym
   end
 
   def destroy?

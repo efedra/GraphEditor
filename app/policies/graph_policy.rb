@@ -18,7 +18,7 @@ class GraphPolicy < ApplicationPolicy
   end
 
   def destroy?
-    %i[owner admin].include? graph_user.role.to_sym
+    graph_user.owner?
   end
 
   def validate?
