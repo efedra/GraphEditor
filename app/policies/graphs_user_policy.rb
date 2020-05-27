@@ -20,7 +20,7 @@ class GraphsUserPolicy < GraphPolicy
   end
 
   def destroy?
-    true
+    %i[owner admin].include? graph_user.role.to_sym
   end
 
   def unsubscribe?
