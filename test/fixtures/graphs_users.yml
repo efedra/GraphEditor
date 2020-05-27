@@ -28,3 +28,8 @@ one3:
   user: viewer
   graph: simple
   role: viewer
+
+test:
+  user: test
+  graph: simple
+  role: admin

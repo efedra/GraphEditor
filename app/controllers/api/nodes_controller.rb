@@ -7,7 +7,7 @@ class Api::NodesController < Api::BaseController
   end
 
   def show
-    authorize node.html_safe
+    authorize node
     render json: node
   end
 

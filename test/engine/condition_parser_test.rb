@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 require 'quest_engine/engine'
 
@@ -20,6 +22,10 @@ class ConditionParserTest < ActiveSupport::TestCase
 
   test 'should check valid condition' do
     assert @parser.valid_condition?(@state.keys, 'a == true')
+  end
+
+  test 'should check valid condition with number' do
+    assert @parser.valid_condition?(@state.keys, 'x == 1')
   end
 
   test 'should find illegal character' do

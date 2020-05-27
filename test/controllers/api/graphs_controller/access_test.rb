@@ -26,7 +26,7 @@ class Api::GraphsController::AccessTest < ActionDispatch::IntegrationTest
   end
 
   { owner: [:success, -1],
-    admin: [:success, -1],
+    admin: [:forbidden, 0],
     editor: [:forbidden, 0],
     viewer: [:forbidden, 0] }.each do |role, data|
     status, count = *data

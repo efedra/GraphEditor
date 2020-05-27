@@ -15,3 +15,6 @@ editor:
 
 admin:
   email: admin@mail.ru
+
+test:
+  email: test@mail.ry

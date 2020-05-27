@@ -21,6 +21,8 @@ class Api::MembersController < Api::BaseController
 
   def update
     authorize graph_user
+    # TODO: move this to best place
+    raise Pundit::NotAuthorizedError, 'not allowed to update owner' if member.role.to_sym == :owner
     member.assign_attributes(member_params.except(:user_id))
     member.validate!(:sharing)
     member.save!
@@ -29,6 +31,8 @@ class Api::MembersController < Api::BaseController
 
   def destroy
     authorize graph_user
+    # TODO: move this to best place
+    raise Pundit::NotAuthorizedError, 'not allowed to destroy owner' if member.role.to_sym == :owner
     member.destroy!
     head :no_content
   end

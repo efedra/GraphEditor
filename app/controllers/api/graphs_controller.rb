@@ -60,7 +60,7 @@ class Api::GraphsController < Api::BaseController
   private
 
   def render_graph(**kwargs)
-    render json: { graph: graph}, **kwargs
+    render json: { graph: graph }, **kwargs
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

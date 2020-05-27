@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ActionParserTest < ActiveSupport::TestCase
   setup do
-    @state = {a: false, x: 0, health: 5}
+    @state = { a: false, x: 0, health: 5 }
     @parser = QuestEngine::ActionParser.new
   end
 
