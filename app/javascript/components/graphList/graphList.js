@@ -1,5 +1,9 @@
 import React, {Component} from 'react'
 import ShowGraphList from "./ShowGraphList";
+import {Router, Route, Link} from 'react-router-dom'
+import {createBrowserHistory} from "history";
+
+export const history = createBrowserHistory();
 
 export default class GraphListApp extends React.Component {
     constructor(props) {
@@ -23,22 +27,16 @@ export default class GraphListApp extends React.Component {
         }))
     }
 
-    handleClickCreate = () => {
-        fetch('/api', {method: 'post'}).then()
-    }
 
 
     render() {
-        return <div>
-            <button
-                className="bg-white-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded mb-2 ml-10  mt-2 "
-                onClick={this.handleClickCreate.bind(this)}>+ Create
-            </button>
-            <div>
-                <ShowGraphList graphList={this.state.graphs} deleteGraph={this.deleteGraph} />
-            </div>
-        </div>
-
+        return (
+            <Router history={history}>
+                <div>
+                    <ShowGraphList graphList={this.state.graphs} deleteGraph={this.deleteGraph} />
+                </div>
+            </Router>
+        )
     }
 }
 

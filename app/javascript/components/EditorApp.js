@@ -4,46 +4,65 @@ import 'react-toastify/dist/ReactToastify.css';
 import GraphPanel from './GraphPanel'
 import Editor from "./Editor";
 toast.configure()
+
 class EditorApp extends React.Component {
 
     constructor(props) {
         super(props);
-        const component = this;
+
         //todo get actual graph
 
+
+
+
+       /* fetch('/api/graphs/'+ this.props.graph, {
+            method: 'get'
+        }).then(function(response) {
+            response.json().then(function(data)
+            {
+                component.setState({graph: data});
+            })
+
+        }).catch(function(err) {});*/
+
+        this.state = {graph: null, selectedElement: null};
+        this.handleGraphChange = this.handleGraphChange.bind(this);
+        this.handleEditorChange = this.handleEditorChange.bind(this);
+    }
+
+    componentDidMount() {
+        const component=this
         fetch('/new_graph', {
             method: 'get'
         }).then(function(response) {
             response.json().then(function(data)
             {
 
-/*                let d3Graph = {}
-                d3Graph.nodes = data.graph.nodes.map(node=>{
-                    return {
-                        id: node.id,
-                        label: node.name,
-                        x: node.html_x,
-                        y: node.html_y,
-                        color: node.html_color,
-                        symbolType: component.getSymbol(node.kind)
-                    };
-                })
-                d3Graph.links = data.graph.edges.map(edge=>{
-                    return {
-                        id: edge.id,
-                        source: edge.start_id,
-                        target: edge.finish_id
-                    }
-                })*/
+                /*                let d3Graph = {}
+                                d3Graph.nodes = data.graph.nodes.map(node=>{
+                                    return {
+                                        id: node.id,
+                                        label: node.name,
+                                        x: node.html_x,
+                                        y: node.html_y,
+                                        color: node.html_color,
+                                        symbolType: component.getSymbol(node.kind)
+                                    };
+                                })
+                                d3Graph.links = data.graph.edges.map(edge=>{
+                                    return {
+                                        id: edge.id,
+                                        source: edge.start_id,
+                                        target: edge.finish_id
+                                    }
+                                })*/
                 component.setState({graph: data});
             })
 
         }).catch(function(err) {
 
+
         });
-        this.state = {graph: null, selectedElement: null};
-        this.handleGraphChange = this.handleGraphChange.bind(this);
-        this.handleEditorChange = this.handleEditorChange.bind(this);
     }
 
     getSymbol(nodeType)
