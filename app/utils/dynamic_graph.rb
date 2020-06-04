@@ -102,10 +102,6 @@ class DynamicGraph
 
   def build_path(node)
     result = []
-    # cycle[:nodes] << current_path[:node][:vertex]
-    # cycle[:edges] << current_path[:edge]
-    # current_path = @tree[current_path[:node]]
-    # current_path = @tree[current_path[:node]]
     current_path = tree[node]
     until current_path.nil?
       result.unshift(current_path[:edge])
