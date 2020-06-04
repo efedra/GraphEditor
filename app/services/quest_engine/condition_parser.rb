@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module QuestEngine
   class ConditionParser
-
     CONSTANTS = %w[true false].freeze
     DELIMITERS = %w[> < ==].freeze
     OPERATORS = %w[+ -].freeze
     VALID_SYMBOLS = CONSTANTS + DELIMITERS + OPERATORS
-    CONSTANTS_MAP = {'true': '#', 'false': '$'}.freeze
+    CONSTANTS_MAP = { 'true': '#', 'false': '$' }.freeze
 
+    # TODO: FIX ME PLEASE!!!
     def valid_condition?(keys, condition)
       valid_symbols?(keys, condition) && single_delimiter?(condition)
     end

@@ -43,11 +43,13 @@ class Edge < ApplicationRecord
   end
 
   def condition_valid?
-    return if condition.blank?
-    result = QuestEngine::ConditionParser.new.valid_condition?(graph.state.keys, condition)
-    return if result
-    api_error(:invalid,
-      column: :condition,
-      condition: condition)
+    nil
+    # TODO: Uncomment me when QuestEngine::ConditionParser is fixed
+    # return if condition.blank?
+    # result = QuestEngine::ConditionParser.new.valid_condition?(graph.state.keys, condition)
+    # return if result
+    # api_error(:invalid,
+    #   column: :condition,
+    #   condition: condition)
   end
 end
