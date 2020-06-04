@@ -2,7 +2,7 @@
 
 class DynamicGraph
   attr_reader :status, :cycles, :nodes, :edges
-  attr_reader :tree, :config
+  attr_reader :tree, :config, :terminal_nodes
   attr_reader :condition_processor
   delegate :allowed_condition?, to: :condition_processor
 
@@ -58,6 +58,7 @@ class DynamicGraph
     @tree = {}
     @cycles = []
     @map_cycles = {}
+    @terminal_nodes = []
     @nodes = Set.new
     @edges = Set.new
     @queue = Queue.new
@@ -70,9 +71,12 @@ class DynamicGraph
     until @queue.empty?
       break if timeout? @start_time
       path = @queue.pop
-      @output_edges[path[:node][:vertex]]&.each do |edge_id|
+      next add_terminal_node(path[:node]) if @output_edges[path[:node][:vertex]].blank?
+      any_node_visited = false
+      @output_edges[path[:node][:vertex]].each do |edge_id|
         edge = @all_edges[edge_id]
         next unless can_visit? path[:node], edge
+        any_node_visited = true
         state = do_action(path[:node], edge)
         next_node = calc_node(edge[:finish], state)
         mark next_node, edge
@@ -80,6 +84,7 @@ class DynamicGraph
         visit path, next_node, edge
         check path, next_node, edge
       end
+      add_terminal_node(path[:node]) unless any_node_visited
     end
     @finish_time = Time.zone.now
     if @queue.empty?
@@ -89,7 +94,29 @@ class DynamicGraph
     end
   end
 
+  def paths
+    terminal_nodes.map { |node| build_path(node) }
+  end
+
   private
+
+  def build_path(node)
+    result = []
+    # cycle[:nodes] << current_path[:node][:vertex]
+    # cycle[:edges] << current_path[:edge]
+    # current_path = @tree[current_path[:node]]
+    # current_path = @tree[current_path[:node]]
+    current_path = tree[node]
+    until current_path.nil?
+      result.unshift(current_path[:edge])
+      current_path = @tree[current_path[:node]]
+    end
+    result
+  end
+
+  def add_terminal_node(node)
+    @terminal_nodes << node
+  end
 
   def start_path(node)
     { node: node, info: { edges: {} } }

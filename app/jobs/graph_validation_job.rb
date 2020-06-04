@@ -5,6 +5,7 @@ class GraphValidationJob < ApplicationJob
 
   def perform(graph, validation_types)
     graph.processing_status!
+    graph.clear_validation_info
     status = graph.valid?(validation_types) ? :valid : :invalid
     graph.update(status: status,
       validated_at: Time.zone.now,

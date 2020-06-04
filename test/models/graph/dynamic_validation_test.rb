@@ -61,7 +61,6 @@ class Graph::DynamicValidationTest < ActiveSupport::TestCase
   end
 
   test "should invalid with terminal non finish" do
-    # TODO: IMPLEMENT
     int = @graph.nodes.intermediate.create!(html_x: 0, html_y: 0)
     Edge.create!(start: @graph.nodes.start.first,
       finish: int,

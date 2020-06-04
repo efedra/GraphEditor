@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_09_183757) do
+ActiveRecord::Schema.define(version: 2020_06_04_192001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2020_05_09_183757) do
     t.integer "status", default: 0, null: false
     t.datetime "validated_at"
     t.jsonb "validation_errors", default: {}, null: false
+    t.jsonb "validation_info", default: {}, null: false
   end
 
   create_table "graphs_users", force: :cascade do |t|

@@ -22,6 +22,7 @@ class Graph::DynamicValidator
     terminal_non_finish?
     cycles?
     search_timeout?
+    update_info
   end
 
   private
@@ -62,5 +63,11 @@ class Graph::DynamicValidator
   def search_timeout?
     return unless @dynamic_graph.status == :timeout
     @graph.api_error(:search_timeout, search_timeout: @dynamic_graph.config[:search_timeout])
+  end
+
+  def update_info
+    @graph.validation_info.merge!(
+      paths: @dynamic_graph.paths
+    )
   end
 end
