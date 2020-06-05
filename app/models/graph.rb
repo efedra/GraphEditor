@@ -50,6 +50,12 @@ class Graph < ApplicationRecord
     super({ only: %i[id name nodes edges state] }.merge(options))
   end
 
+  def clear_validation_info
+    self.validation_info = {
+      paths: []
+    }
+  end
+
   def self.simple(*args, **kwargs)
     graph = new(*args, **kwargs)
     graph.name ||= default(:name)
