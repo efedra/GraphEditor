@@ -58,8 +58,6 @@ export default class Editor extends React.Component {
     }
 
     handleClickCreate = (event) => {
-        /*const nodeID = Math.random();
-        this.props.createElement({id: this.props.graph.nodes.length, x: 700, y: 50}, 'node', nodeID)*/
         this.props.createElement(event.type, parseInt(event.id), event.data);
     }
 

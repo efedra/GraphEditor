@@ -7,6 +7,17 @@ import {element, elementType} from "prop-types";
 
 toast.configure()
 
+function xor(...arrs) {
+    return arrs.reduce((acc, arr, i) => {
+        var accSet = new Set(acc), // множество из элементов первого массива
+            arrSet = new Set(arr); // множество из элементов второго массива
+        return [...accSet].filter(a => !arrSet.has(a)) // элементы первого множества без элементо второго
+            .concat( // объединение
+                [...arrSet].filter(a => !accSet.has(a)) // элементы второго множества без элементов первого
+            );
+    }, []);
+}
+
 class EditorApp extends React.Component {
 
     constructor(props) {
@@ -113,21 +124,20 @@ class EditorApp extends React.Component {
         });
     }
 
-    createElementGraph = (elementType, elementId, eventData) => {
-
+    createElementGraph = () => {
         this.setState({
             graph: this.state.graph.nodes.push({
                 id: Math.max(...this.state.graph.nodes.map(x => x.id)) + 1,
             })
         })
-        this.handleEditorChange('node', )
-
-      /*  this.setState({graph: this.state.graph.nodes.push(graph)});
-        this.handleEditorChange(elementType, elementId)*/
+        this.handleEditorChange('node')
     };
 
     deleteElementGraph = (elementType,DeleteId) => {
 
+        let linksToDelete =this.state.graph.links.filter(x=>x.target==DeleteId || x.source==DeleteId)
+
+        this.setState({graph:this.state.graph.links= xor(this.state.graph.links,linksToDelete)});
 
         let arrayNodesToId = this.state.graph.nodes.map(x => x.id).indexOf(DeleteId);
         this.setState({graph:this.state.graph.nodes.splice(arrayNodesToId,1)})
