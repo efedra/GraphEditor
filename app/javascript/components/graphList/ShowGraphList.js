@@ -11,7 +11,7 @@ class ShowGraphList extends Component {
         this.state = {
             currentGraph: null,
             currentPlay: false,
-            isModalOpen:false
+            isModalOpen: false
         }
     }
 
@@ -38,56 +38,54 @@ class ShowGraphList extends Component {
 
     render() {
 
-       /* if(this.state.currentGraph || this.state.currentPlay) {
-            return (
-                <div>
-                    <Route exact path="/editor" component={EditorApp}/>
-                    <Route exact path="/player" component={PlayerApp}/>
-                </div>
+        /* if(this.state.currentGraph || this.state.currentPlay) {
+             return (
+                 <div>
+                     <Route exact path="/editor" component={EditorApp}/>
+                     <Route exact path="/player" component={PlayerApp}/>
+                 </div>
 
-            )
-        }*/
+             )
+         }*/
         let that = this;
         return (
-                <div>
-                    <ModalWindow/>
-                    <ul>
-                        {this.props.graphList && this.props.graphList.map(function (graph, index) {
-                                return (
-                                    <li className="font-bold py-1 px-4 border border-blue-700 rounded mb-2 ml-6 mr-6 "
-                                        key={index}>
+            <div>
+                <ModalWindow/>
+                <ul>
+                    {this.props.graphList && this.props.graphList.map(function (graph, index) {
+                            return (
+                                <li className="font-bold py-1 px-4 border border-blue-700 rounded mb-2 ml-6 mr-6 "
+                                    key={index}>
 
-                                        <div className=" text-blue-500 float-left mt-2">{index + 1})</div>
-                                        <a href="/player">
-                                            <button
-                                                className="bg-white-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded ml-3 mr-2"
-                                                onClick={that.handleClickPlay.bind(this)}> Play
-                                            </button>
-                                        </a>
+                                    <div className=" text-blue-500 float-left mt-2">{index + 1})</div>
+                                    <a href="/player">
                                         <button
-                                            className="bg-white-500 text-red-500 hover:bg-red-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded float-right ml-1 mr-1 "
-                                            onClick={() => that.ClickDelete(graph.id)}>Delete X
+                                            className="bg-white-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded ml-3 mr-2"
+                                            onClick={that.handleClickPlay.bind(this)}> Play
                                         </button>
-                                        <div className=" text-blue-500 float-left mt-2">{graph.name}</div>
-                                        <FormDialog/>
-                                        <a href ="/editor">
-                                            <button
-                                                className="bg-white-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded float-right ml-1 mr-1 "
-                                                onClick={() => that.handleClickEdit(graph.id)}>Edit
-                                            </button>
-                                        </a>
-                                    </li>
-                                )
-                            }
-                        )}
-                    </ul>
-                </div>
-            )
-        }
-
-
-
-
+                                    </a>
+                                    <button
+                                        className="bg-white-500 text-red-500 hover:bg-red-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded float-right ml-1 mr-1 "
+                                        onClick={() => that.ClickDelete(graph.id)}>Delete X
+                                    </button>
+                                    <div className=" text-blue-500 float-left mt-2">{graph.name}</div>
+                                    <FormDialog/>
+                                    <a href="/editor">
+                                        <button
+                                            className="bg-white-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded float-right ml-1 mr-1 "
+                                            onClick={() => that.handleClickEdit(graph.id)}>Edit
+                                        </button>
+                                    </a>
+                                </li>
+                            )
+                        }
+                    )}
+                </ul>
+            </div>
+        )
     }
+
+
+}
 
 export default ShowGraphList

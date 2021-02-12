@@ -1,6 +1,7 @@
 import React from "react";
 import {CompactPicker} from 'react-color';
 import EditorInput from "./EditorInput";
+import {element, node} from "prop-types";
 
 export default class Editor extends React.Component {
 
@@ -55,9 +56,16 @@ export default class Editor extends React.Component {
             data: {strokeColor: color.hex}
         })
     }
-    handleClickCreate = ()=> {
-        const nodeID = this.props.graph.nodes.length;
-        this.props.update({id:nodeID, x:50, y:50}, 'node', nodeID)
+
+    handleClickCreate = (event) => {
+        /*const nodeID = Math.random();
+        this.props.createElement({id: this.props.graph.nodes.length, x: 700, y: 50}, 'node', nodeID)*/
+        this.props.createElement(event.type, parseInt(event.id), event.data);
+    }
+
+    handleClickDelete = () => {
+        const nodeID = this.props.element.elementId;
+        this.props.deleteElement('node',nodeID);
     }
 
     render() {
@@ -66,42 +74,47 @@ export default class Editor extends React.Component {
                 return <div>
                     {element.elementType} {element.elementId}
                     <fieldset className='pr-2 pl-2'>
-                        <EditorInput legend = 'X' data = {element.data.x} onChange={owner.handleXChange.bind(owner)}/>
-                        <EditorInput legend = 'Y' data = {element.data.y} onChange={owner.handleYChange.bind(owner)}/>
-                        <EditorInput legend = 'Font Size' data = {element.data.fontSize != null ? element.data.fontSize : 8}
+                        <EditorInput legend='X' data={element.data.x} onChange={owner.handleXChange.bind(owner)}/>
+                        <EditorInput legend='Y' data={element.data.y} onChange={owner.handleYChange.bind(owner)}/>
+                        <EditorInput legend='Font Size' data={element.data.fontSize != null ? element.data.fontSize : 8}
                                      onChange={owner.handleFontSizeChange.bind(owner)}/>
-                        <EditorInput legend = 'Stroke Width' data = {element.data.strokeWidth != null ? element.data.strokeWidth : 1}
+                        <EditorInput legend='Stroke Width'
+                                     data={element.data.strokeWidth != null ? element.data.strokeWidth : 1}
                                      onChange={owner.handleStrokeWidthChange.bind(owner)}/>
                         <div>
-                        <legend>Color</legend>
-                        <CompactPicker
-                            color={element.data.color != null ? element.data.color.hex : '#fff'}
-                            onChange={owner.handleColorChange.bind(owner)}/>
+                            <legend>Color</legend>
+                            <CompactPicker
+                                color={element.data.color != null ? element.data.color.hex : '#fff'}
+                                onChange={owner.handleColorChange.bind(owner)}/>
                         </div>
                         <div>
                             <legend>Stroke Color</legend>
                             <CompactPicker
-                                color = {element.data.strokeColor != null ? element.data.strokeColor.hex : '#fff'}
+                                color={element.data.strokeColor != null ? element.data.strokeColor.hex : '#fff'}
                                 onChange={owner.handleStrokeColorChange.bind(owner)}/>
                         </div>
                     </fieldset>
                 </div>
             }
         }
+
         return <div className='Editor'>
-          <h3></h3>
-          <div>
-             <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded'
-                     onClick={this.handleClickCreate.bind(this)}>
-                 Create node
-             </button>
-             <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded ml-1'>
-                        Delete node
-             </button>
-                </div>
-                {this.props.element != null &&
-                    buildFieldSet(this.props.element, this)
-                }
+            <h3></h3>
+            <div>
+                <button
+                    className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded'
+                    onClick={this.handleClickCreate.bind(this)}>
+                    Create node
+                </button>
+                <button
+                    className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded ml-1'
+                    onClick={this.handleClickDelete.bind(this)}>
+                    Delete node
+                </button>
+            </div>
+            {this.props.element != null &&
+            buildFieldSet(this.props.element, this)
+            }
         </div>;
 
 
