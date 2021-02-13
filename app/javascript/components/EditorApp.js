@@ -133,15 +133,15 @@ class EditorApp extends React.Component {
         this.handleEditorChange('node')
     };
 
-    deleteElementGraph = (elementType,DeleteId) => {
+    deleteElementGraph = (elementType, DeleteId) => {
 
-        let linksToDelete =this.state.graph.links.filter(x=>x.target==DeleteId || x.source==DeleteId)
+        let linksToDelete = this.state.graph.links.filter(x => x.target == DeleteId || x.source == DeleteId)
 
-        this.setState({graph:this.state.graph.links= xor(this.state.graph.links,linksToDelete)});
+        this.setState({graph: this.state.graph.links = xor(this.state.graph.links, linksToDelete)});
 
         let arrayNodesToId = this.state.graph.nodes.map(x => x.id).indexOf(DeleteId);
-        this.setState({graph:this.state.graph.nodes.splice(arrayNodesToId,1)})
-        this.handleEditorChange(elementType,DeleteId)
+        this.setState({graph: this.state.graph.nodes.splice(arrayNodesToId, 1)})
+        this.handleEditorChange(elementType, DeleteId)
 
     }
 

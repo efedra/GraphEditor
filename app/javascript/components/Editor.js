@@ -1,13 +1,14 @@
 import React from "react";
 import {CompactPicker} from 'react-color';
 import EditorInput from "./EditorInput";
-import {element, node} from "prop-types";
+import TextField from "@material-ui/core/TextField";
 
 export default class Editor extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {element: props.element};
+        this.state = {inputValue: ''};
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -15,19 +16,6 @@ export default class Editor extends React.Component {
         this.props.onChange(event.type, parseInt(event.elementId), event.data);
     }
 
-    handleXChange(e) {
-        this.handleChange({
-            type: this.props.element.elementType, elementId: this.props.element.elementId,
-            data: {x: parseInt(e.target.value)}
-        })
-    }
-
-    handleYChange(e) {
-        this.handleChange({
-            type: this.props.element.elementType, elementId: this.props.element.elementId,
-            data: {y: parseInt(e.target.value)}
-        })
-    }
 
     handleColorChange(color, e) {
         this.handleChange({
@@ -66,14 +54,29 @@ export default class Editor extends React.Component {
         this.props.deleteElement('node',nodeID);
     }
 
+    handleRenameNode = (Name) =>
+    {
+
+        this.handleChange({
+            type: this.props.element.elementType, elementId: this.props.element.elementId,
+            data: {label: Name.target.value}
+        })
+    }
     render() {
         function buildFieldSet(element, owner) {
             if (element.data !== undefined) {
                 return <div>
-                    {element.elementType} {element.elementId}
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Name of Node"
+                        type="text"
+                        fullWidth
+                        value={ element.data.label!=null ?element.data.label : element.data.id}
+                        onChange={ owner.handleRenameNode.bind(owner)}
+                    />
                     <fieldset className='pr-2 pl-2'>
-                        <EditorInput legend='X' data={element.data.x} onChange={owner.handleXChange.bind(owner)}/>
-                        <EditorInput legend='Y' data={element.data.y} onChange={owner.handleYChange.bind(owner)}/>
                         <EditorInput legend='Font Size' data={element.data.fontSize != null ? element.data.fontSize : 8}
                                      onChange={owner.handleFontSizeChange.bind(owner)}/>
                         <EditorInput legend='Stroke Width'
