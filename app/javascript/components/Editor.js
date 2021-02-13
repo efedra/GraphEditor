@@ -73,7 +73,7 @@ export default class Editor extends React.Component {
                         label="Name of Node"
                         type="text"
                         fullWidth
-                        value={ element.data.label!=null ?element.data.label : element.data.id}
+                        value={element.data.label!=null ?element.data.label : element.data.id}
                         onChange={ owner.handleRenameNode.bind(owner)}
                     />
                     <fieldset className='pr-2 pl-2'>
