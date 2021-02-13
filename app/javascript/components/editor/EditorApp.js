@@ -3,7 +3,6 @@ import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import GraphPanel from './GraphPanel'
 import Editor from "./Editor";
-import {element, elementType} from "prop-types";
 
 toast.configure()
 

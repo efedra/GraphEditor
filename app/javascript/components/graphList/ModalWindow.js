@@ -50,6 +50,7 @@ export default function AlertDialog() {
                         id="name"
                         label="Name graph"
                         type="text"
+
                         fullWidth
                     />
                 </DialogContent>

@@ -1,13 +1,13 @@
 require("channels");
-require("../components/DownloadGraph");
+require("../components/editor/DownloadGraph");
 require("./serviceWorker");
-require("../components/EditorApp");
-require("../components/listMode");
+require("../components/editor/EditorApp");
+require("../components/editor/listMode");
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './stylesheets/index.css';
-import EditorApp from '../components/EditorApp';
+import EditorApp from '../components/editor/EditorApp';
 import * as serviceWorker from './serviceWorker';
 
 document.addEventListener("DOMContentLoaded",function(){

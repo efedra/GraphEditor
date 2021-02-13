@@ -1,5 +1,5 @@
 import React from "react";
-import State from "./player/State";
+import State from "../player/State";
 
 class PlayerApp extends React.Component {
 

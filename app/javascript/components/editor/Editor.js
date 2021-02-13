@@ -1,8 +1,8 @@
 import React from "react";
 import {CompactPicker} from 'react-color';
-import EditorInput from "./EditorInput";
+import {EditorInputNumber} from "./EditorInput";
 import TextField from "@material-ui/core/TextField";
-
+import {EditorInputText} from "./EditorInput";
 export default class Editor extends React.Component {
 
     constructor(props) {
@@ -17,7 +17,7 @@ export default class Editor extends React.Component {
     }
 
 
-    handleColorChange(color, e) {
+    handleColorChange(color) {
         this.handleChange({
             type: this.props.element.elementType, elementId: this.props.element.elementId,
             data: {color: color.hex}
@@ -38,7 +38,7 @@ export default class Editor extends React.Component {
         })
     }
 
-    handleStrokeColorChange(color, e) {
+    handleStrokeColorChange(color) {
         this.handleChange({
             type: this.props.element.elementType, elementId: this.props.element.elementId,
             data: {strokeColor: color.hex}
@@ -66,20 +66,12 @@ export default class Editor extends React.Component {
         function buildFieldSet(element, owner) {
             if (element.data !== undefined) {
                 return <div>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Name of Node"
-                        type="text"
-                        fullWidth
-                        value={element.data.label!=null ?element.data.label : element.data.id}
-                        onChange={ owner.handleRenameNode.bind(owner)}
-                    />
+                   <EditorInputText legend='Name of Node' data={element.data.label!=null ?element.data.label : element.data.id}
+                    onChange={owner.handleRenameNode.bind(owner)}/>
                     <fieldset className='pr-2 pl-2'>
-                        <EditorInput legend='Font Size' data={element.data.fontSize != null ? element.data.fontSize : 8}
+                        <EditorInputNumber legend='Font Size' data={element.data.fontSize != null ? element.data.fontSize : 8}
                                      onChange={owner.handleFontSizeChange.bind(owner)}/>
-                        <EditorInput legend='Stroke Width'
+                        <EditorInputNumber legend='Stroke Width'
                                      data={element.data.strokeWidth != null ? element.data.strokeWidth : 1}
                                      onChange={owner.handleStrokeWidthChange.bind(owner)}/>
                         <div>
@@ -100,7 +92,6 @@ export default class Editor extends React.Component {
         }
 
         return <div className='Editor'>
-            <h3></h3>
             <div>
                 <button
                     className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded'
