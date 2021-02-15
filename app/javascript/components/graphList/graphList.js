@@ -2,25 +2,26 @@ import React, {Component} from 'react'
 import ShowGraphList from "./ShowGraphList";
 import {Router, Route, Link} from 'react-router-dom'
 import {createBrowserHistory} from "history";
+import StoreGraphList from "./StoreGraphList";
+import {observable} from "mobx";
 
 export const history = createBrowserHistory();
 
 export default class GraphListApp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {graphs: null};
-    }
+
+       @observable listOfGraphs=null;
+
 
     deleteGraph = (index) => {
-         const new_list =  this.state.graphs.filter(x => x.id !== index)
-         this.setState({graphs: new_list})
+        const new_list = this.state.listOfGraphs.filter(x => x.id !== index)
+        this.setState({listOfGraphs: new_list})
     }
 
     componentDidMount() {
-        const that= this
+        const that = this
         this.setState(fetch('/api/graphs', {method: 'get'}).then(function (response) {
             response.json().then(function (data) {
-                that.setState({graphs: data});
+                that.setState({listOfGraphs: data});
             })
 
         }).catch(function (err) {
@@ -28,12 +29,11 @@ export default class GraphListApp extends React.Component {
     }
 
 
-
     render() {
         return (
             <Router history={history}>
                 <div>
-                    <ShowGraphList graphList={this.state.graphs} deleteGraph={this.deleteGraph} />
+                    <ShowGraphList graphList={this.state.listOfGraphs} deleteGraph={this.deleteGraph}/>
                 </div>
             </Router>
         )

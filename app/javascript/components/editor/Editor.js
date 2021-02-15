@@ -1,7 +1,6 @@
 import React from "react";
 import {CompactPicker} from 'react-color';
 import {EditorInputNumber} from "./EditorInput";
-import TextField from "@material-ui/core/TextField";
 import {EditorInputText} from "./EditorInput";
 export default class Editor extends React.Component {
 

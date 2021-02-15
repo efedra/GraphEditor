@@ -46,6 +46,9 @@ module.exports = function(api) {
       ]
     ].filter(Boolean),
     plugins: [
+      "react-hot-loader/babel",
+      "transform-decorators-legacy",
+      "transform-class-properties",
       'babel-plugin-macros',
       '@babel/plugin-syntax-dynamic-import',
       isTestEnv && 'babel-plugin-dynamic-import-node',
