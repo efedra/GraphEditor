@@ -47,28 +47,15 @@ module.exports = function(api) {
     ].filter(Boolean),
     plugins: [
       "react-hot-loader/babel",
-      "transform-decorators-legacy",
       "transform-class-properties",
       'babel-plugin-macros',
       '@babel/plugin-syntax-dynamic-import',
       isTestEnv && 'babel-plugin-dynamic-import-node',
       '@babel/plugin-transform-destructuring',
-      [
-        '@babel/plugin-proposal-class-properties',
-        {
-          loose: true
-        }
-      ],
-      [
-        '@babel/plugin-proposal-object-rest-spread',
-        {
-          useBuiltIns: true
-        }
-      ],
-      [
-        '@babel/plugin-transform-runtime',
-        {
-          helpers: false,
+      ["@babel/plugin-proposal-decorators", { "legacy": true }],
+      ['@babel/plugin-proposal-class-properties', {loose: true}],
+      ['@babel/plugin-proposal-object-rest-spread', {useBuiltIns: true }],
+      ['@babel/plugin-transform-runtime', { helpers: false,
           regenerator: true,
           corejs: false
         }

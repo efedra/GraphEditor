@@ -9,8 +9,7 @@ export const history = createBrowserHistory();
 
 export default class GraphListApp extends React.Component {
 
-       @observable listOfGraphs=null;
-
+    @observable listOfGraphs;
 
     deleteGraph = (index) => {
         const new_list = this.state.listOfGraphs.filter(x => x.id !== index)
