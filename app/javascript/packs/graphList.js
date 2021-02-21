@@ -7,9 +7,12 @@ import ReactDOM from 'react-dom';
 import './stylesheets/index.css';
 import GraphListApp from '../components/graphList/graphList';
 import * as serviceWorker from './serviceWorker';
+import MobXGraphListApp from "../components/graphList/MobXgraphList";
+import Store from "./StoreGraphList"
+
 
 document.addEventListener("DOMContentLoaded",function(){
-    ReactDOM.render(<GraphListApp/>, document.getElementById('root'));
+    ReactDOM.render(<MobXGraphListApp store = {Store}/>, document.getElementById('root'));
 });
 
 // If you want your app to work offline and load faster, you can change
