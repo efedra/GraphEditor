@@ -5,14 +5,14 @@ import {subscribeToGraph} from "../../javascript/channels/graphs_channel";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './stylesheets/index.css';
-import GraphListApp from '../components/graphList/graphList';
 import * as serviceWorker from './serviceWorker';
-import MobXGraphListApp from "../components/graphList/MobXgraphList";
-import Store from "./StoreGraphList"
 
+import ListStore from "../components/graph2/ListStore"
+import {MobXGraphList} from "../components/graphList/MobXGraphList";
 
 document.addEventListener("DOMContentLoaded",function(){
-    ReactDOM.render(<MobXGraphListApp store = {Store}/>, document.getElementById('root'));
+    const myStore = new ListStore();
+    ReactDOM.render(<MobXGraphList store = {myStore}/>, document.getElementById('root'));
 });
 
 // If you want your app to work offline and load faster, you can change

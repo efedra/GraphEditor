@@ -1,12 +1,16 @@
 import React from "react";
-import {observable, action} from "mobx";
+import {observable, makeAutoObservable, action} from "mobx";
 
 class Store {
-    @observable listOfGraphs = null;
-    @observable currentGraph = null
-    @observable currentPlay = false
-    @observable isModalOpen = false
+    listOfGraphs = [{id: 99, name: "Not a real graph"}];
+    currentGraph = null;
+    currentPlay = false;
+    isModalOpen = false;
+    count = 0;
 
+    constructor() {
+        makeAutoObservable(this);
+    }
  /*   listOfGraphs = observable(null)
     currentGraph = observable(null)
     currentPlay = observable(false)
@@ -30,11 +34,11 @@ class Store {
         let that = this;
         this.listOfGraphs = fetch('/api/graphs', {method: 'get'}).then(function (response) {
             response.json().then(function (data) {
-                that.setGraph(data)
+                that.listOfGraphs = data;
+                console.log(data);
             })
 
         })
-        console.log(this.listOfGraphs[0])
     }
 
     @action setGraph(data) {
@@ -48,10 +52,13 @@ class Store {
         this.currentPlay=true;
     }
 
+    increaseCount() {
+        this.count += 1;
+    }
 
 
 }
 
-export default new Store()
+export default Store
 
 

@@ -67,7 +67,7 @@ class Api::GraphsController < Api::BaseController
   def graph_params
     allowed_columns = %i[name state]
     disallowed_columns = Graph.column_names.map(&:to_sym) - allowed_columns
-    # I cant permit :state becouse this is a hash/json object
+    # I cant permit :state because this is a hash/json object
     # so i must expect all unallowed columns
     params.require(:graph).except(*disallowed_columns).permit!
   end

@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import ShowGraphList from "./ShowGraphList";
 import {Router, Route, Link} from 'react-router-dom'
 import {createBrowserHistory} from "history";
-import StoreGraphList from "./StoreGraphList";
 import {observable} from "mobx";
 
 export const history = createBrowserHistory();

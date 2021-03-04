@@ -18,7 +18,7 @@ export default function AlertDialog() {
     };
     const handleOpen=()=>{
         let that = this;
-        fetch('/api/graphs/', {method: 'put'}).then(function (response) {
+        fetch('/api/graphs/', {method: 'post'}).then(function (response) {
 
         })
         setOpen(false)

@@ -10,16 +10,16 @@ import {observer} from "mobx-react";
 
 
     handleClickEdit = (index) => {
-        this.props.graphList.editGraph(index)
+        this.props.store.editGraph(index)
     }
     handleClickPlay = () => {
-        this.props.graphList.playGraph()
+        this.props.store.playGraph()
     }
     handleClickInvite = () => {
         //fetch('/graph')
     }
     handleClickDelete = (index) => {
-        this.props.graphList.delete(index)
+        this.props.store.delete(index)
     }
 
     handleClickCreate = () => {
@@ -34,8 +34,9 @@ import {observer} from "mobx-react";
         return (
             <div>
                 <ModalWindow/>
+                <h2>{this.props.store.graphList.count }</h2>
                 <ul>
-                    {this.props.graphList.listOfGraphs && this.props.graphList.listOfGraphs.map(function (graph, index) {
+                    {this.props.store.graphList && this.props.store.graphList.map(function (graph, index) {
                             return (
                                 <li className="font-bold py-1 px-4 border border-blue-700 rounded mb-2 ml-6 mr-6 "
                                     key={index}>
