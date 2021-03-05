@@ -11,4 +11,12 @@ export default class ListStore{
                 that.graphList = data;
             })});
     }
+
+    delete(index){
+        let that = this;
+        fetch('/api/graphs/' + index, {method: 'delete'}).then(function (response) {
+            that.graphList=that.graphList.filter(x => x.id !== index)
+        })
+
+    }
 }
