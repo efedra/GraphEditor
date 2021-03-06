@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {Router, Route, Link} from 'react-router-dom'
+import React from 'react'
+import {Router} from 'react-router-dom'
 import {createBrowserHistory} from "history";
 import {observer} from "mobx-react";
 import MobXShowGraphList from "./MobXShowGraphList";

@@ -5,9 +5,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
+import {observer} from "mobx-react";
 
-export default function AlertDialog() {
+export const ModalWindow = observer( function AlertDialog(props) {
+
     const [open, setOpen] = React.useState(false);
+    const [graphName, setGraphName] = React.useState('');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -15,14 +18,15 @@ export default function AlertDialog() {
 
     const handleClose = () => {
         setOpen(false);
+        setGraphName('')
     };
-    const handleOpen=()=>{
-        let that = this;
-        fetch('/api/graphs/', {method: 'post'}).then(function (response) {
-
-        })
-        setOpen(false)
+    const handleOpen=(event)=>{
+        event.preventDefault();
+        props.store.store.create(graphName)
+        setOpen(false);
+        setGraphName('')
     }
+
 
     return (
         <div>
@@ -50,8 +54,9 @@ export default function AlertDialog() {
                         id="name"
                         label="Name graph"
                         type="text"
-
                         fullWidth
+                        value= {graphName}
+                        onInput={ e=>setGraphName(e.target.value)}
                     />
                 </DialogContent>
                 <DialogActions>
@@ -67,4 +72,4 @@ export default function AlertDialog() {
             </Dialog>
         </div>
     );
-}
+})

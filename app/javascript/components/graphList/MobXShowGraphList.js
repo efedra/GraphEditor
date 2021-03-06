@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Route, Link} from 'react-router-dom';
 import EditorApp from "../editor/EditorApp";
 import PlayerApp from "../editor/PlayerApp";
-import ModalWindow from "./ModalWindow";
+import {ModalWindow} from "./ModalWindow";
 import FormDialog from "./InviteButton";
 import {observer} from "mobx-react";
 
@@ -33,7 +33,7 @@ import {observer} from "mobx-react";
         let that = this;
         return (
             <div>
-                <ModalWindow/>
+                <ModalWindow store = {this.props}/>
                 <h2>{this.props.store.graphList.count }</h2>
                 <ul>
                     {this.props.store.graphList && this.props.store.graphList.map(function (graph, index) {
