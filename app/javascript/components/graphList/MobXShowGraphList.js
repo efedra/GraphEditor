@@ -1,7 +1,4 @@
 import React, {Component} from 'react'
-import {Route, Link} from 'react-router-dom';
-import EditorApp from "../editor/EditorApp";
-import PlayerApp from "../editor/PlayerApp";
 import {ModalWindow} from "./ModalWindow";
 import FormDialog from "./InviteButton";
 import {observer} from "mobx-react";
