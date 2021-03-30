@@ -2,17 +2,17 @@
 #
 #
 class NeoEdge
-  include ActiveGraph::Node
-  # probably, this one goes to NoeNode or smth
-  #
-  property :title
-  property :text, default: 'text'
-
-  belongs_to :neonode
+  include ActiveGraph::Relationship
 
 
-  has_one :in, :source_neonode
-  has_one :out, :dest_neonode
+  from_class :NeoNode
+  to_class :NeoNode
+
+  # it recognises "_to_class" but not "to_class"
+  # but manual has "to_class"
+
+  #has_one :in, :source_neonode
+  #has_one :out, :dest_neonode
 
 
 end
