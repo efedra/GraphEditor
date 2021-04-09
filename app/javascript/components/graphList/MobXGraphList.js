@@ -7,9 +7,10 @@ import MobXShowGraphList from "./MobXShowGraphList";
 
 export const history = createBrowserHistory();
 
-export const MobXGraphList = observer(({ store }) => <Router history={history}>
-    <div>
-        <h1>{store.graphList.count}</h1>
-        <MobXShowGraphList store={store}/>
-    </div>
-</Router>)
+export const MobXGraphList = observer(({store}) =>
+    <Router history={history}>
+        <div>
+
+            <MobXShowGraphList store={store}/>
+        </div>
+    </Router>)

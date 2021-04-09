@@ -31,7 +31,6 @@ import {observer} from "mobx-react";
         return (
             <div>
                 <ModalWindow store = {this.props}/>
-                <h2>{this.props.store.graphList.count }</h2>
                 <ul>
                     {this.props.store.graphList && this.props.store.graphList.map(function (graph, index) {
                             return (
