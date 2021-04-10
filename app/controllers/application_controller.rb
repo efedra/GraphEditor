@@ -18,5 +18,11 @@ class ApplicationController < ActionController::Base
       return key if key.first != '.'
       "controllers.#{controller_path}.#{key}"
     end
+
+
+    def after_sign_in_path_for(resource)
+      '/graphList'
+    end
+
   end
 end

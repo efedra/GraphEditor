@@ -3,7 +3,7 @@
 class Api::GraphsController < Api::BaseController
   def index
     authorize Graph
-    render json: current_user.graphs.all
+    render json: {graphs: current_user.graphs.all, userId: current_user.id}
   end
 
   def show
@@ -13,8 +13,23 @@ class Api::GraphsController < Api::BaseController
 
   def create
     authorize Graph
-    @graph = current_user.graphs.create_simple!(graph_params)
-    graph.graphs_users.create!(user: current_user)
+    start_node = Node.new(name: 'start',
+                          text: 'Старт!',
+                          kind: Node::KIND_START,
+                          html_x: 100,
+                          html_y: 100)
+    end_node = Node.new(name: 'end',
+                         text: 'Победа!',
+                         kind: Node::KIND_END,
+                         html_x: 200,
+                         html_y: 100)
+    graph = Graph.create!(name: graph_params[:name],
+                          users: [current_user],
+                          nodes: [start_node, end_node]
+                         )
+    graph.edges.create
+
+    graph.save
     render_graph status: :created
   end
 

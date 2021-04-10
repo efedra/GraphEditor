@@ -4,6 +4,7 @@ export function subscribeToUser(userId)
 {consumer.subscriptions.create({ channel: "UsersChannel", user_id: userId}, {
     connected() {
         // Called when the subscription is ready for use on the server
+        console.log('Subscribed')
     },
 
     disconnected() {
@@ -11,6 +12,7 @@ export function subscribeToUser(userId)
     },
 
     received(data) {
+        console.log('Got some data')
         // Called when there's incoming data on the websocket for this channel
         switch(data.type) {
             default:

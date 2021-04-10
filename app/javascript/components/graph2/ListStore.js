@@ -1,13 +1,16 @@
 import {makeAutoObservable} from "mobx";
-
+import {subscribeToUser} from "../../channels/users_channel"
 export default class ListStore{
     graphList = [];
+    userId = null;
     constructor() {
         makeAutoObservable(this);
         const that = this;
         fetch('/api/graphs', {method: 'get'}).then(function (response) {
             response.json().then(function (data) {
-                that.graphList = data;
+                that.graphList = data.graphs;
+                that.userId = data.userId;
+                subscribeToUser(that.userId);
             })});
     }
 
