@@ -3,10 +3,10 @@ class NeoNode
   include ActiveGraph::Node
   # probably, this one goes to NoeNode or smth
   #
-  #property :title, type: String
-  #property :text, type: String, default: 'text'
+  property :title, type: String
+  property :text, type: String, default: 'text'
 
-  #questionable
+  #quable
   # options are still strange. delete ":out,", so it shows error message
   #has_many :out, :neonodes, rel_class: :NeoEdge
 

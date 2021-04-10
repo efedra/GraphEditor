@@ -66,7 +66,5 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   #
-  config.neo4j.driver.url = 'bolt://localhost:7687'
-  config.neo4j.driver.username = 'neo4j'
-  config.neo4j.driver.password = '12345678'
+
 end

@@ -1,0 +1,11 @@
+bundle exec rake neo4j:generate_schema_migration[constraint,NeoNode,uuid]
+bundle exec rake neo4j:generate_schema_migration[index,NeoNode,kind]
+bundle exec rake neo4j:migrate
+
+bundle exec rake neo4j:generate_schema_migration[constraint,NeoEdge,uuid]
+bundle exec rake neo4j:generate_schema_migration[index,NeoEdge, kind]
+bundle exec rake neo4j:migrate
+
+bundle exec rake neo4j:generate_schema_migration[constraint,NeoGraph,uuid]
+bundle exec rake neo4j:generate_schema_migration[index,NeoGraph, kind]
+bundle exec rake neo4j:migrate
