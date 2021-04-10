@@ -1,6 +1,5 @@
 import React from "react";
 import { Graph } from "react-d3-graph";
-import GraphSample from './Graph1.json'
 import GraphConfig from './GraphConfig.json'
 import {toast} from "react-toastify";
 export default class GraphPanel extends React.Component {

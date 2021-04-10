@@ -18,10 +18,17 @@ export const PlayerApp = observer(({store}) =>
             <div className='h-64 bg-white border-4 border-blue-600 rounded m-2 '>
                     <ul>
                         {store.node.answers.map(function (answer) {
-                                return (
-                                    <li key={answer.id} className=" flex  m-2 bg-white-500 text-blue-500 hover:bg-blue-500 hover:text-white
+                                if (answer.enabled) {
+                                    return (
+                                        <li key={answer.id} className=" flex  m-2 bg-white-500 text-blue-500 hover:bg-blue-500 hover:text-white
                                  font-bold py-2 px-4 border border-blue-700 rounded ml-3 mr-2">{answer.text}</li>
-                                )
+                                    )
+                                }
+                                else {
+                                    return (
+                                        <li key={answer.id} className=" flex  m-2 bg-white-500 text-gray-500 font-bold py-2 px-4 border border-gray-700 rounded ml-3 mr-2">{answer.text}</li>
+                                    )
+                                }
                             }
                         )}
                     </ul>

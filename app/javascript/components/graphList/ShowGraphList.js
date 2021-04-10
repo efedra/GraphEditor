@@ -3,7 +3,7 @@ import {ModalWindow} from "./ModalWindow";
 import FormDialog from "./InviteButton";
 import {observer} from "mobx-react";
 
-@observer class MobXShowGraphList extends Component {
+@observer class ShowGraphList extends Component {
 
 
     handleClickEdit = (index) => {
@@ -68,4 +68,4 @@ import {observer} from "mobx-react";
 
 }
 
-export default MobXShowGraphList
+export default ShowGraphList

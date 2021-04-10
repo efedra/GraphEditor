@@ -10,12 +10,22 @@ export default class NodeStore {
         answers: [
             {
                 id: 1,
-                text: "руби",
+                text: "Ruby",
                 enabled: true
             },
             {
                 id: 2,
                 text: "js",
+                enabled: false
+            },
+            {
+                id: 3,
+                text: "C++",
+                enabled: true
+            },
+            {
+                id: 4,
+                text: "C#",
                 enabled: false
             }
         ],

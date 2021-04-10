@@ -1,8 +1,6 @@
 require("channels");
-require("../components/editor/DownloadGraph");
 require("./serviceWorker");
 require("../components/editor/EditorApp");
-require("../components/editor/listMode");
 
 import React from 'react';
 import ReactDOM from 'react-dom';
