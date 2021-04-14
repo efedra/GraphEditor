@@ -4,6 +4,14 @@
 class NeoEdge
   include ActiveGraph::Relationship
 
+  property :title, type: String
+  property :text, type: String, default: 'text'
+
+  # changes and requirements are described in an Array of Strings
+  # Spaces are important!(for easier parsing later)
+  property :requirements, type: Array, default: ["hp > 0"]
+  property :changes, type: Array, default: ["hp + 0"]
+
 
   from_class :NeoNode
   to_class :NeoNode
