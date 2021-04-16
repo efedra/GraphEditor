@@ -2,8 +2,9 @@ import React from "react";
 import {CompactPicker} from 'react-color';
 import {EditorInputNumber} from "./EditorInput";
 import {EditorInputText} from "./EditorInput";
-
-
+import {EditorInputMultiText} from "./EditorInput";
+import {description} from "d3/dist/package";
+import FileUploadButton from "./ButtonFileUpload";
 
 export default class Editor extends React.Component {
 
@@ -58,13 +59,19 @@ export default class Editor extends React.Component {
         })
     }
 
-
+    handleDescriptionChange= (Description)=>
+    {
+        this.handleDescriptionChange({
+            type: this.props.element.elementType, elementId: this.props.element.elementId,
+            data: {description: Description}
+        })
+    }
 
     render() {
         function buildFieldSet(element, owner) {
             if (element.data !== undefined) {
                 return <div>
-                   <EditorInputText legend='Name of Node' data={element.data.label!=null ?element.data.label : element.data.id}
+                   <EditorInputText legend='Name of node' data={element.data.label!=null ?element.data.label : element.data.id}
                     onChange={owner.handleRenameNode.bind(owner)}/>
                     <fieldset className='pr-2 pl-2'>
                         <EditorInputNumber legend='Stroke Width'
@@ -83,15 +90,9 @@ export default class Editor extends React.Component {
                                 onChange={owner.handleStrokeColorChange.bind(owner)}/>
                         </div>
 
-                        <button
-                            className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded ml-1 inline-flex items-center"
-                            onClick={()=> owner.handleUploadFile.bind(owner)}>
-                            <svg className="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" stroke="white" fill="white"/>
-                            </svg>
-                            <span>Upload</span>
-                            <input type='file' id='file'  style={{display: 'none'}}/>
-                        </button>
+                        <EditorInputMultiText legend = 'Description of node' data= {element.data.description!=null ?element.data.description!=null: "Empty node"}
+                         onChange={owner.handleDescriptionChange.bind(owner)}/>
+                        <FileUploadButton/>
 
                     </fieldset>
                 </div>
