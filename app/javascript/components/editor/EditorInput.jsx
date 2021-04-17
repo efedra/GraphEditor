@@ -27,6 +27,8 @@ export function EditorInputMultiText(props) {
     return <div className=''>
         <legend>{props.legend}</legend>
        <textarea rows="8" cols="20"
+                 value={props.data}
+                 onChange={props.onChange}
                className='shadow appearance-none border rounded w-full py-2 px-3
                                 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'/>
     </div>

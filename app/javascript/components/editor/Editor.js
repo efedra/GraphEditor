@@ -3,7 +3,6 @@ import {CompactPicker} from 'react-color';
 import {EditorInputNumber} from "./EditorInput";
 import {EditorInputText} from "./EditorInput";
 import {EditorInputMultiText} from "./EditorInput";
-import {description} from "d3/dist/package";
 import FileUploadButton from "./ButtonFileUpload";
 
 export default class Editor extends React.Component {
@@ -61,9 +60,9 @@ export default class Editor extends React.Component {
 
     handleDescriptionChange= (Description)=>
     {
-        this.handleDescriptionChange({
+        this.handleChange({
             type: this.props.element.elementType, elementId: this.props.element.elementId,
-            data: {description: Description}
+            data: {description: Description.target.value}
         })
     }
 
@@ -90,7 +89,7 @@ export default class Editor extends React.Component {
                                 onChange={owner.handleStrokeColorChange.bind(owner)}/>
                         </div>
 
-                        <EditorInputMultiText legend = 'Description of node' data= {element.data.description!=null ?element.data.description!=null: "Empty node"}
+                        <EditorInputMultiText legend = 'Description of node' data= {element.data.description!=null ?element.data.description: ""}
                          onChange={owner.handleDescriptionChange.bind(owner)}/>
                         <FileUploadButton/>
 
