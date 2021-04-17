@@ -6,11 +6,13 @@ class NeoEdge
 
   property :title, type: String
   property :text, type: String, default: 'text'
+  property :you_need, type: String, default:"hp>0"
+  property :you_get, type: String, default: "hp+100"
 
   # changes and requirements are described in an Array of Strings
   # Spaces are important!(for easier parsing later)
-  property :requirements, type: Array, default: ["hp > 0"]
-  property :changes, type: Array, default: ["hp + 0"]
+  #property :reqs, type: String, default: "hp > 0"
+  #property :changes, type: String, default: "hp + 0"
 
 
   from_class :NeoNode

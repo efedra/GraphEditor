@@ -11,6 +11,7 @@ class NeoGraph
   #
   property :title
   property :text, default: 'text'
+  property :start_state, type: String
 
 
   has_many :out, :neonodes

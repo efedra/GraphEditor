@@ -75,4 +75,9 @@ class Api::GraphsController < Api::BaseController
   def graph
     @graph ||= current_user.graphs.find(params[:id])
   end
+
+  def show2
+    #TODO
+    render json:{graph: }
+  end
 end
