@@ -15,8 +15,13 @@
 - CONSTRAINT ON ( `activegraph::migrations::schemamigration`:`ActiveGraph::Migrations::SchemaMigration`
   ) ASSERT (`activegraph::migrations::schemamigration`.migration_id) IS UNIQUE
 - CONSTRAINT ON ( neoedge:NeoEdge ) ASSERT (neoedge.uuid) IS UNIQUE
+- CONSTRAINT ON ( neofirst:NeoFirst ) ASSERT (neofirst.uuid) IS UNIQUE
 - CONSTRAINT ON ( neograph:NeoGraph ) ASSERT (neograph.uuid) IS UNIQUE
+- CONSTRAINT ON ( neogs:NeoGS ) ASSERT (neogs.uuid) IS UNIQUE
 - CONSTRAINT ON ( neonode:NeoNode ) ASSERT (neonode.uuid) IS UNIQUE
+- CONSTRAINT ON ( neostate:NeoState ) ASSERT (neostate.uuid) IS UNIQUE
+- CONSTRAINT ON ( neoug:NeoUG ) ASSERT (neoug.uuid) IS UNIQUE
+- CONSTRAINT ON ( neouser:NeoUser ) ASSERT (neouser.uuid) IS UNIQUE
 :indexes:
 - INDEX FOR (n:NeoNode) ON (n.kind)
 :versions:
@@ -28,3 +33,8 @@
 - '20210414111957'
 - '20210414112011'
 - '20210414112028'
+- '20210421113337'
+- '20210421113352'
+- '20210421113402'
+- '20210421113411'
+- '20210421113421'

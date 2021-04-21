@@ -11,9 +11,10 @@ class NeoGraph
   #
   property :title
   property :text, default: 'text'
-  property :start_state, type: String
+  #property :start_state, type: String
 
 
-  has_many :out, :neonodes
-  has_many :out, :neonedges
+  has_one :out, :neonode, rel_class: :NeoGS
+
+  #has_one :out, :neostate, rel_class: :NeoUG
 end

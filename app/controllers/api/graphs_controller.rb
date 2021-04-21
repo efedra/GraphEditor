@@ -78,6 +78,7 @@ class Api::GraphsController < Api::BaseController
 
   def show2
     #TODO
-    render json:{graph: }
+
+    # render json:{graph: }
   end
 end
