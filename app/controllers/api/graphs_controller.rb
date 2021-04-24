@@ -57,6 +57,12 @@ class Api::GraphsController < Api::BaseController
     head :no_content
   end
 
+  def show2
+    #TODO
+    g = NeoGraph.first
+    render json:{graph: g}
+  end
+
   private
 
   def render_graph(**kwargs)
@@ -76,9 +82,5 @@ class Api::GraphsController < Api::BaseController
     @graph ||= current_user.graphs.find(params[:id])
   end
 
-  def show2
-    #TODO
 
-    # render json:{graph: }
-  end
 end
