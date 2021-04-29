@@ -62,17 +62,6 @@ class Api::GraphsController < Api::BaseController
     g = NeoGraph.first
     gid = g.uuid
 
-    # the command is: ActiveGraph::Base.query("MATCH (n)-[r*]->(d) WHERE n.uuid = 'f135701a-6b0b-4c60-bcfd-8c34a98e1d60' RETURN r, d")
-    #
-    # Exemples to look at and experience fear:
-    # Neo4j::Session.current.query("MATCH (n) WHERE n.uuid = 'f135701a-6b0b-4c60-bcfd-8c34a98e1d60' RETURN ID(n)")
-    #
-    # ActiveGraph::Base.query("MATCH (n) WHERE n.uuid = 'f135701a-6b0b-4c60-bcfd-8c34a98e1d60' RETURN ID(n)")
-    #
-    # MATCH (n)-[r*]->(d) WHERE n.uuid = 'f135701a-6b0b-4c60-bcfd-8c34a98e1d60' RETURN r, d
-    #
-    # it works, but it doesn't want to give me the things it gets. output to a variable is some infernal internal info or smth
-
     render json:{graph: g}
   end
 
