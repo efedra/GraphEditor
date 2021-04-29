@@ -62,6 +62,9 @@ class Api::GraphsController < Api::BaseController
     g = NeoGraph.first
     gid = g.uuid
 
+    #ActiveGraph::Base.query("MATCH (n)-[r*]->(d) WHERE n.uuid = '<uuid here>' = 441007 RETURN r, d")
+    # it does what it must do but doesnt return things proprly
+
     render json:{graph: g}
   end
 
