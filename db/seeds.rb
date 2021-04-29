@@ -44,7 +44,7 @@ ts = NeoState.create(ch_name: "Sanya", stats: { hp: 100, money: 66.6 }, inventor
 
 trug = NeoUG.create(from_node: tu, to_node: tg0)
 trgs = NeoGS.create(from_node: tg0, to_node: ts)
-trfirst = NeoFirst.create(from_node tg0, to_node: tn0)
+trfirst = NeoFirst.create(from_node: tg0, to_node: tn0)
 
 
 
