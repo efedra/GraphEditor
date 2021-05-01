@@ -1,9 +1,5 @@
 import React from "react";
-import {CompactPicker} from 'react-color';
-import {EditorInputNumber} from "./EditorInput";
-import {EditorInputText} from "./EditorInput";
-import {EditorInputMultiText} from "./EditorInput";
-import FileUploadButton from "./ButtonFileUpload";
+import BuildFieldSet from "./BuildFieldSet";
 
 export default class Editor extends React.Component {
 
@@ -19,27 +15,6 @@ export default class Editor extends React.Component {
     }
 
 
-    handleColorChange(color) {
-        this.handleChange({
-            type: this.props.element.elementType, elementId: this.props.element.elementId,
-            data: {color: color.hex}
-        })
-    }
-
-
-    handleStrokeWidthChange(e) {
-        this.handleChange({
-            type: this.props.element.elementType, elementId: this.props.element.elementId,
-            data: {strokeWidth: parseInt(e.target.value)}
-        })
-    }
-
-    handleStrokeColorChange(color) {
-        this.handleChange({
-            type: this.props.element.elementType, elementId: this.props.element.elementId,
-            data: {strokeColor: color.hex}
-        })
-    }
 
     handleClickCreate = (event) => {
         this.props.createElement(event.type, parseInt(event.id), event.data);
@@ -50,53 +25,9 @@ export default class Editor extends React.Component {
         this.props.deleteElement('node',nodeID);
     }
 
-    handleRenameNode = (Name) =>
-    {
-        this.handleChange({
-            type: this.props.element.elementType, elementId: this.props.element.elementId,
-            data: {label: Name.target.value}
-        })
-    }
 
-    handleDescriptionChange= (Description)=>
-    {
-        this.handleChange({
-            type: this.props.element.elementType, elementId: this.props.element.elementId,
-            data: {description: Description.target.value}
-        })
-    }
 
     render() {
-        function buildFieldSet(element, owner) {
-            if (element.data !== undefined) {
-                return <div>
-                   <EditorInputText legend='Name of node' data={element.data.label!=null ?element.data.label : element.data.id}
-                    onChange={owner.handleRenameNode.bind(owner)}/>
-                    <fieldset className='pr-2 pl-2'>
-                        <EditorInputNumber legend='Stroke Width'
-                                     data={element.data.strokeWidth != null ? element.data.strokeWidth : 1}
-                                     onChange={owner.handleStrokeWidthChange.bind(owner)}/>
-                        <div>
-                            <legend>Color</legend>
-                            <CompactPicker
-                                color={element.data.color != null ? element.data.color.hex : '#fff'}
-                                onChange={owner.handleColorChange.bind(owner)}/>
-                        </div>
-                        <div>
-                            <legend>Stroke Color</legend>
-                            <CompactPicker
-                                color={element.data.strokeColor != null ? element.data.strokeColor.hex : '#fff'}
-                                onChange={owner.handleStrokeColorChange.bind(owner)}/>
-                        </div>
-
-                        <EditorInputMultiText legend = 'Description of node' data= {element.data.description!=null ?element.data.description: ""}
-                         onChange={owner.handleDescriptionChange.bind(owner)}/>
-                        <FileUploadButton/>
-
-                    </fieldset>
-                </div>
-            }
-        }
 
         return <div className='Editor'>
             <div>
@@ -112,11 +43,8 @@ export default class Editor extends React.Component {
                 </button>
             </div>
             {this.props.element != null &&
-            buildFieldSet(this.props.element, this)
+            <BuildFieldSet element={this.props.element} onChange={this.props.onChange}/>
             }
-
-
-
 
         </div>;
 
