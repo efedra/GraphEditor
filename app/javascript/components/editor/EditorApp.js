@@ -33,6 +33,11 @@ class EditorApp extends React.Component {
 
     componentDidMount() {
         const component = this
+        //TODO
+        //1. Достать значение из div с помощью GetElementByID
+        //https://developer.mozilla.org/ru/docs/Web/API/Document/getElementById
+        //2. Послать запрос на API/GRAPHS/<ID>
+        //3. Нарисовать граф и сформировать API
         fetch('/new_graph', {
             method: 'get'
         }).then(function (response) {

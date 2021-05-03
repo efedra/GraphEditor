@@ -21,7 +21,9 @@ class HomeController < ApplicationController
     # render json: { path: p, node_count: n1, edge_count: e1 }
   end
 
-  def editor; end
+  def editor
+    @id = params[:id]
+  end
 
   def player; end
 
