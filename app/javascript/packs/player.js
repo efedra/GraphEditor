@@ -1,16 +1,19 @@
+import ListStore from "../components/stores/ListStore";
+
 require("channels");
 require("./serviceWorker");
-require("../components/editor/PlayerApp");
-require("../components/editor/listMode");
+require("../components/player/PlayerApp");
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './stylesheets/index.css';
-import PlayerApp from '../components/editor/PlayerApp';
+import {PlayerApp} from '../components/player/PlayerApp';
 import * as serviceWorker from './serviceWorker';
+import NodeStore from "../components/stores/NodeStore";
 
 document.addEventListener("DOMContentLoaded",function(){
-    ReactDOM.render(<PlayerApp />, document.getElementById('root'));
+    const myStoreNode = new NodeStore();
+    ReactDOM.render(<PlayerApp store = {myStoreNode}/>, document.getElementById('root'));
 });
 
 // If you want your app to work offline and load faster, you can change

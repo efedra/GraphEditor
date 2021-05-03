@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :graphs, only: %i[index create show update destroy] do
       post :validate, on: :member
+      post :reserve, on: :member
       resources :nodes, only: %i[index create show update destroy]
       resources :edges, only: %i[index create show update destroy]
       resources :members, only: %i[index show create update destroy] do

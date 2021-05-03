@@ -7,17 +7,12 @@ import ReactDOM from 'react-dom';
 import './stylesheets/index.css';
 import * as serviceWorker from './serviceWorker';
 
-import ListStore from "../components/graph2/ListStore"
-import {MobXGraphList} from "../components/graphList/MobXGraphList";
-import { configure } from "mobx"
-
-configure({
-    enforceActions: "never",
-});
+import ListStore from "../components/stores/ListStore"
+import {GraphListApp} from "../components/graphList/GraphListApp";
 
 document.addEventListener("DOMContentLoaded",function(){
     const myStore = new ListStore();
-    ReactDOM.render(<MobXGraphList store = {myStore}/>, document.getElementById('root'));
+    ReactDOM.render(<GraphListApp store = {myStore}/>, document.getElementById('root'));
 
 });
 

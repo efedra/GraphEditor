@@ -1,34 +1,22 @@
 import React, {Component} from 'react'
-import {Route, Link} from 'react-router-dom';
-import EditorApp from "../editor/EditorApp";
-import PlayerApp from "../editor/PlayerApp";
-import ModalWindow from "./ModalWindow";
+import {ModalWindow} from "./ModalWindow";
 import FormDialog from "./InviteButton";
+import {observer} from "mobx-react";
 
-class ShowGraphList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            currentGraph: null,
-            currentPlay: false,
-            isModalOpen: false
-        }
-    }
+@observer class ShowGraphList extends Component {
+
 
     handleClickEdit = (index) => {
-        this.setState({currentGraph: index})
+        this.props.store.editGraph(index)
     }
     handleClickPlay = () => {
-        this.setState({currentPlay: true})
+        this.props.store.playGraph()
     }
     handleClickInvite = () => {
         //fetch('/graph')
     }
-    ClickDelete = (index) => {
-        let that = this;
-        fetch('/api/graphs/' + index, {method: 'delete'}).then(function (response) {
-            that.props.deleteGraph(index)
-        })
+    handleClickDelete = (index) => {
+        this.props.store.delete(index)
     }
 
     handleClickCreate = () => {
@@ -38,21 +26,13 @@ class ShowGraphList extends Component {
 
     render() {
 
-        /* if(this.state.currentGraph || this.state.currentPlay) {
-             return (
-                 <div>
-                     <Route exact path="/editor" component={EditorApp}/>
-                     <Route exact path="/player" component={PlayerApp}/>
-                 </div>
 
-             )
-         }*/
         let that = this;
         return (
             <div>
-                <ModalWindow/>
+                <ModalWindow store = {this.props}/>
                 <ul>
-                    {this.props.graphList && this.props.graphList.map(function (graph, index) {
+                    {this.props.store.graphList && this.props.store.graphList.map(function (graph, index) {
                             return (
                                 <li className="font-bold py-1 px-4 border border-blue-700 rounded mb-2 ml-6 mr-6 "
                                     key={index}>
@@ -66,7 +46,7 @@ class ShowGraphList extends Component {
                                     </a>
                                     <button
                                         className="bg-white-500 text-red-500 hover:bg-red-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded float-right ml-1 mr-1 "
-                                        onClick={() => that.ClickDelete(graph.id)}>Delete X
+                                        onClick={() => that.handleClickDelete(graph.id)}>Delete X
                                     </button>
                                     <div className=" text-blue-500 float-left mt-2">{graph.name}</div>
                                     <FormDialog/>

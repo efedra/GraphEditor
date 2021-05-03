@@ -72,6 +72,12 @@ class Api::GraphsController < Api::BaseController
     head :no_content
   end
 
+  #TODO not implemented
+  def reserve
+    authorize graph
+    render json: {message:"reserved"}
+
+  end
   private
 
   def render_graph(**kwargs)

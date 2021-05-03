@@ -3,19 +3,10 @@ import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import GraphPanel from './GraphPanel'
 import Editor from "./Editor";
-
+import xor from "./Xor";
 toast.configure()
 
-function xor(...arrs) {
-    return arrs.reduce((acc, arr, i) => {
-        var accSet = new Set(acc), // множество из элементов первого массива
-            arrSet = new Set(arr); // множество из элементов второго массива
-        return [...accSet].filter(a => !arrSet.has(a)) // элементы первого множества без элементо второго
-            .concat( // объединение
-                [...arrSet].filter(a => !accSet.has(a)) // элементы второго множества без элементов первого
-            );
-    }, []);
-}
+
 
 class EditorApp extends React.Component {
 

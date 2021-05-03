@@ -55,7 +55,7 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [:uuid]
 
-  # Use a different cache store in production.
+  # Use a different cache stores in production.
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
@@ -106,7 +106,7 @@ Rails.application.configure do
   # class timestamps to determine how long to wait before reading from the
   # replica.
   #
-  # By default Rails will store a last write timestamp in the session. The
+  # By default Rails will stores a last write timestamp in the session. The
   # DatabaseSelector middleware is designed as such you can define your own
   # strategy for connection switching and pass that into the middleware through
   # these configuration options.
