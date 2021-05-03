@@ -3,7 +3,7 @@
 class Api::GraphsController < Api::BaseController
   def index
     authorize Graph
-    render json: current_user.graphs.all
+    render json: {graphs: current_user.graphs.all, userId: current_user.id}
   end
 
   def show
@@ -13,8 +13,23 @@ class Api::GraphsController < Api::BaseController
 
   def create
     authorize Graph
-    @graph = current_user.graphs.create_simple!(graph_params)
-    graph.graphs_users.create!(user: current_user)
+    start_node = Node.new(name: 'start',
+                          text: 'Старт!',
+                          kind: Node::KIND_START,
+                          html_x: 100,
+                          html_y: 100)
+    end_node = Node.new(name: 'end',
+                         text: 'Победа!',
+                         kind: Node::KIND_END,
+                         html_x: 200,
+                         html_y: 100)
+    graph = Graph.create!(name: graph_params[:name],
+                          users: [current_user],
+                          nodes: [start_node, end_node]
+                         )
+    graph.edges.create
+
+    graph.save
     render_graph status: :created
   end
 
@@ -57,6 +72,7 @@ class Api::GraphsController < Api::BaseController
     head :no_content
   end
 
+<<<<<<< HEAD
   def show2
     #TODO
     g = NeoGraph.first
@@ -68,6 +84,14 @@ class Api::GraphsController < Api::BaseController
     render json:{graph: g}
   end
 
+=======
+  #TODO not implemented
+  def reserve
+    authorize graph
+    render json: {message:"reserved"}
+
+  end
+>>>>>>> mobx
   private
 
   def render_graph(**kwargs)
@@ -78,7 +102,7 @@ class Api::GraphsController < Api::BaseController
   def graph_params
     allowed_columns = %i[name state]
     disallowed_columns = Graph.column_names.map(&:to_sym) - allowed_columns
-    # I cant permit :state becouse this is a hash/json object
+    # I cant permit :state because this is a hash/json object
     # so i must expect all unallowed columns
     params.require(:graph).except(*disallowed_columns).permit!
   end

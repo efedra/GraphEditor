@@ -83,7 +83,7 @@ Devise.setup do |config|
   # Does not affect registerable.
   # config.paranoid = true
 
-  # By default Devise will store the user in session. You can skip storage for
+  # By default Devise will stores the user in session. You can skip storage for
   # particular strategies by setting this option.
   # Notice that if you are skipping storage for all authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
