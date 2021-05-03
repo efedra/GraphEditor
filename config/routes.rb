@@ -3,7 +3,6 @@
 Rails.application.routes.draw do
   devise_for :users
   namespace :api do
-    get 'show2', to: 'graph#show2'
     resources :graphs, only: %i[index create show update destroy] do
       post :validate, on: :member
       post :reserve, on: :member

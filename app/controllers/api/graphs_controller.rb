@@ -7,8 +7,20 @@ class Api::GraphsController < Api::BaseController
   end
 
   def show
-    authorize graph
-    render_graph
+    #authorize graph
+    #render_graph
+
+    graph = NeoGraph.find_by(uuid: params[:id])
+    result = ActiveGraph::Base.query("MATCH (n)-[r*]->(d) WHERE n.uuid = '#{params[:id]}' RETURN r, d")
+    nodes = []
+    state = {}
+    while result.has_next?
+      item = result.next[:d]
+      nodes << item if item.labels.include? :NeoNode
+      state = item if item.labels.include? :NeoState
+    end
+    #TODO fix json in state
+    render json: {graph: graph, nodes: nodes, state: state}
   end
 
   def create
@@ -72,26 +84,13 @@ class Api::GraphsController < Api::BaseController
     head :no_content
   end
 
-<<<<<<< HEAD
-  def show2
-    #TODO
-    g = NeoGraph.first
-    gid = g.uuid
-
-    #ActiveGraph::Base.query("MATCH (n)-[r*]->(d) WHERE n.uuid = '<uuid here>' = 441007 RETURN r, d")
-    # it does what it must do but doesnt return things proprly
-
-    render json:{graph: g}
-  end
-
-=======
   #TODO not implemented
   def reserve
     authorize graph
     render json: {message:"reserved"}
 
   end
->>>>>>> mobx
+
   private
 
   def render_graph(**kwargs)
