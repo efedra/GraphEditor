@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   devise_for :users
   namespace :api do
+    get 'show2', to: 'graph#show2'
     resources :graphs, only: %i[index create show update destroy] do
       post :validate, on: :member
       resources :nodes, only: %i[index create show update destroy]
@@ -19,4 +20,5 @@ Rails.application.routes.draw do
   get 'editor', to: 'home#editor'
   get 'player', to: 'home#player'
   get 'graphList', to:'home#graphList'
+
 end

@@ -1,0 +1,40 @@
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Node to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.yml definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using neo4j:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended that you check this file into your version control system.
+
+---
+:constraints:
+- CONSTRAINT ON ( `activegraph::migrations::schemamigration`:`ActiveGraph::Migrations::SchemaMigration`
+  ) ASSERT (`activegraph::migrations::schemamigration`.migration_id) IS UNIQUE
+- CONSTRAINT ON ( neoedge:NeoEdge ) ASSERT (neoedge.uuid) IS UNIQUE
+- CONSTRAINT ON ( neofirst:NeoFirst ) ASSERT (neofirst.uuid) IS UNIQUE
+- CONSTRAINT ON ( neograph:NeoGraph ) ASSERT (neograph.uuid) IS UNIQUE
+- CONSTRAINT ON ( neogs:NeoGS ) ASSERT (neogs.uuid) IS UNIQUE
+- CONSTRAINT ON ( neonode:NeoNode ) ASSERT (neonode.uuid) IS UNIQUE
+- CONSTRAINT ON ( neostate:NeoState ) ASSERT (neostate.uuid) IS UNIQUE
+- CONSTRAINT ON ( neoug:NeoUG ) ASSERT (neoug.uuid) IS UNIQUE
+- CONSTRAINT ON ( neouser:NeoUser ) ASSERT (neouser.uuid) IS UNIQUE
+:indexes:
+- INDEX FOR (n:NeoNode) ON (n.kind)
+:versions:
+- '20210410115053'
+- '20210410115109'
+- '20210410120927'
+- '20210410121034'
+- '20210414111931'
+- '20210414111957'
+- '20210414112011'
+- '20210414112028'
+- '20210421113337'
+- '20210421113352'
+- '20210421113402'
+- '20210421113411'
+- '20210421113421'

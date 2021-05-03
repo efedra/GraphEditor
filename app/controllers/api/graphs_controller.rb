@@ -57,6 +57,17 @@ class Api::GraphsController < Api::BaseController
     head :no_content
   end
 
+  def show2
+    #TODO
+    g = NeoGraph.first
+    gid = g.uuid
+
+    #ActiveGraph::Base.query("MATCH (n)-[r*]->(d) WHERE n.uuid = '<uuid here>' = 441007 RETURN r, d")
+    # it does what it must do but doesnt return things proprly
+
+    render json:{graph: g}
+  end
+
   private
 
   def render_graph(**kwargs)
@@ -75,4 +86,6 @@ class Api::GraphsController < Api::BaseController
   def graph
     @graph ||= current_user.graphs.find(params[:id])
   end
+
+
 end

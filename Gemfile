@@ -28,6 +28,11 @@ gem 'pundit'
 gem 'rgl'
 gem 'minitest-mock_expectations'
 
+#=======================| neo4j and  gem things |==========================#
+# for rubygems
+gem 'activegraph', '~> 10.0.0' # For example, see https://rubygems.org/gems/activegraph/versions for the latest versions
+gem 'neo4j-ruby-driver', '~> 1.7.0'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
