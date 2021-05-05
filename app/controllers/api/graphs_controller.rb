@@ -7,8 +7,63 @@ class Api::GraphsController < Api::BaseController
   end
 
   def show
-    authorize graph
-    render_graph
+    #authorize graph
+    #render_graph
+
+    graph = NeoGraph.find_by(uuid: params[:id])
+    result = ActiveGraph::Base.query("MATCH (n)-[r*]->(d) WHERE n.uuid = '#{params[:id]}' RETURN r, d")
+    nodes = []
+    state = {}
+    while result.has_next?
+      item = result.next[:d]
+      nodes << item if item.labels.include? :NeoNode
+      # state = item if item.labels.include? :NeoState
+      # WARNING: Orc technologies.
+      # extensively commented so  it makes at least some sense
+      if item.labels.include? :NeoState
+        tmp = item.properties[:stats]
+        # that is a string. db gives us a butchered string instead of hash.
+        # it looks like thi: "---\n:hp: 100\n:money: 66.6"
+        tmparr = tmp.split("\n", -1)
+        # we get arr, like this:  ["---", ":hp: 100", ":money: 66.6"]
+        tmparr = tmparr.drop(1)# get first elem out of th way
+        tmparr.pop
+        res = "{"
+        tmparr.each{|x| res += (x[1, x.length-1] + ", ")}
+        #=> "{hp: 100, money: 66.6, " in res
+        res = res[0, res.length-2]
+        res+="}"
+        statehash = eval(res)
+
+        # same for inventory
+        tmp = item.properties[:inventory]
+        # that is a string. db gives us a butchered string instead of hash.
+        # it looks like thi: "---\n:hp: 100\n:money: 66.6"
+        tmparr = tmp.split("\n", -1)
+        # we get arr, like this:  ["---", ":hp: 100", ":money: 66.6"]
+        tmparr = tmparr.drop(1)# get first elem out of th way
+        tmparr.pop
+        res = "{"
+        tmparr.each{|x| res += (x[1, x.length-1] + ", ")}
+        #=> "{hp: 100, money: 66.6, " in res
+        res = res[0, res.length-2]
+        res+="}"
+        invenhash = eval(res)
+
+        # shove it all into the result
+
+        final0 = item
+        final0.properties[:stats] = statehash
+        final0.properties[:inventory] = invenhash
+
+
+        state = final0
+
+      end
+    #TODO fix json in state
+    end
+    render json: {graph: graph, nodes: nodes, state: state}
+
   end
 
   def create
