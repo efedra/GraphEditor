@@ -14,6 +14,7 @@ class Api::GraphsController < Api::BaseController
     result = ActiveGraph::Base.query("MATCH (n)-[r*]->(d) WHERE n.uuid = '#{params[:id]}' RETURN r, d")
     nodes = []
     state = {}
+    edges = []
     while result.has_next?
       item = result.next[:d]
       nodes << item if item.labels.include? :NeoNode
@@ -56,13 +57,36 @@ class Api::GraphsController < Api::BaseController
         final0.properties[:stats] = statehash
         final0.properties[:inventory] = invenhash
 
-
         state = final0
 
       end
-    #TODO fix json in state
+
+      # !!!!!!!!!!!!!!!!<EXCLAMATION MARK!>!!!!!!!!!!!!!!!!!!!!!!
+      #
+      item = result.next[:r]
+      item.each do |it|
+        if it.type == :NEO_EDGE
+
+
+          # shove it all into the result
+
+          final0 = it
+          #if one needs to rename properties(start id to smth or smth else)
+          # do it here
+
+          edges << final0
+        end
+      end
+
+      #       /\
+      #       |
+      #EDGES  |
+      #
     end
-    render json: {graph: graph, nodes: nodes, state: state}
+
+
+
+    render json: {graph: graph, nodes: nodes, state: state, edges: edges}
 
   end
 
