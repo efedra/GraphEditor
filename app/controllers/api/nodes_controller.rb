@@ -12,9 +12,10 @@ class Api::NodesController < Api::BaseController
   end
 
   def create
-    @node = authorize graph.nodes.new(node_params)
-    node.save!
-    render json: node, status: :created
+    #@node = authorize graph.nodes.new(node_params)
+    #node.save!
+    #render json: node, status: :created
+    NeoNode.create(title: node_params[title], text: node_params[text], kind: node_params[kind], x: node_params[x], y: node_params[y], stroke: node_params[stroke], strokeWidth: node_params[strokeWidth], fill: fill)
   end
 
   def update
