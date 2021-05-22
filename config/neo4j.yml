@@ -1,13 +1,13 @@
 development:
   url: bolt://localhost:7687
-  username: neo4j
-  password: '12345678'
+  username: <%= ENV['NEO4J_USERNAME'] %>
+  password: <%= ENV['NEO4J_PASSWORD'] %>
   encryption: false
 
 test:
   url: bolt://localhost:7688
-  username: neo4j
-  password: '12345678'
+  username: <%= ENV['NEO4J_USERNAME'] %>
+  password: <%= ENV['NEO4J_PASSWORD'] %>
   encryption: false
 
 production:
@@ -15,6 +15,6 @@ production:
     - bolt://core1:7687
     - bolt://core2:7687
     - bolt://core3:7687
-  username: neo4j
-  password: '12345678'
+  username: <%= ENV['NEO4J_USERNAME'] %>
+  password: <%= ENV['NEO4J_PASSW0RD'] %>
   encryption: false

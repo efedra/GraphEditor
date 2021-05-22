@@ -8,4 +8,8 @@ class User < ApplicationRecord
 
   has_many :graphs_users, dependent: :destroy, inverse_of: :user
   has_many :graphs, through: :graphs_users
+
+  def notify
+    UserBroadcastJob.perform_later self, 'graphs_updated', graphs.map(&:as_json)
+  end
 end

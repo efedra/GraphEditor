@@ -1,15 +1,19 @@
 require("channels")
 require("./serviceWorker");
-import {subscribeToGraph} from "../../javascript/channels/graphs_channel";
+import {subscribeToUser} from "../channels/users_channel";
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './stylesheets/index.css';
-import GraphListApp from '../components/graphList/graphList';
 import * as serviceWorker from './serviceWorker';
 
+import ListStore from "../components/stores/ListStore"
+import {GraphListApp} from "../components/graphList/GraphListApp";
+
 document.addEventListener("DOMContentLoaded",function(){
-    ReactDOM.render(<GraphListApp/>, document.getElementById('root'));
+    const myStore = new ListStore();
+    ReactDOM.render(<GraphListApp store = {myStore}/>, document.getElementById('root'));
+
 });
 
 // If you want your app to work offline and load faster, you can change
