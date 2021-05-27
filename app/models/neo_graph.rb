@@ -14,7 +14,13 @@ class NeoGraph
   #property :start_state, type: String
 
 
-  has_one :out, :neonode, rel_class: :NeoGS
+  has_one :out, :neostate, rel_class: :NeoGS
+
+  #here was a very strange mistake.
+  # TODO test again after fix
+  # relations work even without has_one and has_many
+  # so test.
+  has_one :out, :neograph, rel_class: :NeoFirst
 
   #has_one :out, :neostate, rel_class: :NeoUG
 end

@@ -11,6 +11,9 @@ class Api::GraphsController < Api::BaseController
     #render_graph
 
     graph = NeoGraph.find_by(uuid: params[:id])
+    #to graph model
+    #   |
+    #  \/
     result = ActiveGraph::Base.query("MATCH (n)-[r*]->(d) WHERE n.uuid = '#{params[:id]}' RETURN r, d")
     nodes = []
     state = {}
@@ -93,25 +96,35 @@ class Api::GraphsController < Api::BaseController
   end
 
   def create
-    authorize Graph
-    start_node = Node.new(name: 'start',
-                          text: 'Старт!',
-                          kind: Node::KIND_START,
-                          html_x: 100,
-                          html_y: 100)
-    end_node = Node.new(name: 'end',
-                         text: 'Победа!',
-                         kind: Node::KIND_END,
-                         html_x: 200,
-                         html_y: 100)
-    graph = Graph.create!(name: graph_params[:name],
-                          users: [current_user],
-                          nodes: [start_node, end_node]
-                         )
-    graph.edges.create
+    # authorize Graph
+    # start_node = Node.new(name: 'start',
+    #                       text: 'Старт!',
+    #                       kind: Node::KIND_START,
+    #                       html_x: 100,
+    #                       html_y: 100)
+    # end_node = Node.new(name: 'end',
+    #                      text: 'Победа!',
+    #                      kind: Node::KIND_END,
+    #                      html_x: 200,
+    #                      html_y: 100)
+    # graph = Graph.create!(name: graph_params[:name],
+    #                       users: [current_user],
+    #                       nodes: [start_node, end_node]
+    #                      )
+    # graph.edges.create
+    #
+    # graph.save
+    # render_graph status: :created
+    #
+    gr = NeoGraph.create(title: params[title], text: params[text])
+    # creating state here, for now. probably we need a separate controller
+    st = NeoState.create(ch_name: "we need a separete one", stats: { hp: 100, money: 66.6 }, inventory: {pencil: 1})
 
-    graph.save
-    render_graph status: :created
+    #tho, here st shoud be fine becoming a json. db itself or activegraph is what messes it up probably
+
+    # {"graph"=>{"name"=>"testG", "state"=>{}}}
+    #
+
   end
 
   def update
