@@ -8,7 +8,6 @@ export default class GraphPanel extends React.Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.state = {graph: props.graph};
-
         this.selectedNode = null;
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -16,30 +15,44 @@ export default class GraphPanel extends React.Component {
     }
 
     handleChange(event) {
-        this.props.onChange(event.type, parseInt(event.id), event.data);
+        if(event.type==='node') {
+            this.props.onChange(event.type, parseInt(event.id), event.data);
+        }
+        if(event.type==='link')
+        {
+            this.props.onChange(event.type, parseInt(event.id), event.data);
+        }
     }
-     onClickNode (nodeId) {
-         if (this.isDrawingEdge && this.selectedNode !== nodeId) {
-             this.isDrawingEdge = false;
-             this.addEdge(this.selectedNode, nodeId);
-         } else {
-             this.handleChange({
-                 id: nodeId, type: 'node',
-                 data: this.state.graph.nodes.find(x => x.id === nodeId)
-             })
-         }
-     };
+    onClickNode (nodeId) {
+        if (this.isDrawingEdge && this.selectedNode !== nodeId) {
+            this.isDrawingEdge = false;
+            this.addEdge(this.selectedNode, nodeId);
+        } else {
+            this.handleChange({
+                id: nodeId, type: 'node',
+                data: this.state.graph.nodes.find(x => x.id === nodeId)
+            })
+        }
+    };
 
     onDoubleClickNode = function(nodeId) {
         toast('Select edge target', {position: toast.POSITION.TOP_LEFT})
         this.selectedNode = nodeId;
         this.isDrawingEdge = true;
     };
+
     addEdge(startNode, endNode) {
         this.handleChange({type: 'new_edge',
-                data:  {startId: parseInt(startNode),
+            data:  {startId: parseInt(startNode),
                 endId: parseInt(endNode)}})
     }
+
+    onClickLink (source, target) {
+        this.handleChange({
+            id: this.state.graph.links.find(x=> x.source=== parseInt(source) && x.target=== parseInt(target)).id, type: 'link',
+            data: this.state.graph.links.find(x => x.source === source && x.target === target)
+        })
+    };
     render() {
 
         const myConfig = GraphConfig;
@@ -64,9 +77,9 @@ export default class GraphPanel extends React.Component {
             window.alert(`Mouse out node ${nodeId}`);
         };
 
-        const onClickLink = function(source, target) {
-            window.alert(`Clicked link between ${source} and ${target}`);
-        };
+
+
+
 
         const onRightClickLink = function(event, source, target) {
             window.alert(`Right clicked link between ${source} and ${target}`);
@@ -74,6 +87,8 @@ export default class GraphPanel extends React.Component {
 
         const onMouseOverLink = function(source, target) {
             window.alert(`Mouse over in link between ${source} and ${target}`);
+
+
         };
 
         const onMouseOutLink = function(source, target) {
@@ -92,15 +107,15 @@ export default class GraphPanel extends React.Component {
                 config={myConfig}
                 onClickNode={this.onClickNode.bind(this)}
                 onDoubleClickNode={this.onDoubleClickNode.bind(this)}
-            //    onRightClickNode={onRightClickNode}
-            //    onClickGraph={onClickGraph}
-            //    onClickLink={onClickLink}
-            //    onRightClickLink={onRightClickLink}
-            //   onMouseOverNode={onMouseOverNode}
-            //  onMouseOutNode={onMouseOutNode}
-            //   onMouseOverLink={onMouseOverLink}
-            //   onMouseOutLink={onMouseOutLink}
-            //  onNodePositionChange={onNodePositionChange}
+                //    onRightClickNode={onRightClickNode}
+                //    onClickGraph={onClickGraph}
+                onClickLink={this.onClickLink.bind(this)}
+                //    onRightClickLink={onRightClickLink}
+                // onMouseOverNode={onMouseOverNode}
+                //  onMouseOutNode={onMouseOutNode}
+                //   onMouseOverLink={onMouseOverLink}
+                //   onMouseOutLink={onMouseOutLink}
+                //  onNodePositionChange={onNodePositionChange}
             />
         </div>;
 
