@@ -11,6 +11,7 @@ class NeoGraph
   #
   property :title
   property :text, default: 'text'
+  property :user_id, type: Integer
   #property :start_state, type: String
 
 

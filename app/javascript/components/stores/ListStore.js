@@ -15,7 +15,6 @@ export default class ListStore{
     }
 
 
-
     delete(index){
         let that = this;
         fetch('/api/graphs/' + index, {method: 'delete'}).then(function (response) {
@@ -27,12 +26,13 @@ export default class ListStore{
     create(name)
     {
         let that = this;
-        fetch('/api/graphs',{method:'post' , headers: {'Content-Type': 'application/json','Accept': 'application/json'},
-            body:JSON.stringify({graph: {name:name, state:{}}}) } )
+        fetch('/api/graphs',{method:'post',
+            headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+            body:JSON.stringify({graph: {name:name}}) } )
             .then(function (response){
             response.json().then(function (data)
             {
-                that.graphList.push({name:data.graph.name,state: data.graph.state })
+                that.graphList.push({name:data.graph.name})
             })
         })
 

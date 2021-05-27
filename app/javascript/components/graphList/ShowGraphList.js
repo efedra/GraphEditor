@@ -50,10 +50,10 @@ import {observer} from "mobx-react";
                                     </button>
                                     <div className=" text-blue-500 float-left mt-2">{graph.name}</div>
                                     <FormDialog/>
-                                    <a href="/editor">
+                                    <a href={`/editor/${graph.id}`}>
                                         <button
-                                            className="bg-white-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded float-right ml-1 mr-1 "
-                                            onClick={() => that.handleClickEdit(graph.id)}>Edit
+                                            className="bg-white-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 border border-blue-700 rounded float-right ml-1 mr-1">
+                                            Edit
                                         </button>
                                     </a>
                                 </li>

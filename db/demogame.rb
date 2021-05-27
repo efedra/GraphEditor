@@ -1,7 +1,7 @@
 # Demo Student's Survival
 def create_demo_game
   #user
-
+  #TODO Use only State hash for State
   #state
   state = NeoState.create(ch_name: "Sanya", stats: { hp: 100, hunger: 50, money: 100, INT: 0, DEX: 0, STR: 0 }, inventory: {pencil: 1})
   #graph
