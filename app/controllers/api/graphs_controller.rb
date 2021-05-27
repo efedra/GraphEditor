@@ -2,8 +2,13 @@
 
 class Api::GraphsController < Api::BaseController
   def index
-    authorize Graph
-    render json: {graphs: current_user.graphs.all, userId: current_user.id}
+    #authorize Graph
+    graphs = NeoGraph.where(user_id: current_user.id).map do |g|
+      {name: g.title,
+       id: g.uuid
+      }
+    end
+    render json: {graphs: graphs, userId: current_user.id}
   end
 
   def show
@@ -25,45 +30,7 @@ class Api::GraphsController < Api::BaseController
       # state = item if item.labels.include? :NeoState
       # WARNING: Orc technologies.
       # extensively commented so  it makes at least some sense
-      if item.labels.include? :NeoState
-        tmp = item.properties[:stats]
-        # that is a string. db gives us a butchered string instead of hash.
-        # it looks like thi: "---\n:hp: 100\n:money: 66.6"
-        tmparr = tmp.split("\n", -1)
-        # we get arr, like this:  ["---", ":hp: 100", ":money: 66.6"]
-        tmparr = tmparr.drop(1)# get first elem out of th way
-        tmparr.pop
-        res = "{"
-        tmparr.each{|x| res += (x[1, x.length-1] + ", ")}
-        #=> "{hp: 100, money: 66.6, " in res
-        res = res[0, res.length-2]
-        res+="}"
-        statehash = eval(res)
-
-        # same for inventory
-        tmp = item.properties[:inventory]
-        # that is a string. db gives us a butchered string instead of hash.
-        # it looks like thi: "---\n:hp: 100\n:money: 66.6"
-        tmparr = tmp.split("\n", -1)
-        # we get arr, like this:  ["---", ":hp: 100", ":money: 66.6"]
-        tmparr = tmparr.drop(1)# get first elem out of th way
-        tmparr.pop
-        res = "{"
-        tmparr.each{|x| res += (x[1, x.length-1] + ", ")}
-        #=> "{hp: 100, money: 66.6, " in res
-        res = res[0, res.length-2]
-        res+="}"
-        invenhash = eval(res)
-
-        # shove it all into the result
-
-        final0 = item
-        final0.properties[:stats] = statehash
-        final0.properties[:inventory] = invenhash
-
-        state = final0
-
-      end
+      next if item.labels.include? :NeoState
 
       # !!!!!!!!!!!!!!!!<EXCLAMATION MARK!>!!!!!!!!!!!!!!!!!!!!!!
       #
@@ -89,42 +56,26 @@ class Api::GraphsController < Api::BaseController
     end
 
 
-
-    render json: {graph: graph, nodes: nodes, state: state, edges: edges}
+    render json: {graph: graph,
+                  nodes: NeoNode.where(graph_id: graph.id).map{|x| x.view_model},
+                  state: graph.neostate.stats,
+                  edges: edges}
 
 
   end
 
   def create
-    # authorize Graph
-    # start_node = Node.new(name: 'start',
-    #                       text: 'Старт!',
-    #                       kind: Node::KIND_START,
-    #                       html_x: 100,
-    #                       html_y: 100)
-    # end_node = Node.new(name: 'end',
-    #                      text: 'Победа!',
-    #                      kind: Node::KIND_END,
-    #                      html_x: 200,
-    #                      html_y: 100)
-    # graph = Graph.create!(name: graph_params[:name],
-    #                       users: [current_user],
-    #                       nodes: [start_node, end_node]
-    #                      )
-    # graph.edges.create
-    #
-    # graph.save
-    # render_graph status: :created
-    #
-    gr = NeoGraph.create(title: params[title], text: params[text])
-    # creating state here, for now. probably we need a separate controller
-    st = NeoState.create(ch_name: "we need a separete one", stats: { hp: 100, money: 66.6 }, inventory: {pencil: 1})
+    return render status: 403 unless current_user.present?
 
-    #tho, here st shoud be fine becoming a json. db itself or activegraph is what messes it up probably
-
-    # {"graph"=>{"name"=>"testG", "state"=>{}}}
-    #
-
+    graph = NeoGraph.create(title: graph_params[:name], user_id: current_user.id)
+    state = NeoState.create
+    NeoGS.create(from_node: graph, to_node: state)
+    start_node = NeoNode.create(title: 'Start Node',
+                                text: 'This is default start node',
+                                kind: :start,
+                                graph_id: graph.id)
+    NeoFirst.create(from_node: graph, to_node: start_node)
+    render json: {graph: {name: graph.title, id: graph.uuid}}
   end
 
   def update
@@ -134,8 +85,7 @@ class Api::GraphsController < Api::BaseController
   end
 
   def destroy
-    authorize graph
-    graph.destroy!
+    NeoGraph.find_by(uuid: params[:id]).destroy
     head :no_content
   end
 

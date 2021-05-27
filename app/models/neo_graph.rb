@@ -11,6 +11,7 @@ class NeoGraph
   #
   property :title
   property :text, default: 'text'
+  property :user_id, type: Integer
   #property :start_state, type: String
 
 
@@ -20,7 +21,7 @@ class NeoGraph
   # TODO test again after fix
   # relations work even without has_one and has_many
   # so test.
-  has_one :out, :neograph, rel_class: :NeoFirst
+  has_one :out, :neonode, rel_class: :NeoFirst
 
   #has_one :out, :neostate, rel_class: :NeoUG
 end

@@ -11,9 +11,12 @@
     "highlightColor": "red",
     "renderLabel": true,
     "type": "CURVE_SMOOTH",
-    "fontSize":16,
+    "fontSize":20,
     "color": "black",
-    "markerHeight": 100
+    "markerHeight": 100,
+    "highlightStrokeColor": "red",
+    "strokeWidth": 2
+
   },
   "d3":{
     "linkLength" : 100
@@ -23,6 +26,6 @@
   "staticGraphWithDragAndDrop": true,
   "highlightDegree": 3,
   "directed": true,
-  "nodeHighlightBehavior": true
-
+  "nodeHighlightBehavior": true,
+  "linkHighlightBehavior": true
 }

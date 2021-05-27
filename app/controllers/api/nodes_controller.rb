@@ -12,10 +12,9 @@ class Api::NodesController < Api::BaseController
   end
 
   def create
-    #@node = authorize graph.nodes.new(node_params)
-    #node.save!
-    #render json: node, status: :created
-    NeoNode.create(title: node_params[title], text: node_params[text], kind: node_params[kind], x: node_params[x], y: node_params[y], stroke: node_params[stroke], strokeWidth: node_params[strokeWidth], fill: fill)
+    node = NeoNode.create(title: 'New Node', kind: :inbetween, x: 10, y: 10, graph_id: graph.id)
+
+    render json: {node: node.view_model}, status: :created
   end
 
   def update
@@ -39,7 +38,8 @@ class Api::NodesController < Api::BaseController
   private
 
   def graph
-    @graph ||= current_user.graphs.find(params[:graph_id])
+    #todo Fix graph<->user connection
+    @graph ||= NeoGraph.find_by(uuid: params[:graph_id])
   end
 
   def node
