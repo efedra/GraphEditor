@@ -81,7 +81,8 @@ export default class BuildFieldSet extends React.Component {
 
                     </fieldset>
                 </div>
-            } else
+            }
+            else
                 return <div className='pr-2 pl-2'>
                     <EditorInputMultiText legend='Description of link'
                                           data={this.props.element.data.text != null ? this.props.element.data.text : ""}

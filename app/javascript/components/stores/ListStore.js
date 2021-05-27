@@ -32,7 +32,7 @@ export default class ListStore{
             .then(function (response){
             response.json().then(function (data)
             {
-                that.graphList.push({name:data.graph.name})
+                that.graphList.push({name:data.graph.name, id: data.graph.id})
             })
         })
 
