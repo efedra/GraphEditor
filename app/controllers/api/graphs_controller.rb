@@ -2,8 +2,13 @@
 
 class Api::GraphsController < Api::BaseController
   def index
-    authorize Graph
-    render json: {graphs: current_user.graphs.all, userId: current_user.id}
+    #authorize Graph
+    graphs = NeoGraph.where(user_id: current_user.id).map do |g|
+      {name: g.title,
+       id: g.uuid
+      }
+    end
+    render json: {graphs: graphs, userId: current_user.id}
   end
 
   def show
@@ -11,38 +16,66 @@ class Api::GraphsController < Api::BaseController
     #render_graph
 
     graph = NeoGraph.find_by(uuid: params[:id])
+    #to graph model
+    #   |
+    #  \/
     result = ActiveGraph::Base.query("MATCH (n)-[r*]->(d) WHERE n.uuid = '#{params[:id]}' RETURN r, d")
     nodes = []
     state = {}
+
+    edges = []
     while result.has_next?
       item = result.next[:d]
       nodes << item if item.labels.include? :NeoNode
-      state = item if item.labels.include? :NeoState
+      # state = item if item.labels.include? :NeoState
+      # WARNING: Orc technologies.
+      # extensively commented so  it makes at least some sense
+      next if item.labels.include? :NeoState
+
+      # !!!!!!!!!!!!!!!!<EXCLAMATION MARK!>!!!!!!!!!!!!!!!!!!!!!!
+      #
+      item = result.next[:r]
+      item.each do |it|
+        if it.type == :NEO_EDGE
+
+
+          # shove it all into the result
+
+          final0 = it
+          #if one needs to rename properties(start id to smth or smth else)
+          # do it here
+
+          edges << final0
+        end
+      end
+
+      #       /\
+      #       |
+      #EDGES  |
+      #
     end
-    #TODO fix json in state
-    render json: {graph: graph, nodes: nodes, state: state}
+
+
+    render json: {graph: graph,
+                  nodes: NeoNode.where(graph_id: graph.id).map{|x| x.view_model},
+                  state: graph.neostate.stats,
+                  edges: edges}
+
+
   end
 
   def create
-    authorize Graph
-    start_node = Node.new(name: 'start',
-                          text: 'Старт!',
-                          kind: Node::KIND_START,
-                          html_x: 100,
-                          html_y: 100)
-    end_node = Node.new(name: 'end',
-                         text: 'Победа!',
-                         kind: Node::KIND_END,
-                         html_x: 200,
-                         html_y: 100)
-    graph = Graph.create!(name: graph_params[:name],
-                          users: [current_user],
-                          nodes: [start_node, end_node]
-                         )
-    graph.edges.create
+    return render status: 403 unless current_user.present?
 
-    graph.save
-    render_graph status: :created
+    graph = NeoGraph.create(title: graph_params[:name], user_id: current_user.id)
+    state = NeoState.create
+    NeoGS.create(from_node: graph, to_node: state)
+    start_node = NeoNode.create(title: 'Start Node',
+                                text: 'This is default start node',
+                                kind: :start,
+                                graph_id: graph.id)
+    NeoFirst.create(from_node: graph, to_node: start_node)
+    render json: {graph: {name: graph.title, id: graph.uuid}}
   end
 
   def update
@@ -52,8 +85,7 @@ class Api::GraphsController < Api::BaseController
   end
 
   def destroy
-    authorize graph
-    graph.destroy!
+    NeoGraph.find_by(uuid: params[:id]).destroy
     head :no_content
   end
 

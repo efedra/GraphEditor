@@ -6,7 +6,7 @@ export default class EditorStore{
         makeAutoObservable(this)
         const component = this
         let id = document.getElementById("graph_id").textContent;
-        fetch( '/new_graph', { //'/api/graphs/'.concat(id) // '/new_graph'
+        fetch( `/api/graphs/${id}`, {
             method: 'get'
         }).then(function (response) {
             response.json().then(function (data) {
@@ -37,15 +37,6 @@ export default class EditorStore{
 
         this.element= { elementType: elementType, elementId: elementId, data: data }
 
-        /*let that = this;
-        let id = document.getElementById("graph_id").textContent;
-        fetch('/api/graphs/'.concat(id),{method:'post' , headers: {'Content-Type': 'application/json','Accept': 'application/json'},
-            body:JSON.stringify(this.graph)} )
-            .then(function (response){
-                response.json().then(function (data)
-                {
-                })
-            })*/
 
 
     }
@@ -71,11 +62,19 @@ export default class EditorStore{
     }
 
     createElementGraph = () => {
-            this.graph.nodes.push({
-                id: Math.max(...this.graph.nodes.map(x => x.id)) + 1,
-            })
 
-        this.handleEditorChange('node')
+
+        let that = this;
+        let graphId = document.getElementById("graph_id").textContent;
+        fetch(`/api/graphs/${graphId}/nodes`,
+            {method:'post' , headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+            body:JSON.stringify({graph_id: graphId})} )
+            .then(function (response){
+                response.json().then(function (data)
+                {
+                    that.graph.nodes.push(data.node)
+                })
+            })
     };
 
     deleteElementGraph = (elementType, DeleteId) => {

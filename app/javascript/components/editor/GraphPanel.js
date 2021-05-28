@@ -16,11 +16,11 @@ export default class GraphPanel extends React.Component {
 
     handleChange(event) {
         if(event.type==='node') {
-            this.props.onChange(event.type, parseInt(event.id), event.data);
+            this.props.onChange(event.type, event.id, event.data);
         }
         if(event.type==='link')
         {
-            this.props.onChange(event.type, parseInt(event.id), event.data);
+            this.props.onChange(event.type, event.id, event.data);
         }
     }
     onClickNode (nodeId) {
@@ -43,8 +43,8 @@ export default class GraphPanel extends React.Component {
 
     addEdge(startNode, endNode) {
         this.handleChange({type: 'new_edge',
-            data:  {startId: parseInt(startNode),
-                endId: parseInt(endNode)}})
+            data:  {startId: startNode,
+                endId: endNode}})
     }
 
     onClickLink (source, target) {

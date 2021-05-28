@@ -12,9 +12,13 @@ class Api::EdgesController < Api::BaseController
   end
 
   def create
-    @edge = authorize graph.edges.new(edge_params)
-    edge.save!
-    render json: edge, status: :created
+    #@edge = authorize graph.edges.new(edge_params)
+    #edge.save!
+    #render json: edge, status: :created
+    #
+    #NeoEdge.create(title: edge_params[title], text: edge_params[text], you_need: "", you_get: "", from_node: tn2, to_node: tn3 )
+    # How do I parse id, is that a string or tuple, or what?
+    # And additional params are strange
   end
 
   def update

@@ -12,27 +12,34 @@ class Api::NodesController < Api::BaseController
   end
 
   def create
-    @node = authorize graph.nodes.new(node_params)
-    node.save!
-    render json: node, status: :created
+    node = NeoNode.create(title: 'New Node', kind: :inbetween, x: 10, y: 10, graph_id: graph.id)
+
+    render json: {node: node.view_model}, status: :created
   end
 
   def update
-    authorize node
-    node.update!(node_params)
-    render json: node
+    #authorize node
+    #node.update!(node_params)
+    #render json: node
+    #n = NeoNode.find_by( id: node_params[id] )
+    # <IMPORTANT!> command line doesnt see <id> only <uuid>, even thou jsons have both. so here uuid is used.
+    NeoNode.where(uuid: node_params[uuid]).each{ |x| x.update(fill: node_params[fill], kind: node_params[kind], stroke: node_params[stroke], strokeWidth: node_params[strokeWidth], text: node_params[text], title: node_params[title], x: node_params[x], y: node_params[y]) }
+
   end
 
   def destroy
-    authorize node
-    node.destroy!
-    head :no_content
+    #authorize node
+    #node.destroy!
+    #head :no_content
+    #
+    NeoNode.where(uuid: node_params[uuid]).each{ |x| x.destroy }
   end
 
   private
 
   def graph
-    @graph ||= current_user.graphs.find(params[:graph_id])
+    #todo Fix graph<->user connection
+    @graph ||= NeoGraph.find_by(uuid: params[:graph_id])
   end
 
   def node

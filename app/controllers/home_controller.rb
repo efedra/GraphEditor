@@ -2,7 +2,9 @@
 
 class HomeController < ApplicationController
   layout false
-  def index; end
+  def index
+    @logged_in == current_user.present?
+  end
 
   # here some things are a lot different in master...
 
