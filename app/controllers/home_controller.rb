@@ -2,7 +2,9 @@
 
 class HomeController < ApplicationController
   layout false
-  def index; end
+  def index
+    @logged_in == current_user.present?
+  end
 
   # here some things are a lot different in master...
 
@@ -21,7 +23,9 @@ class HomeController < ApplicationController
     # render json: { path: p, node_count: n1, edge_count: e1 }
   end
 
-  def editor; end
+  def editor
+    @id = params[:id]
+  end
 
   def player; end
 

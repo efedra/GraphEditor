@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   devise_for :users
   namespace :api do
+
     resources :graphs, only: %i[index create show update destroy] do
       post :validate, on: :member
       post :reserve, on: :member
@@ -17,7 +18,8 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'new_graph', to: 'home#new_graph'
   get 'test-graph', to: 'home#test_graph'
-  get 'editor', to: 'home#editor'
+  get 'editor/:id', to: 'home#editor'
   get 'player', to: 'home#player'
   get 'graphList', to:'home#graphList'
+
 end

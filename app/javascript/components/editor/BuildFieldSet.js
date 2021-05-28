@@ -3,7 +3,7 @@ import {CompactPicker} from "react-color";
 import FileUploadButton from "./ButtonFileUpload";
 import React from "react";
 
-export default class BuildFieldSet extends React.Component { // (this.props.element, this) = element,owner
+export default class BuildFieldSet extends React.Component {
 
     constructor(props) {
         super(props);
@@ -14,8 +14,7 @@ export default class BuildFieldSet extends React.Component { // (this.props.elem
         this.props.onChange(event.type, parseInt(event.elementId), event.data);
     }
 
-    handleRenameNode = (Name) =>
-    {
+    handleRenameNode = (Name) => {
         this.handleChange({
             type: this.props.element.elementType, elementId: this.props.element.elementId,
             data: {label: Name.target.value}
@@ -43,49 +42,56 @@ export default class BuildFieldSet extends React.Component { // (this.props.elem
         })
     }
 
-    handleDescriptionChange= (Description)=>
-    {
+    handleDescriptionChange = (Description) => {
         this.handleChange({
             type: this.props.element.elementType, elementId: this.props.element.elementId,
-            data: {description: Description.target.value}
+            data: {text: Description.target.value}
         })
     }
 
 
     render() {
         if (this.props.element.data !== undefined) {
-            return <div>
-                <EditorInputText legend='Name of node'
-                                 data={this.props.element.data.label != null ? this.props.element.data.label : this.props.element.data.id}
-                                 onChange={this.handleRenameNode.bind(this)}/>
-                <fieldset className='pr-2 pl-2'>
-                    <EditorInputNumber legend='Stroke Width'
-                                       data={this.props.element.data.strokeWidth != null ? this.props.element.data.strokeWidth : 1}
-                                       onChange={this.handleStrokeWidthChange.bind(this)}/>
-                    <div>
-                        <legend>Color</legend>
-                        <CompactPicker
-                            color={this.props.element.data.color != null ? this.props.element.data.color.hex : '#fff'}
-                            onChange={this.handleColorChange.bind(this)}/>
-                    </div>
-                    <div>
-                        <legend>Stroke Color</legend>
-                        <CompactPicker
-                            color={this.props.element.data.strokeColor != null ? this.props.element.data.strokeColor.hex : '#fff'}
-                            onChange={this.handleStrokeColorChange.bind(this)}/>
-                    </div>
+            if (this.props.element.elementType === 'node') {
+                return <div>
+                    <EditorInputText legend='Name of node'
+                                     data={this.props.element.data.label != null ? this.props.element.data.label : this.props.element.data.id}
+                                     onChange={this.handleRenameNode.bind(this)}/>
+                    <fieldset className='pr-2 pl-2'>
+                        <EditorInputNumber legend='Stroke Width'
+                                           data={this.props.element.data.strokeWidth != null ? this.props.element.data.strokeWidth : 1}
+                                           onChange={this.handleStrokeWidthChange.bind(this)}/>
+                        <div>
+                            <legend>Color</legend>
+                            <CompactPicker
+                                color={this.props.element.data.color != null ? this.props.element.data.color.hex : '#fff'}
+                                onChange={this.handleColorChange.bind(this)}/>
+                        </div>
+                        <div>
+                            <legend>Stroke Color</legend>
+                            <CompactPicker
+                                color={this.props.element.data.strokeColor != null ? this.props.element.data.strokeColor.hex : '#fff'}
+                                onChange={this.handleStrokeColorChange.bind(this)}/>
+                        </div>
 
-                    <EditorInputMultiText legend='Description of node'
-                                          data={this.props.element.data.description != null ? this.props.element.data.description : ""}
+                        <EditorInputMultiText legend='Description of node'
+                                              data={this.props.element.data.text != null ? this.props.element.data.text : ""}
+                                              onChange={this.handleDescriptionChange.bind(this)}/>
+                        <FileUploadButton/>
+
+                    </fieldset>
+                </div>
+            }
+            else
+                return <div className='pr-2 pl-2'>
+                    <EditorInputMultiText legend='Description of link'
+                                          data={this.props.element.data.text != null ? this.props.element.data.text : ""}
                                           onChange={this.handleDescriptionChange.bind(this)}/>
-                    <FileUploadButton/>
+                </div>
 
-                </fieldset>
-            </div>
+        } else
+            return (<div>
 
-        }else
-        return(<div>
-
-        </div>)
+            </div>)
     }
 }

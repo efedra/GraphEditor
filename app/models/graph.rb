@@ -9,6 +9,7 @@ class Graph < ApplicationRecord
   ].freeze
 
   has_many :nodes, dependent: :destroy
+  has_many :edges, dependent: :destroy
   has_many :graphs_users, dependent: :destroy, inverse_of: :graph
   has_many :users, through: :graphs_users
 
@@ -33,10 +34,12 @@ class Graph < ApplicationRecord
   end
 
   after_update_commit do
-    GraphBroadcastJob.perform_later(self, 'graph_update', as_json) if saved_changes?
+   GraphBroadcastJob.perform_later(self, 'graph_update', as_json) if saved_changes?
   end
   after_destroy { GraphBroadcastJob.perform_later self, 'graph_destroy', as_json }
-  after_save_commit { users.each{|user| user.notify} }
+  after_commit do
+
+  end
 
   def owner
     users.find_by(graphs_users: { role: :owner })
@@ -71,7 +74,6 @@ class Graph < ApplicationRecord
     finish = graph.nodes.finish.simple
     finish.save!
     Edge.simple(start: start, finish: finish).save!
-
     graph
   end
 
