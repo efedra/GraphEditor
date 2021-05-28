@@ -13,5 +13,5 @@ test:
 production:
   url: bolt://localhost:7688
   username: <%= ENV['NEO4J_USERNAME'] %>
-  password: <%= ENV['NEO4J_PASSW0RD'] %>
+  password: <%= ENV['NEO4J_PASSWORD'] %>
   encryption: false
