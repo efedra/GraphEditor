@@ -265,7 +265,7 @@ DEPENDENCIES
   lexeme
   minitest-mock_expectations
   neo4j-ruby-driver (~> 1.7.0)
-  pg
+  pg (~> 1.2.3)
   pry
   pry-nav
   pry-remote
