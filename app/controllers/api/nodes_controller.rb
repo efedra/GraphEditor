@@ -32,7 +32,9 @@ class Api::NodesController < Api::BaseController
     #node.destroy!
     #head :no_content
     #
-    NeoNode.where(uuid: node_params[uuid]).each{ |x| x.destroy }
+    #NeoNode.where(uuid: node_params[uuid]).each{ |x| x.destroy }
+    NeoNode.find_by(uuid: params[:id]).destroy
+    head :no_content
   end
 
   private

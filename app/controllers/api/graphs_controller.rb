@@ -34,6 +34,10 @@ class Api::GraphsController < Api::BaseController
 
       # !!!!!!!!!!!!!!!!<EXCLAMATION MARK!>!!!!!!!!!!!!!!!!!!!!!!
       #
+      # probably it broke itself again
+      # Neo4j::Driver::Exceptions::NoSuchRecordException (No more records):
+      # on trying to Edit a graph
+      #
       item = result.next[:r]
       item.each do |it|
         if it.type == :NEO_EDGE

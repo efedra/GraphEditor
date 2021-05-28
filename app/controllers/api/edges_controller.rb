@@ -28,8 +28,10 @@ class Api::EdgesController < Api::BaseController
   end
 
   def destroy
-    authorize edge
-    edge.destroy!
+    # authorize edge
+    # edge.destroy!
+    # head :no_content
+    NeoEdge.find_by(uuid: params[:id]).destroy
     head :no_content
   end
 
