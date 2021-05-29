@@ -25,26 +25,18 @@ class Api::GraphsController < Api::BaseController
 
     edges = []
     while result.has_next?
-      item = result.next[:d]
-      nodes << item if item.labels.include? :NeoNode
+      item = result.next
+      d = item[:d]
+      nodes << d if d.labels.include? :NeoNode
       # state = item if item.labels.include? :NeoState
       # WARNING: Orc technologies.
       # extensively commented so  it makes at least some sense
-      next if item.labels.include? :NeoState
+      next if d.labels.include? :NeoState
 
-      # !!!!!!!!!!!!!!!!<EXCLAMATION MARK!>!!!!!!!!!!!!!!!!!!!!!!
-      #
-      item = result.next[:r]
-      item.each do |it|
+      r = item[:r]
+      r.each do |it|
         if it.type == :NEO_EDGE
-
-
-          # shove it all into the result
-
           final0 = it
-          #if one needs to rename properties(start id to smth or smth else)
-          # do it here
-
           edges << final0
         end
       end
