@@ -21,30 +21,21 @@ class Api::GraphsController < Api::BaseController
     #  \/
     result = ActiveGraph::Base.query("MATCH (n)-[r*]->(d) WHERE n.uuid = '#{params[:id]}' RETURN r, d")
     nodes = []
-    state = {}
 
     edges = []
     while result.has_next?
-      item = result.next[:d]
-      nodes << item if item.labels.include? :NeoNode
+      item = result.next
+      d = item[:d]
+      nodes << d if d.labels.include? :NeoNode
       # state = item if item.labels.include? :NeoState
       # WARNING: Orc technologies.
       # extensively commented so  it makes at least some sense
-      next if item.labels.include? :NeoState
+      next if d.labels.include? :NeoState
 
-      # !!!!!!!!!!!!!!!!<EXCLAMATION MARK!>!!!!!!!!!!!!!!!!!!!!!!
-      #
-      item = result.next[:r]
-      item.each do |it|
+      r = item[:r]
+      r.each do |it|
         if it.type == :NEO_EDGE
-
-
-          # shove it all into the result
-
           final0 = it
-          #if one needs to rename properties(start id to smth or smth else)
-          # do it here
-
           edges << final0
         end
       end
@@ -56,10 +47,13 @@ class Api::GraphsController < Api::BaseController
     end
 
 
-    render json: {graph: graph,
-                  nodes: NeoNode.where(graph_id: graph.id).map{|x| x.view_model},
+    render json: {nodes: NeoNode.where(graph_id: graph.id).map{|x| x.view_model},
                   state: graph.neostate.stats,
-                  edges: edges}
+                  clock: graph.clock,
+                  links: edges.map{|edge| {
+                    source: edge.from_node,
+                    target: edge.to_node
+                  }}}
 
 
   end
@@ -73,7 +67,8 @@ class Api::GraphsController < Api::BaseController
     start_node = NeoNode.create(title: 'Start Node',
                                 text: 'This is default start node',
                                 kind: :start,
-                                graph_id: graph.id)
+                                graph_id: graph.id,
+                                fill: 'red')
     NeoFirst.create(from_node: graph, to_node: start_node)
     render json: {graph: {name: graph.title, id: graph.uuid}}
   end

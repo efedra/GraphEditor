@@ -1,7 +1,13 @@
-import {makeAutoObservable} from "mobx";
+import {action, makeAutoObservable} from "mobx";
+import { configure } from "mobx"
+
+configure({
+    enforceActions: "never"
+})
 export default class EditorStore{
     graph =null;
     element= null;
+    clock = 0;
     constructor() {
         makeAutoObservable(this)
         const component = this
@@ -10,7 +16,8 @@ export default class EditorStore{
             method: 'get'
         }).then(function (response) {
             response.json().then(function (data) {
-                component.graph=data;
+                component.graph = data;
+                component.clock = data.clock
             })
 
 
@@ -73,15 +80,35 @@ export default class EditorStore{
                 response.json().then(function (data)
                 {
                     that.graph.nodes.push(data.node)
+                    that.graph.clock = data.clock
                 })
             })
     };
 
     deleteElementGraph = (elementType, DeleteId) => {
+        let that = this;
         this.graph.links = this.graph.links.filter(x =>  x.target !== DeleteId && x.source != DeleteId)
         let arrayNodesToId = this.graph.nodes.map(x => x.id).indexOf(DeleteId);
         this.graph.nodes.splice(arrayNodesToId, 1)
-        this.handleEditorChange(elementType, DeleteId)
+        this.graph.clock += 1;
+        let graphId = document.getElementById("graph_id").textContent;
+
+        function handleDesync(clientTime, serverTime) {
+            console.log(`Server time is ${serverTime}, client time is ${clientTime}`);
+        }
+
+        fetch(`/api/graphs/${graphId}/nodes/${DeleteId}`,
+            {method:'delete'})
+            .then(function (response){
+                response.json().then(function (data)
+                {
+                    if (that.graph.clock !== data.clock) {
+                        handleDesync(that.graph.clock, data.clock);
+                    }
+                    that.graph.clock = data.clock
+                })
+            })
+
     }
 
 }

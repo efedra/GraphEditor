@@ -1,6 +1,7 @@
 import React from "react";
 import BuildFieldSet from "./BuildFieldSet";
 import {observer} from "mobx-react";
+import {action} from "mobx";
 
 @observer class Editor extends React.Component {
 
@@ -14,7 +15,6 @@ import {observer} from "mobx-react";
     handleChange(event) {
         this.props.onChange(event.type, parseInt(event.elementId), event.data);
     }
-
 
 
     handleClickCreate = (event) => {
