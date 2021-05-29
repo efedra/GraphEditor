@@ -2,6 +2,7 @@
 
 class Api::NodesController < Api::BaseController
   def index
+    #fixme never used
     authorize graph, policy_class: NodePolicy
     render json: graph.nodes.all
   end
@@ -12,9 +13,10 @@ class Api::NodesController < Api::BaseController
   end
 
   def create
+    graph = NeoGraph.find_by(uuid: params[:graph_id])
     node = NeoNode.create(title: 'New Node', kind: :inbetween, x: 10, y: 10, graph_id: graph.id)
-
-    render json: {node: node.view_model}, status: :created
+    graph.update(clock: graph.clock + 1)
+    render json: {node: node.view_model, clock: graph.clock}, status: :created
   end
 
   def update
@@ -32,15 +34,14 @@ class Api::NodesController < Api::BaseController
     #node.destroy!
     #head :no_content
     #
-    NeoNode.where(uuid: node_params[uuid]).each{ |x| x.destroy }
+    NeoNode.where(uuid: params[:id]).each{ |x| x.destroy }
+    graph = NeoGraph.find_by(uuid: params[:graph_id])
+    graph.update(clock: graph.clock + 1)
+    render json: {clock: graph.clock}
   end
 
   private
 
-  def graph
-    #todo Fix graph<->user connection
-    @graph ||= NeoGraph.find_by(uuid: params[:graph_id])
-  end
 
   def node
     @node ||= graph.nodes.find(params[:id])

@@ -2,7 +2,9 @@ import React from "react";
 import { Graph } from "react-d3-graph";
 import GraphConfig from './GraphConfig.json'
 import {toast} from "react-toastify";
-export default class GraphPanel extends React.Component {
+import {observer} from "mobx-react";
+
+@observer class GraphPanel extends React.Component {
 
     constructor(props) {
         super(props);
@@ -101,6 +103,9 @@ export default class GraphPanel extends React.Component {
 
 
         return <div className="GraphPanel .flex-shrink">
+            <div hidden={true}>
+                {this.state.graph.clock}
+            </div>
             <Graph
                 id="graph-id" // id is mandatory, if no id is defined rd3g will throw an error
                 data={this.state.graph}
@@ -121,3 +126,5 @@ export default class GraphPanel extends React.Component {
 
     }
 }
+
+export default GraphPanel

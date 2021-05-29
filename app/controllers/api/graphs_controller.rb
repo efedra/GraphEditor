@@ -21,7 +21,6 @@ class Api::GraphsController < Api::BaseController
     #  \/
     result = ActiveGraph::Base.query("MATCH (n)-[r*]->(d) WHERE n.uuid = '#{params[:id]}' RETURN r, d")
     nodes = []
-    state = {}
 
     edges = []
     while result.has_next?
@@ -48,10 +47,13 @@ class Api::GraphsController < Api::BaseController
     end
 
 
-    render json: {graph: graph,
-                  nodes: NeoNode.where(graph_id: graph.id).map{|x| x.view_model},
+    render json: {nodes: NeoNode.where(graph_id: graph.id).map{|x| x.view_model},
                   state: graph.neostate.stats,
-                  edges: edges}
+                  clock: graph.clock,
+                  links: edges.map{|edge| {
+                    source: edge.from_node,
+                    target: edge.to_node
+                  }}}
 
 
   end
@@ -65,7 +67,8 @@ class Api::GraphsController < Api::BaseController
     start_node = NeoNode.create(title: 'Start Node',
                                 text: 'This is default start node',
                                 kind: :start,
-                                graph_id: graph.id)
+                                graph_id: graph.id,
+                                fill: 'red')
     NeoFirst.create(from_node: graph, to_node: start_node)
     render json: {graph: {name: graph.title, id: graph.uuid}}
   end

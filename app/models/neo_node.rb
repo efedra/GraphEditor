@@ -18,14 +18,15 @@ class NeoNode
   enum kind: %i[start finish inbetween]
 
   def view_model
-    {id: uuid, type: map_type(kind),
+    {id: uuid,
+     symbolType: map_type(kind),
      x: x,
      y: y,
      label: title,
      text: text,
      stroke: stroke,
      strokeWidth: strokeWidth,
-     fill: fill }
+     color: fill }
   end
 
   def map_type(kind)
