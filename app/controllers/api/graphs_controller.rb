@@ -32,6 +32,7 @@ class Api::GraphsController < Api::BaseController
       # extensively commented so  it makes at least some sense
       next if d.labels.include? :NeoState
 
+
       r = item[:r]
       r.each do |it|
         if it.type == :NEO_EDGE

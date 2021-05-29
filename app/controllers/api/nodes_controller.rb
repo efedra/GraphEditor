@@ -34,10 +34,12 @@ class Api::NodesController < Api::BaseController
     #node.destroy!
     #head :no_content
     #
+
     NeoNode.where(uuid: params[:id]).each{ |x| x.destroy }
     graph = NeoGraph.find_by(uuid: params[:graph_id])
     graph.update(clock: graph.clock + 1)
     render json: {clock: graph.clock}
+
   end
 
   private
