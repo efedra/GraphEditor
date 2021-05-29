@@ -13,7 +13,7 @@ class NeoGraph
   property :text, default: 'text'
   property :user_id, type: Integer
   #property :start_state, type: String
-
+  property :clock, type: Integer, default: 0
 
   has_one :out, :neostate, rel_class: :NeoGS
 

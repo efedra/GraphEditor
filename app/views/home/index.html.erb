@@ -12,8 +12,8 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_pack_tag 'application', media: 'all' %>
+  <%= javascript_pack_tag 'application' %>
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
   <title>AutoQuests</title>
   <style>
@@ -366,7 +366,7 @@
             <a href="https://mmcs.sfedu.ru/" target="_blank"  class="no-underline hover:underline text-gray-800 hover:text-orange-500">SFEDU MMCS Students</a>
           </li>
           <li class="mt-2 inline-block mr-2 md:block md:mr-0 text-gray-800">
-            Version 0.01
+            Version 0.04
           </li>
         </ul>
       </div>
@@ -427,18 +427,13 @@
             header.classList.remove("shadow");
             navcontent.classList.remove("bg-white");
             navcontent.classList.add("bg-gray-100");
-
         }
-
     });
 
 
 </script>
 
 <script>
-
-
-
 
     let navMenuDiv = document.getElementById("nav-content");
     let navMenu = document.getElementById("nav-toggle");
