@@ -16,7 +16,10 @@ class Api::NodesController < Api::BaseController
     graph = NeoGraph.find_by(uuid: params[:graph_id])
     node = NeoNode.create(title: 'New Node', kind: :inbetween, x: 10, y: 10, graph_id: graph.id)
     graph.update(clock: graph.clock + 1)
-    render json: {node: node.view_model, clock: graph.clock}, status: :created
+    GraphsChannel.broadcast_to graph, type: 'node_created', data:
+      {node: node.view_model,
+       clock: graph.clock}
+    head :created
   end
 
   def update
@@ -25,8 +28,6 @@ class Api::NodesController < Api::BaseController
     #render json: node
     #n = NeoNode.find_by( id: node_params[id] )
     # <IMPORTANT!> command line doesnt see <id> only <uuid>, even thou jsons have both. so here uuid is used.
-    #NeoNode.where(uuid: params[uuid]).each{ |x| x.update(params)}
-    #NeoNode.find_by(uuid: params[uuid]).update(params)
     NeoNode.where(uuid: params[:id]).each{ |x| x.update(node_params) }
 
   end

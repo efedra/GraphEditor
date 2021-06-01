@@ -1,5 +1,6 @@
 import {action, makeAutoObservable} from "mobx";
 import { configure } from "mobx"
+import {subscribeToGraph} from "../../channels/graphs_channel";
 
 configure({
     enforceActions: "never"
@@ -17,6 +18,7 @@ export default class EditorStore{
         makeAutoObservable(this)
         const component = this
         let id = document.getElementById("graph_id").textContent;
+
         fetch( `/api/graphs/${id}`, {
             method: 'get'
         }).then(function (response) {
@@ -32,8 +34,20 @@ export default class EditorStore{
         });
         this.handleGraphChange = this.handleGraphChange.bind(this);
         this.handleEditorChange = this.handleEditorChange.bind(this);
-
+        subscribeToGraph(id, this);
     }
+
+    handleDesync(clientTime, serverTime) {
+        console.log(`Server time is ${serverTime}, client time is ${clientTime}`);
+    }
+
+    addNode(data){
+        this.graph.nodes.push(data.node)
+        if (this.graph.clock !== data.clock) {
+            this.handleDesync(this.graph.clock, this.clock);
+        }
+        this.graph.clock = data.clock
+     }
 
     handleGraphChange(elementType, elementId, eventData) {
         if (elementType === 'new_edge') {
@@ -79,13 +93,13 @@ export default class EditorStore{
         fetch(`/api/graphs/${graphId}/nodes`,
             {method:'post' , headers: {'Content-Type': 'application/json','Accept': 'application/json'},
             body:JSON.stringify({graph_id: graphId})} )
-            .then(function (response){
+         /*   .then(function (response){
                 response.json().then(function (data)
                 {
                     that.graph.nodes.push(data.node)
                     that.graph.clock = data.clock
                 })
-            })
+            })*/
     };
 
 
