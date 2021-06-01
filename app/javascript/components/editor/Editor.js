@@ -13,12 +13,12 @@ import {action} from "mobx";
     }
 
     handleChange(event) {
-        this.props.onChange(event.type, parseInt(event.elementId), event.data);
+        this.props.onChange(event.type, event.elementId, event.data);
     }
 
 
     handleClickCreate = (event) => {
-        this.props.createElement(event.type, parseInt(event.id), event.data);
+        this.props.createElement(event.type, event.id, event.data);
     }
 
     handleClickDelete = () => {

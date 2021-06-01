@@ -41,7 +41,6 @@ export default class EditorStore{
             return;
         }
         const data = this.extractEditorData(elementType, elementId);
-
         this.element= { elementType: elementType, elementId: elementId, data: data }
 
 
@@ -69,7 +68,6 @@ export default class EditorStore{
     }
 
     createElementGraph = () => {
-
 
         let that = this;
         let graphId = document.getElementById("graph_id").textContent;
@@ -111,4 +109,19 @@ export default class EditorStore{
 
     }
 
+    MoveElementGraph = (elementId, x, y) => {
+
+        let that = this;
+        let graphId = document.getElementById("graph_id").textContent; // не пост а пут
+        fetch(`/api/graphs/${graphId}/nodes${elementId}`,
+            {method:'post' , headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+                body:JSON.stringify({graph_id: graphId})} ) // id нода не нужен ток x и y
+            .then(function (response){
+                response.json().then(function (data)
+                {
+                    that.graph.nodes.push(data.node)
+                    that.graph.clock = data.clock
+                })
+            })
+    }
 }

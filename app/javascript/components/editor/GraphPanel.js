@@ -6,6 +6,7 @@ import {observer} from "mobx-react";
 
 @observer class GraphPanel extends React.Component {
 
+    //TODO переписать все методы из his.props.onChange в this.props.store
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
@@ -55,6 +56,15 @@ import {observer} from "mobx-react";
             data: this.state.graph.links.find(x => x.source === source && x.target === target)
         })
     };
+
+     onNodePositionChange (nodeId, x, y) {
+        //window.alert(`Node ${nodeId} is moved to new position. New position is x= ${x} y= ${y}`);
+         this.handleChange({
+             id: nodeId, type: 'node',
+             data: {x: x, y: y}
+         })
+     }
+
     render() {
 
         const myConfig = GraphConfig;
@@ -97,9 +107,6 @@ import {observer} from "mobx-react";
             window.alert(`Mouse out link between ${source} and ${target}`);
         };
 
-        const onNodePositionChange = function(nodeId, x, y) {
-            window.alert(`Node ${nodeId} is moved to new position. New position is x= ${x} y= ${y}`);
-        };
 
 
         return <div className="GraphPanel .flex-shrink">
@@ -120,7 +127,7 @@ import {observer} from "mobx-react";
                 //  onMouseOutNode={onMouseOutNode}
                 //   onMouseOverLink={onMouseOverLink}
                 //   onMouseOutLink={onMouseOutLink}
-                //  onNodePositionChange={onNodePositionChange}
+                  onNodePositionChange={this.onNodePositionChange.bind(this)}
             />
         </div>;
 

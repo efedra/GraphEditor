@@ -11,7 +11,7 @@ export default class BuildFieldSet extends React.Component {
     }
 
     handleChange(event) {
-        this.props.onChange(event.type, parseInt(event.elementId), event.data);
+        this.props.onChange(event.type, event.elementId, event.data);
     }
 
     handleRenameNode = (Name) => {
