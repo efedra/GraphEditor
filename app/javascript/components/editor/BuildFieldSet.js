@@ -14,18 +14,21 @@ export default class BuildFieldSet extends React.Component {
         this.props.onChange(event.type, event.elementId, event.data);
     }
 
-    handleRenameNode = (Name) => {
+    handleRenameNode(Name) {
         this.handleChange({
             type: this.props.element.elementType, elementId: this.props.element.elementId,
             data: {label: Name.target.value}
         })
+        this.props.store.RenameElement(Name.target.value)
     }
 
     handleStrokeWidthChange(e) {
         this.handleChange({
             type: this.props.element.elementType, elementId: this.props.element.elementId,
-            data: {strokeWidth: e.target.value}
+            data: {strokeWidth: parseFloat(e.target.value)}
+
         })
+        this.props.store.ResizeStrokeWidth(parseFloat(e.target.value))
     }
 
     handleColorChange(color) {
@@ -33,6 +36,7 @@ export default class BuildFieldSet extends React.Component {
             type: this.props.element.elementType, elementId: this.props.element.elementId,
             data: {color: color.hex}
         })
+        this.props.store.RecolorElement(color.hex)
     }
 
     handleStrokeColorChange(color) {
@@ -40,6 +44,7 @@ export default class BuildFieldSet extends React.Component {
             type: this.props.element.elementType, elementId: this.props.element.elementId,
             data: {strokeColor: color.hex}
         })
+        this.props.store.ReColorStroke(color.hex)
     }
 
     handleDescriptionChange = (Description) => {
@@ -47,6 +52,7 @@ export default class BuildFieldSet extends React.Component {
             type: this.props.element.elementType, elementId: this.props.element.elementId,
             data: {text: Description.target.value}
         })
+        this.props.store.ReChangeDescription(Description.target.value)
     }
 
 
@@ -55,7 +61,7 @@ export default class BuildFieldSet extends React.Component {
             if (this.props.element.elementType === 'node') {
                 return <div>
                     <EditorInputText legend='Name of node'
-                                     data={this.props.element.data.label != null ? this.props.element.data.label : this.props.element.data.id}
+                                     data={this.props.element.data.label != null ? this.props.element.data.label : ''} // если пустое поле, то все равно рендерит айди
                                      onChange={this.handleRenameNode.bind(this)}/>
                     <fieldset className='pr-2 pl-2'>
                         <EditorInputNumber legend='Stroke Width'

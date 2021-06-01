@@ -12,7 +12,8 @@ export const EditorApp = observer(({store}) => {
             return (<div className='flex h-screen'>
                 <div className='flex-auto flex-col sm:flex-row '>
                     <GraphPanel graph={store.graph}
-                                onChange={store.handleGraphChange}/>
+                                onChange={store.handleGraphChange}
+                                store ={store}/>
                 </div>
                 <div className='bg-blue-300 flex-auto flex-col sm:flex-row'>
                     <Editor element={store.element}
@@ -20,6 +21,7 @@ export const EditorApp = observer(({store}) => {
                             graph={store.graph}
                             createElement={store.createElementGraph}
                             deleteElement={store.deleteElementGraph}
+                            store = {store}
                     />
                 </div>
             </div>);

@@ -28,9 +28,7 @@ class Api::NodesController < Api::BaseController
     #render json: node
     #n = NeoNode.find_by( id: node_params[id] )
     # <IMPORTANT!> command line doesnt see <id> only <uuid>, even thou jsons have both. so here uuid is used.
-    NeoNode.where(uuid: node_params[uuid]).each do |x|
-      x.update(node_params)
-    end
+    NeoNode.where(uuid: params[:id]).each{ |x| x.update(node_params) }
 
   end
 
@@ -53,6 +51,6 @@ class Api::NodesController < Api::BaseController
   end
 
   def node_params
-    params.require(:node).permit(:name, :x, :y, :kind, :text, :html_color)
+    params.require(:node).permit(:name, :x, :y, :kind, :text, :title, :fill, :strokeWidth, :stroke )
   end
 end
