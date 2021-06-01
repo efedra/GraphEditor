@@ -4,6 +4,11 @@ import { configure } from "mobx"
 configure({
     enforceActions: "never"
 })
+
+function handleDesync(clientTime, serverTime) {
+    console.log(`Server time is ${serverTime}, client time is ${clientTime}`);
+}
+
 export default class EditorStore{
     graph =null;
     element= null;
@@ -67,7 +72,7 @@ export default class EditorStore{
 
     }
 
-    createElementGraph = () => {
+    createElementGraph() {
 
         let that = this;
         let graphId = document.getElementById("graph_id").textContent;
@@ -83,17 +88,15 @@ export default class EditorStore{
             })
     };
 
-    deleteElementGraph = (elementType, DeleteId) => {
+
+
+    deleteElementGraph(elementType, DeleteId) {
         let that = this;
         this.graph.links = this.graph.links.filter(x =>  x.target !== DeleteId && x.source != DeleteId)
         let arrayNodesToId = this.graph.nodes.map(x => x.id).indexOf(DeleteId);
         this.graph.nodes.splice(arrayNodesToId, 1)
         this.graph.clock += 1;
         let graphId = document.getElementById("graph_id").textContent;
-
-        function handleDesync(clientTime, serverTime) {
-            console.log(`Server time is ${serverTime}, client time is ${clientTime}`);
-        }
 
         fetch(`/api/graphs/${graphId}/nodes/${DeleteId}`,
             {method:'delete'})
@@ -109,19 +112,84 @@ export default class EditorStore{
 
     }
 
-    MoveElementGraph = (elementId, x, y) => {
-
+    MoveElementGraph(elementId, x, y) {
         let that = this;
-        let graphId = document.getElementById("graph_id").textContent; // не пост а пут
-        fetch(`/api/graphs/${graphId}/nodes${elementId}`,
-            {method:'post' , headers: {'Content-Type': 'application/json','Accept': 'application/json'},
-                body:JSON.stringify({graph_id: graphId})} ) // id нода не нужен ток x и y
-            .then(function (response){
-                response.json().then(function (data)
-                {
-                    that.graph.nodes.push(data.node)
-                    that.graph.clock = data.clock
-                })
+        this.graph.clock += 1;
+        let graphId = document.getElementById("graph_id").textContent;
+        fetch(`/api/graphs/${graphId}/nodes/${elementId}`,
+            {method:'put' , headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+                body:JSON.stringify( {node:{x: x, y: y}, clock: that.graph.clock })} )
+            .then(function ()
+            {
+
             })
     }
+
+    RenameElement(text) {
+        let that = this;
+        this.graph.clock += 1;
+        let graphId = document.getElementById("graph_id").textContent;
+        fetch(`/api/graphs/${graphId}/nodes/${that.element.elementId}`,
+            {method:'put' , headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+                body:JSON.stringify( {node:{title: text}, clock: that.graph.clock })} )
+            .then(function ()
+            {
+
+            })
+    }
+
+    RecolorElement(color){
+        let that = this;
+        this.graph.clock += 1;
+        let graphId = document.getElementById("graph_id").textContent;
+        fetch(`/api/graphs/${graphId}/nodes/${that.element.elementId}`,
+            {method:'put' , headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+                body:JSON.stringify( {node:{fill: color}, clock: that.graph.clock })} )
+            .then(function ()
+            {
+
+            })
+    }
+
+    ResizeStrokeWidth(stroke)
+    {
+        let that = this;
+        this.graph.clock += 1;
+        let graphId = document.getElementById("graph_id").textContent;
+        fetch(`/api/graphs/${graphId}/nodes/${that.element.elementId}`,
+            {method:'put' , headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+                body:JSON.stringify( {node:{strokeWidth: stroke}, clock: that.graph.clock })} )
+            .then(function ()
+            {
+
+            })
+    }
+
+    ReColorStroke(color)
+    {
+        let that = this;
+        this.graph.clock += 1;
+        let graphId = document.getElementById("graph_id").textContent;
+        fetch(`/api/graphs/${graphId}/nodes/${that.element.elementId}`,
+            {method:'put' , headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+                body:JSON.stringify( {node:{stroke: color}, clock: that.graph.clock })} )
+            .then(function ()
+            {
+
+            })
+    }
+
+    ReChangeDescription(text){
+        let that = this;
+        this.graph.clock += 1;
+        let graphId = document.getElementById("graph_id").textContent;
+        fetch(`/api/graphs/${graphId}/nodes/${that.element.elementId}`,
+            {method:'put' , headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+                body:JSON.stringify( {node:{text: text}, clock: that.graph.clock })} )
+            .then(function ()
+            {
+
+            })
+    }
+
 }

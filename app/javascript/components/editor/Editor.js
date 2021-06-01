@@ -44,7 +44,7 @@ import {action} from "mobx";
                 </button>
             </div>
             {this.props.element != null &&
-            <BuildFieldSet element={this.props.element} onChange={this.props.onChange}/>
+            <BuildFieldSet element={this.props.element} onChange={this.props.onChange} store = {this.props.store}/>
             }
 
         </div>;

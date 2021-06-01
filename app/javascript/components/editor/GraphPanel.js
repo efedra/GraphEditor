@@ -58,11 +58,11 @@ import {observer} from "mobx-react";
     };
 
      onNodePositionChange (nodeId, x, y) {
-        //window.alert(`Node ${nodeId} is moved to new position. New position is x= ${x} y= ${y}`);
          this.handleChange({
              id: nodeId, type: 'node',
              data: {x: x, y: y}
          })
+         this.props.store.MoveElementGraph(nodeId,x,y)
      }
 
     render() {
