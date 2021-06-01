@@ -24,7 +24,7 @@ export default class BuildFieldSet extends React.Component {
     handleStrokeWidthChange(e) {
         this.handleChange({
             type: this.props.element.elementType, elementId: this.props.element.elementId,
-            data: {strokeWidth: parseInt(e.target.value)}
+            data: {strokeWidth: e.target.value}
         })
     }
 

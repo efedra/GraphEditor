@@ -52,7 +52,7 @@ import {observer} from "mobx-react";
 
     onClickLink (source, target) {
         this.handleChange({
-            id: this.state.graph.links.find(x=> x.source=== parseInt(source) && x.target=== parseInt(target)).id, type: 'link',
+            id: this.state.graph.links.find(x=> x.source=== source && x.target=== target).id, type: 'link',
             data: this.state.graph.links.find(x => x.source === source && x.target === target)
         })
     };

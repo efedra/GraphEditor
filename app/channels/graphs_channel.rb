@@ -10,6 +10,6 @@ class GraphsChannel < ApplicationCable::Channel
   end
 
   def current_graph
-    @current_graph ||= Graph.find(params[:graph_id])
+    @current_graph ||= NeoGraph.find_by(uuid: params[:graph_id])
   end
 end
