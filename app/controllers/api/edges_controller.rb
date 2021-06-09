@@ -16,15 +16,14 @@ class Api::EdgesController < Api::BaseController
     #edge.save!
     #render json: edge, status: :created
     #
-    #NeoEdge.create(title: edge_params[title], text: edge_params[text], you_need: "", you_get: "", from_node: tn2, to_node: tn3 )
+    NeoEdge.create(title: "", text: "", you_need: "", you_get: "", from_node: edge_params[from_node], to_node: edge_params[to_node] )
     # How do I parse id, is that a string or tuple, or what?
     # And additional params are strange
   end
 
   def update
-    authorize edge
-    edge.update!(edge_params)
-    render json: edge
+
+
   end
 
   def destroy
