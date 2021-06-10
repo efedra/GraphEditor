@@ -16,31 +16,31 @@ class Api::NodesController < Api::BaseController
     graph = NeoGraph.find_by(uuid: params[:graph_id])
     node = NeoNode.create(title: 'New Node', kind: :inbetween, x: 10, y: 10, graph_id: graph.id)
     graph.update(clock: graph.clock + 1)
-    render json: {node: node.view_model, clock: graph.clock}, status: :created
+    GraphsChannel.broadcast_to graph, type: 'node_created', data:
+      {node: node.view_model,
+       clock: graph.clock}
+    head :created
   end
 
   def update
-    #authorize node
-    #node.update!(node_params)
-    #render json: node
-    #n = NeoNode.find_by( id: node_params[id] )
-    # <IMPORTANT!> command line doesnt see <id> only <uuid>, even thou jsons have both. so here uuid is used.
-    NeoNode.where(uuid: node_params[uuid]).each{ |x| x.update(fill: node_params[fill], kind: node_params[kind], stroke: node_params[stroke], strokeWidth: node_params[strokeWidth], text: node_params[text], title: node_params[title], x: node_params[x], y: node_params[y]) }
-    render json: {node: node.view_model, clock: graph.clock}
+    graph = NeoGraph.find_by(uuid: params[:graph_id])
+    NeoNode.where(uuid: params[:id]).each{ |x| x.update(node_params) }
+    graph.update(clock: graph.clock + 1)
+    GraphsChannel.broadcast_to graph, type: 'node_updated', data:
+      {node: node.view_model,
+       clock: graph.clock}
 
+    head :ok
   end
 
   def destroy
-    #authorize node
-    #node.destroy!
-    #head :no_content
-    #
-
     NeoNode.where(uuid: params[:id]).each{ |x| x.destroy }
     graph = NeoGraph.find_by(uuid: params[:graph_id])
     graph.update(clock: graph.clock + 1)
-    render json: {clock: graph.clock}
 
+    GraphsChannel.broadcast_to graph, type: 'node_deleted', data:
+      {clock: graph.clock}
+    head :ok
   end
 
   private
@@ -51,6 +51,6 @@ class Api::NodesController < Api::BaseController
   end
 
   def node_params
-    params.require(:node).permit(:name, :html_x, :html_y, :kind, text: nil, html_color: nil)
+    params.require(:node).permit(:name, :x, :y, :kind, :text, :title, :fill, :strokeWidth, :stroke )
   end
 end
