@@ -1,6 +1,6 @@
 # the most questinable one
 #
-#
+
 class NeoEdge
   include ActiveGraph::Relationship
 
@@ -12,4 +12,17 @@ class NeoEdge
   from_class :NeoNode
   to_class :NeoNode
 
+
+  def view_model
+    { id: uuid,
+      label: title,
+      text: text,
+      # you_need
+      # you_get
+      # from node
+      # to node
+    }
+  end
+
 end
+

@@ -1,11 +1,11 @@
 # Demo Student's Survival
 def create_demo_game
   #user
-  #TODO Use only State hash for State
+
   #state
-  state = NeoState.create(ch_name: "Sanya", stats: { hp: 100, hunger: 50, money: 100, INT: 0, DEX: 0, STR: 0 }, inventory: {pencil: 1})
+  state = NeoState.create( stats: { ch_name: "Sanya", hp: 100, hunger: 50, money: 100, INT: 0, DEX: 0, STR: 0 } )
   #graph
-  graph = NeoGraph.create(title: "demo_graph", text: "demo ghraph of the demo /game/ Student's Survival")
+  graph = NeoGraph.create(title: "demo_graph", text: "demo graph of the demo /game/ Student's Survival")
 
   #nodes
   node0 = NeoNode.create(title: "Start", text: "Старт", kind: :start)

@@ -17,12 +17,25 @@ class Api::EdgesController < Api::BaseController
     #render json: edge, status: :created
     #
     NeoEdge.create(title: "", text: "", you_need: "", you_get: "", from_node: edge_params[from_node], to_node: edge_params[to_node] )
-    # How do I parse id, is that a string or tuple, or what?
-    # And additional params are strange
+
+    graph = NeoGraph.find_by(uuid: params[:graph_id])
+    graph.update(clock: graph.clock + 1)
+
+    GraphsChannel.broadcast_to graph, type: 'edge_created', data:
+      {edge: edge.view_model,
+       clock: graph.clock}
+    head :created
   end
 
   def update
+    graph = NeoGraph.find_by(uuid: params[:graph_id])
+    NeoEdge.where(uuid: params[:id]).each{ |x| x.update(edge_params) }
+    graph.update(clock: graph.clock + 1)
+    GraphsChannel.broadcast_to graph, type: 'edge_updated', data:
+      {node: edge.view_model,
+       clock: graph.clock}
 
+    head :ok
 
   end
 
@@ -31,7 +44,15 @@ class Api::EdgesController < Api::BaseController
     # edge.destroy!
     # head :no_content
     NeoEdge.find_by(uuid: params[:id]).destroy
-    head :no_content
+
+    graph = NeoGraph.find_by(uuid: params[:graph_id])
+    graph.update(clock: graph.clock + 1)
+
+    GraphsChannel.broadcast_to graph, type: 'edge_created', data:
+      {edge: edge.view_model,
+       clock: graph.clock}
+    head :ok
+
   end
 
   private
