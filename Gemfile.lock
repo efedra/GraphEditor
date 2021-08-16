@@ -61,7 +61,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
-    addressable (2.7.0)
+    addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
     bcrypt (3.1.16)
@@ -93,6 +93,7 @@ GEM
       dotenv (= 2.7.6)
       railties (>= 3.2)
     erubi (1.10.0)
+    ffi (1.15.1)
     ffi (1.15.1-x64-mingw32)
     generator (0.0.1)
     globalid (0.4.2)
@@ -123,10 +124,13 @@ GEM
     nio4r (2.5.7)
     nokogiri (1.11.6-x64-mingw32)
       racc (~> 1.4)
+    nokogiri (1.11.6-x86_64-linux)
+      racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.20.1)
     parser (3.0.1.1)
       ast (~> 2.4.1)
+    pg (1.2.3)
     pg (1.2.3-x64-mingw32)
     pry (0.12.2)
       coderay (~> 1.1.0)
@@ -197,6 +201,8 @@ GEM
     rubyzip (2.3.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
+    sassc (2.4.0)
+      ffi (~> 1.9)
     sassc (2.4.0-x64-mingw32)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -253,6 +259,7 @@ GEM
 
 PLATFORMS
   x64-mingw32
+  x86_64-linux
 
 DEPENDENCIES
   activegraph (~> 10.0.0)
