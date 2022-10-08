@@ -9,7 +9,7 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "^4.2.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "d3": "^5.5.0",
+    "d3": "^7.6.1",
     "lodash": "^4.17.20",
     "material-ui": "^0.20.2",
     "mobx": "^6.1.6",
