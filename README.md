@@ -25,7 +25,8 @@ Things you may want to cover:
 
 ___
 
-# How to look Graph in JSON
+
+# Graph in JSON
 
 ```azure
     {
