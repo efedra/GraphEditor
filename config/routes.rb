@@ -21,5 +21,6 @@ Rails.application.routes.draw do
   get 'editor/:id', to: 'home#editor'
   get 'player', to: 'home#player'
   get 'graphList', to:'home#graphList'
+  get 'demo', to: 'home#demo'
 
 end

@@ -34,4 +34,9 @@ class HomeController < ApplicationController
   def new_graph
     render json: Graph.random_graph
   end
+
+  def demo
+    render json: Graph.random_graph
+  end
+
 end

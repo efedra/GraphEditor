@@ -4,7 +4,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import GraphPanel from './GraphPanel'
 import Editor from "./Editor";
 import {observer} from "mobx-react"
-import {subscribeToGraph} from '../../channels/graphs_channel'
 toast.configure()
 
 export const EditorApp = observer(({store}) => {

@@ -3,7 +3,7 @@
 class Api::GraphsController < Api::BaseController
   def index
     #authorize Graph
-    graphs = NeoGraph.where(user_id: current_user.id).map do |g|
+    graphs = NeoGraph.all.map do |g|
       {name: g.title,
        id: g.uuid
       }
@@ -136,6 +136,7 @@ class Api::GraphsController < Api::BaseController
   def graph
     @graph ||= current_user.graphs.find(params[:id])
   end
+
 
 
 end
